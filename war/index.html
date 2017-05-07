@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- forces the device's browser to be the same width as the device's screen -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/customize.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <title>ContactLite</title>
+</head>
+
+<body ng-app="app">
+  <div ng-controller="MainCtrl as main">
+    <nav class="navbar navbar-default"role="navigation" >
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-toggle">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="nav-toggle">
+        <ul class="nav navbar-nav">
+          <li><a href="#" ng-click="main.goto($event)">Companies</a></li>
+          <li><a href="#" ng-click="main.goto($event)">People</a></li>
+          <li><a href="#" ng-click="main.goto($event)">Positions</a></li>
+          <li><a href="#" ng-click="main.goto($event)">Contacts</a></li>
+          <li><a href="#" ng-click="main.goto($event)">Appointments</a></li>
+<li><a href="#" ng-click="main.test($event)">Test</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="page-content" ng-include="'companies.html'"    ng-show="main.isVisible('Companies')"></div>
+      <div class="page-content" ng-include="'people.html'"       ng-show="main.isVisible('People')"></div>
+      <div class="page-content" ng-include="'positions.html'"    ng-show="main.isVisible('Positions')"></div>
+      <div class="page-content" ng-include="'contacts.html'"     ng-show="main.isVisible('Contacts')"></div>
+      <div class="page-content" ng-include="'appointments.html'" ng-show="main.isVisible('Appointments')"></div>
+    </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-resource.min.js"></script>
+
+  <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+  <script src="js/vendor/plugins.js"></script>
+
+  <script src="js/main.js"></script>
+  <script src="js/services.js"></script>
+
+</body>
+</html>
