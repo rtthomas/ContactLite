@@ -1,4 +1,4 @@
-var app = angular.module("app", ['ngResource']);
+var app = angular.module("app", []);
 app.value("baseUrl", "http://localhost:8888/rest/");
 app.constant("entityTypes", {
 	COMPANY:  "company",
