@@ -18,8 +18,7 @@ public class Person implements Serializable {
 	private Long		id;
 	private String 		name;
 	private String 		email;
-	private String 		phoneCell;
-	private String 		phoneOffice;
+	private String 		phone;
 	private Long 		companyKeyValue;
     private List<Long> 	appointmentKeyValues;
 
@@ -29,7 +28,6 @@ public class Person implements Serializable {
 	public String toString(){
 		return name;
 	}
-	
 	public String getName() {
 		return name;
 	}
@@ -42,33 +40,14 @@ public class Person implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPhoneCell() {
-		return phoneCell;
+	public String getPhone() {
+		return phone;
 	}
-	public void setPhoneCell(String phoneCell) {
-		this.phoneCell = phoneCell;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-	public String getPhoneOffice() {
-		return phoneOffice;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public void setPhoneOffice(String phoneOffice) {
-		this.phoneOffice = phoneOffice;
-	}
-	public Long getCompanyKeyValue() {
-		return companyKeyValue;
-	}
-	public void setCompanyKeyValue(Long companyKeyValue) {
-		this.companyKeyValue = companyKeyValue;
-	}
-	public Long getId() {
-		return id;
-	}
-	public List<Long> getAppointmentKeyValues() {
-		return appointmentKeyValues;
-	}
-
-//	public void setAppointments(Collection<Appointment> appointments) {
-//		this.appointments = appointments;
-//	}
 	
 }

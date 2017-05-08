@@ -1,1 +1,49 @@
+<div class="container" ng-controller="AppointmentsCtrl as ctrl">
 Appointments
+   <!-- New button -->
+   <div ng-click="ctrl.open('#popup-appointment')" style="text-align: left;"><i class="material-icons" style="font-size: 24px;float:left">add</i></div>
+   <!--
+   List of all appointments
+   -->
+   <div class="table">
+     <div class="row" ng-repeat="appointment in ctrl.entities track by $index">
+       <div class="select-edit" ng-click="ctrl.open('#popup-appointment', appointment)"><i class="material-icons" style="font-size: 16px;">create</i></div>
+       <div class="cell" ng-bind="appointment.date"   ></div>
+       <div class="cell" ng-bind="appointment.details"    ></div>
+     </div>
+   </div>
+   <!--
+   Creation or edit modal dialog
+   -->
+   <div class="modal fade" id="popup-appointment" tabindex="-1" >
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+           <h4 class="modal-title">Appointment</h4>
+         </div>
+         <div class="modal-body">
+           <form>
+             <div class="form-group">
+               <label for="cmp-name" class="control-label">Date</label>
+               <input type="date" class="form-control" id="cmp-name" placeholder="Date" ng-model="ctrl.entity.date">
+             </div>
+             <div class="form-group">
+               <label for="cmp-name" class="control-label">Time</label>
+               <input type="time" class="form-control" id="cmp-name" placeholder="Date" ng-model="ctrl.entity.time">
+             </div>
+             <div class="form-group">
+               <label for="cmp-name" class="control-label">Details</label>
+               <input type="textarea" rows="6" class="form-control" id="cmp-url" placeholder="Details" ng-model="ctrl.entity.details">
+             </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="ctrl.cancel('#popup-appointment')">Cancel</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ctrl.save('#popup-appointment')">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

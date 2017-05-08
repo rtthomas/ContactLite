@@ -20,7 +20,8 @@ public class Appointment implements Serializable{
 	private Long		positionKey;
     private List<Long> 	personKeys;
 	private Long		companyKey;
-	private Date 		dateAndTime;
+	private Date 		date;
+	private Date 		time;
 	private String		details;
 	
 	
@@ -40,8 +41,11 @@ public class Appointment implements Serializable{
 	public Long getCompanyKey() {
 		return companyKey;
 	}
-	public Date getDateAndTime() {
-		return dateAndTime;
+	public Date getDate() {
+		return date;
+	}
+	public Date getTime() {
+		return date;
 	}
 	public String getDetails() {
 		return details;
@@ -55,8 +59,11 @@ public class Appointment implements Serializable{
 	public void setCompany(Long companyKey) {
 		this.companyKey = companyKey;
 	}
-	public void setDateAndTime(Date dateAndTime) {
-		this.dateAndTime = dateAndTime;
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public void setTime(Date time) {
+		this.time = time;
 	}
 	public void setDetails(String details) {
 		this.details = details;
