@@ -78,7 +78,8 @@ public class AppointmentResource extends AbstractResource{
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(){
     	DataAccess da = new DataAccess();
-    	return responseOkWithBody(null);
+    	List<Appointment> list = da.getAll(Appointment.class);
+    	return responseOkWithBody(list);
     }
 
     /**

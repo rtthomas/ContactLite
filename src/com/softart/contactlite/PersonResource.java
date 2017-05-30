@@ -76,7 +76,8 @@ public class PersonResource  extends AbstractResource{
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(){
     	DataAccess da = new DataAccess();
-    	return responseOkWithBody(null);
+    	List<Person> list = da.getAll(Person.class);
+    	return responseOkWithBody(list);
     }
 
     /**

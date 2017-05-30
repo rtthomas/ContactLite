@@ -76,7 +76,8 @@ public class EmailResource  extends AbstractResource{
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(){
     	DataAccess da = new DataAccess();
-    	return responseOkWithBody(null);
+    	List<Email> list = da.getAll(Email.class);
+    	return responseOkWithBody(list);
     }
 
     /**

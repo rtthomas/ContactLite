@@ -45,7 +45,7 @@ public class Appointment implements Serializable{
 		return date;
 	}
 	public Date getTime() {
-		return date;
+		return time;
 	}
 	public String getDetails() {
 		return details;

@@ -77,7 +77,8 @@ public class PositionResource extends AbstractResource{
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(){
     	DataAccess da = new DataAccess();
-    	return responseOkWithBody(null);
+    	List<Position> list = da.getAll(Position.class);
+    	return responseOkWithBody(list);
     }
 
     /**

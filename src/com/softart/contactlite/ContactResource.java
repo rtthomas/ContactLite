@@ -76,7 +76,8 @@ public class ContactResource  extends AbstractResource{
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(){
     	DataAccess da = new DataAccess();
-    	return responseOkWithBody(null);
+     	List<Contact> list = da.getAll(Contact.class);
+    	return responseOkWithBody(list);
     }
 
     /**

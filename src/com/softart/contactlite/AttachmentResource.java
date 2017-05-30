@@ -76,7 +76,8 @@ public class AttachmentResource  extends AbstractResource{
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(){
     	DataAccess da = new DataAccess();
-    	return responseOkWithBody(null);
+    	List<Attachment> list = da.getAll(Attachment.class);
+    	return responseOkWithBody(list);
     }
 
     /**
