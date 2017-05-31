@@ -1,0 +1,80 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* To modify default bootstrap behaviour */
+
+/* Remove padding which appears when Brand not included in navbar 
+.navbar .container-fluid, .navbar-collapse {
+   padding-left:0;
+}
+@media(max-width: 768px){
+   .navbar-collapse{
+       padding-left:30px;
+       padding-right:30px;
+   }
+}
+*/
+/* ------------------------------------------ */
+.table-container {
+  overflow: auto; 
+  max-height: 45em;
+}
+.new-button,.edit-button {
+  display: inline;
+}
+i {
+  display: none !important;
+}
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  table-layout: fixed;
+  width: 100%;
+}
+table tr {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+@media screen and (max-width: 600px) {
+  .table-container {
+    overflow: hidden; 
+    max-height: 99999em;
+  }
+  .new-button,.edit-button {
+    display: none;
+  }
+  i {
+    display: block !important;
+    float: left;
+  }  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+  }
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    text-align: center;
+  }
+  table td:before {
+    content: attr(data-label);
+    float: left;
+  }
+}

@@ -1,0 +1,32 @@
+<!--
+   List of all companies
+-->
+<a routerLink="/companies/new"><i class="material-icons">add</i></a>
+<a routerLink="/companies/new" class="btn btn-primary new-button" role="button">New Company</a>
+<div class="table-container">
+<table>
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">URL</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+      <th scope="col">City</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of companies">
+      <td class="select-edit">
+        <i [routerLink]="['/companies', c.id]" class="material-icons" style="font-size: 16px;">create</i>
+        <a [routerLink]="['/companies', c.id]" class="btn btn-primary edit-button" role="button">Edit</a>
+      </td>
+      <td data-label="Name"   >{{c.name}}</td>
+      <td data-label="URL"    >{{c.url}}</td>
+      <td data-label="Phone"  >{{c.phone}}</td>
+      <td data-label="Address">{{c.address}}</td>
+      <td data-label="City"   >{{c.city}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
