@@ -17,7 +17,7 @@ export class CompanyComponent implements OnInit {
     var id = this.route.snapshot.params['id'];
     if (id == 'new'){
       // Creating a new one
-      this.company = new Company(-1, '','','','','');
+      this.company = new Company(null, '','','','','');
     }
     else {
       // Viewing or editing
@@ -29,7 +29,13 @@ export class CompanyComponent implements OnInit {
     this.router.navigate(['/companies']);
   }
   save(){
-    this.service.create(this.company);
+    if (!this.company.url){
+      this.company.url = '';
+    }
+    if (!this.company.phone){
+      this.company.phone = '';
+    }
+    this.service.save(this.company);
     this.router.navigate(['/companies']);
   }
 

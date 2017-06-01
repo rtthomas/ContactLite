@@ -17,9 +17,11 @@ export class CompanyListComponent implements OnInit {
   ngOnInit() {
     this.service.getCompanies(this);
     // Collapse the menu if it is visible as drop down
-    if ($(".navbar-toggle").css("display") == 'block'){
+    if ($("#nav-toggle").hasClass("in")){
       $(".collapse").collapse('toggle');
     }
   }
-
+  delete(index: number){
+    this.service.delete(index);
+  }
 }

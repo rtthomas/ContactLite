@@ -13,7 +13,12 @@
    }
 }
 */
-/* ------------------------------------------ */
+/* ------------------------------------------ 
+
+*/
+.material-icons {
+  margin-right: 0.5em;
+}
 .table-container {
   overflow: auto; 
   max-height: 45em;
@@ -21,8 +26,19 @@
 .new-button,.edit-button {
   display: inline;
 }
+.edit-cell {
+  min-width: 60px !important;
+  width: 60px !important;
+}
+.delete-cell {
+  min-width: 90px !important;
+  width: 90px !important;
+}
 i {
   display: none !important;
+}
+.hidden-large {
+   display: none!important;
 }
 table {
   border: 1px solid #ccc;
@@ -40,20 +56,27 @@ table tr {
 table th,
 table td {
   padding: .625em;
-  text-align: center;
+  text-align: left;
 }
-@media screen and (max-width: 600px) {
+
+@media screen and (max-width: 768px) {
   .table-container {
     overflow: hidden; 
     max-height: 99999em;
   }
-  .new-button,.edit-button {
-    display: none;
+  .new-button,.edit-button,.hidden-small {
+    display: none!important;
   }
+  .hidden-large {
+    display: block!important;
+  }
+  .header {
+    font-weight: bold;
+  } 
   i {
     display: block !important;
     float: left;
-  }  
+  }
   table thead {
     border: none;
     clip: rect(0 0 0 0);
@@ -63,18 +86,15 @@ table td {
     padding: 0;
     position: absolute;
     width: 1px;
-  }
-  table tr {
+  }  
+  table {
     border-bottom: 3px solid #ddd;
-    display: block;
-  }
-  table td {
+  }  
+  table th, table td {
     border-bottom: 1px solid #ddd;
-    display: block;
-    text-align: center;
+    padding: .3em .625em;
   }
-  table td:before {
-    content: attr(data-label);
-    float: left;
-  }
+  table td:first-child {
+    width: 25%;
+  }  
 }

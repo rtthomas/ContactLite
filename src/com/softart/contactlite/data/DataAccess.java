@@ -70,6 +70,12 @@ public class DataAccess extends DAOBase {
 		}
 		return key;
 	}
+	
+	public <T> void ofyDelete(Class<T> clazz, long id){
+		Object o = ofy().find(clazz, id);
+		ofy().delete(o);
+	}
+	
 	public <T> T ofyFind(Key<T> key){
 		T o = ofy().find(key);
 		if (o == null){

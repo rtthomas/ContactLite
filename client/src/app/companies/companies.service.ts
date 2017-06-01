@@ -5,29 +5,57 @@ import { ServerService } from '../server.service';
 @Injectable()
 export class CompaniesService {
   companies;
+  listComponent;
 
   constructor(private serverService: ServerService) { }
 
-  public getCompanies(target: Object) {
+  public getCompanies(listComponent: Object) {
+    this.listComponent = listComponent;
     if (this.companies === undefined) {
       this.serverService.getAll('company').subscribe(
         (response) => {
           console.log(response);
           this.companies = response.json();
-          target['companies'] = this.companies;
+          listComponent['companies'] = this.companies;
         },
         (error) => {
           console.log(error)
         }
       );
     }
-    target['companies'] = this.companies;
+    listComponent['companies'] = this.companies;
   }
 
-  public getCompany(id: number) {
-    return this.companies[id - 1];
+  public getCompany(index: number) {
+    return this.companies[index];
   }
-  public create(company: Company) {
-    this.companies.push(company);
+
+  /**
+   * Creates or updates according to whether the id is null
+   */
+  public save(company: Company) {
+    this.serverService.save('company', company).subscribe(
+      (response) => {
+        if (!company.id){
+          company.id = response.json();
+          this.listComponent.companies.push(company);
+        }
+      },
+      (error) => {
+        console.log(error)
+      }
+    );
+  }
+
+  public delete(index: number){
+    this.serverService.delete('company', this.companies[index]).subscribe(
+      (response) => {
+        this.companies.splice(index, 1);
+      },
+      (error) => {
+        console.log(error)
+      }
+    );
+    
   }
 }

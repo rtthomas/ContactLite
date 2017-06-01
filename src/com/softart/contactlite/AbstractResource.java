@@ -4,9 +4,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
+
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -17,6 +16,8 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import com.google.gson.Gson;
 //import com.google.gson.Gson;
 import com.googlecode.objectify.Key;
+import com.softart.contactlite.data.Company;
+import com.softart.contactlite.data.DataAccess;
 
 /**
  * Base class for all resource classes ("*Resource"), providing common methods
@@ -27,6 +28,15 @@ public abstract class AbstractResource {
 
     private Gson gson = new Gson();
 
+    @OPTIONS
+    public Response options(){
+    	ResponseBuilder builder = Response.status(Response.Status.OK);
+    	builder.header("Access-Control-Allow-Origin", "*");
+    	builder.header("Access-Control-Allow-Headers", "content-type");
+    	builder.header("Access-Control-Allow-Methods", "HEAD,POST,GET,OPTIONS,PUT,DELETE");
+    	return builder.build();
+    }
+    
     protected <T> T extractObject(InputStream is, Class clazz){
     	T object = (T)gson.fromJson(new InputStreamReader(is), clazz);
     	return object;
@@ -36,9 +46,8 @@ public abstract class AbstractResource {
     	String responseBody = gson.toJson(o);
     	Response.ResponseBuilder builder = Response.ok(responseBody);
     	builder.header("Access-Control-Allow-Origin", "*");
-    	Response response = builder.build();
-    	return response;
-    }
+    	return builder.build();
+     }
 
     /**
      * Creates a 201 Created response with the key as body content
@@ -48,12 +57,13 @@ public abstract class AbstractResource {
     protected Response responseCreated(Long key_){
     	String id = gson.toJson(key_);
     	ResponseBuilder builder = Response.status(Response.Status.CREATED).entity(id);
-//    	builder.header("Entity_Id", id); 
+    	builder.header("Access-Control-Allow-Origin", "*");
     	return builder.build();
     }
 
     protected Response responseNoContent(){
     	ResponseBuilder builder = Response.status(Response.Status.NO_CONTENT);
+    	builder.header("Access-Control-Allow-Origin", "*");
     	return builder.build();
     }
 

@@ -3,30 +3,62 @@
 -->
 <a routerLink="/companies/new"><i class="material-icons">add</i></a>
 <a routerLink="/companies/new" class="btn btn-primary new-button" role="button">New Company</a>
-<div class="table-container">
-<table>
-  <thead>
+<br>
+<p>
+<!-- On small displays -->
+<div class="table-container hidden-small">
+  <table>
+    <thead>
+      <tr>
+        <th class="edit-cell"></th>
+        <th class="delete-cell"></th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>City</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of companies; let i = index">
+        <td class="edit-cell">
+          <a [routerLink]="['/companies', i]" class="btn btn-primary edit-button" role="button">Edit</a>
+        </td>
+        <td class="delete-cell">
+          <a (click)="delete(i)" class="btn btn-primary edit-button" role="button">Delete</a> 
+        </td>
+        <td><a href={{c.url}}>{{c.name}}</a></td>
+        <td>{{c.phone}}</td>
+        <td>{{c.address}}</td>
+        <td>{{c.city}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- On large displays -->
+<div class="table-container hidden-large">
+  <table *ngFor="let c of companies; let i = index">
     <tr>
-      <th scope="col"></th>
-      <th scope="col">Name</th>
-      <th scope="col">URL</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Address</th>
-      <th scope="col">City</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let c of companies">
       <td class="select-edit">
-        <i [routerLink]="['/companies', c.id]" class="material-icons" style="font-size: 16px;">create</i>
-        <a [routerLink]="['/companies', c.id]" class="btn btn-primary edit-button" role="button">Edit</a>
+        <i [routerLink]="['/companies', i]" class="material-icons" style="font-size: 16px;">create</i>
+        <i (click)="delete(i)" class="material-icons" style="font-size: 16px;">clear</i>
       </td>
-      <td data-label="Name"   >{{c.name}}</td>
-      <td data-label="URL"    >{{c.url}}</td>
-      <td data-label="Phone"  >{{c.phone}}</td>
-      <td data-label="Address">{{c.address}}</td>
-      <td data-label="City"   >{{c.city}}</td>
+      <td></td>
     </tr>
-  </tbody>
-</table>
+    <tr>
+      <td class="header">Name</td>
+      <td><a href={{c.url}}>{{c.name}}</a></td>
+    </tr>
+    <tr>
+      <td class="header">Phone</td>
+      <td>{{c.phone}}</td>
+    </tr>
+    <tr>
+      <td class="header">Address</td>
+      <td>{{c.address}}</td>
+    </tr>
+    <tr>
+      <td class="header">City</td>
+      <td>{{c.citye}}</td>
+    </tr>
+  </table>
 </div>
