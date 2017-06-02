@@ -4,58 +4,33 @@ import { ServerService } from '../server.service';
 
 @Injectable()
 export class CompaniesService {
-  companies;
+  entityName = 'company';
+  cache;
   listComponent;
 
   constructor(private serverService: ServerService) { }
 
-  public getCompanies(listComponent: Object) {
+  public getCompanies(listComponent: any) {
     this.listComponent = listComponent;
-    if (this.companies === undefined) {
-      this.serverService.getAll('company').subscribe(
-        (response) => {
-          console.log(response);
-          this.companies = response.json();
-          listComponent['companies'] = this.companies;
-        },
-        (error) => {
-          console.log(error)
-        }
-      );
+    if (this.cache === undefined) {
+      this.serverService.getAll(this);
     }
-    listComponent['companies'] = this.companies;
+    listComponent[listComponent.listName]= this.cache;
   }
 
   public getCompany(index: number) {
-    return this.companies[index];
+    return this.cache[index];
   }
 
   /**
    * Creates or updates according to whether the id is null
    */
   public save(company: Company) {
-    this.serverService.save('company', company).subscribe(
-      (response) => {
-        if (!company.id){
-          company.id = response.json();
-          this.listComponent.companies.push(company);
-        }
-      },
-      (error) => {
-        console.log(error)
-      }
-    );
+    this.serverService.save(this, company);
   }
 
-  public delete(index: number){
-    this.serverService.delete('company', this.companies[index]).subscribe(
-      (response) => {
-        this.companies.splice(index, 1);
-      },
-      (error) => {
-        console.log(error)
-      }
-    );
-    
+  public delete(index: number) {
+    var company = this.cache[index];
+    this.serverService.delete(this, index);
   }
 }

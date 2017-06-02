@@ -3,21 +3,13 @@ package com.softart.contactlite;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.ws.rs.Consumes;
 
 import javax.ws.rs.OPTIONS;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import com.google.gson.Gson;
-//import com.google.gson.Gson;
 import com.googlecode.objectify.Key;
-import com.softart.contactlite.data.Company;
-import com.softart.contactlite.data.DataAccess;
 
 /**
  * Base class for all resource classes ("*Resource"), providing common methods

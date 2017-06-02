@@ -1,32 +1,15 @@
 package com.softart.contactlite.data;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
-//import com.sun.jersey.core.util.Base64;
-import com.googlecode.objectify.NotFoundException;
 import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.Objectify;
-import com.googlecode.objectify.Query;
-import com.google.appengine.api.datastore.QueryResultIterable;
-import com.google.appengine.api.datastore.QueryResultIterator;
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.util.DAOBase;
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
-public class DataAccess extends DAOBase {
+public class DataAccess {
 	private static final Logger log = Logger.getLogger(DataAccess.class.getName());
 	private static final boolean	LOG = true;
 	
@@ -44,27 +27,22 @@ public class DataAccess extends DAOBase {
 			log.warning(e.getMessage());
 		}		
 	}
-	
-	public Key<Object> put(){
-		Object o = new Object();
-		ofyPut(o);
-//		Key<Publication> key = new Key<Publication>(Publication.class, publication.id);
-//		return key;
-		return null;
-	}
-	
+
 	public <T> List<T> getAll(Class<T> clazz){
-		Query<T> q = ofy().query(clazz);
-		QueryResultIterator<T> i = q.fetch().iterator();
-		List<T> list = new ArrayList<T>();
+		List<T> list = ofy().load().type(clazz).list();
+		StringBuilder sb = new StringBuilder();
+		sb.append("Found " + list.size());
+		Iterator<T> i = list.iterator();
 		while (i.hasNext()){
-			list.add(i.next());
+			sb.append("\n     ").append(((EntityBase)i.next()).getId());
 		}
+		log.log(Level.INFO, sb.toString()); 
 		return list;
 	}
 	
-	public Key ofyPut(Object o){
-		Key key = ofy().put(o);
+	public Key ofyPut(EntityBase o){
+		ofy().save().entity(o).now();
+		Key key = Key.create(o.getClass(), o.getId());
 		if (LOG){
 //			log.log(Level.INFO, "+++ Put " + o.getClass().getName() + "\n" + o.toString());
 		}
@@ -72,40 +50,15 @@ public class DataAccess extends DAOBase {
 	}
 	
 	public <T> void ofyDelete(Class<T> clazz, long id){
-		Object o = ofy().find(clazz, id);
-		ofy().delete(o);
+		Key key = Key.create(clazz, id);
+		ofy().delete().key(key).now();
 	}
 	
 	public <T> T ofyFind(Key<T> key){
-		T o = ofy().find(key);
+		T o = ofy().load().key(key).now();
 		if (o == null){
 			if (LOG){
 //				log.log(Level.SEVERE, "+++ Find\n" + "--- Not found key = " + (key.getName() == null ? key.getId() : key.getName()));
-			}
-		}
-		else {
-			if (LOG){
-//				log.log(Level.INFO, "+++ Find " + o.getClass().getName() + "\n" + o.toString());
-			}
-		}
-		return o;
-	}
-	public Object ofyFind(Class clazz, Key key){
-		Object o;
-		if (key.getName() == null){
-			o = ofy().find(clazz, key.getId());
-		}
-		else {
-			o = ofy().find(clazz, key.getName());
-		}
-		if (o == null){
-			if (LOG){
-//				log.log(Level.SEVERE, "+++ Find\n" + "--- Not found key = " + (key.getName() == null ? key.getId() : key.getName()));
-			}
-		}
-		else {
-			if (LOG){
-//				log.log(Level.INFO, "+++ Find " + o.getClass().getName() + "\n" + o.toString());
 			}
 		}
 		return o;

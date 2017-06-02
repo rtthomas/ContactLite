@@ -2,20 +2,20 @@ package com.softart.contactlite.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Id;
+//import javax.persistence.Id;
 
-import com.googlecode.objectify.Key;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
 /**
  * @author Robert
  *
  */
-public class Person implements Serializable {
+@Entity
+public class Person extends EntityBase implements Serializable {
 
-	@Id
-	private Long		id;
 	private String 		name;
 	private String 		email;
 	private String 		phone;
@@ -46,8 +46,4 @@ public class Person implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 }

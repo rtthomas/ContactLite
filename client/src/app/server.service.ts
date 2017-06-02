@@ -7,32 +7,70 @@ export class ServerService {
 
   baseUrl = "http://localhost:8888/rest/";
 
-  constructor(private http: Http){}
+  constructor(private http: Http) { }
 
-  getAll(type: string){
-    var url = this.baseUrl + type;
-    return this.http.get(url);
+  getAll(requestingService: any) {
+    var url = this.baseUrl + requestingService.entityName;
+    this.http.get(url).subscribe(
+      (response) => {
+        console.log(response);
+        requestingService.cache = response.json();
+        requestingService.listComponent[requestingService.listComponent.listName] = requestingService.cache;
+      },
+      (error) => {
+        console.log(error)
+      }
+    );
   }
 
-  save(type: string, entity: any){
-    var url = this.baseUrl + type;
-    if (entity.id){
+  save(requestingService: any, entity: any) {
+    var url = this.baseUrl + requestingService.entityName;
+
+    if (entity.id) {
       // Update
-      return this.http.put(url, entity);
+      this.http.put(url, entity).subscribe(
+        (response) => {
+          console.log('Updated ' + entity);
+          console.log(requestingService.cache);
+        },
+        (error) => {
+          console.log(error)
+        }
+      );
     }
     else {
-      //Create
-      return this.http.post(url, entity);
+      // Create
+      this.http.post(url, entity).subscribe(
+        (response) => {
+          entity.id = response.json();
+          requestingService.cache.push(entity);
+          console.log('Created ' + entity);
+          console.log(requestingService.cache);
+        },
+        (error) => {
+          console.log(error)
+        }
+      );
     }
   }
 
-  get(baseUrl: string, type: string, id: number){
+  get(baseUrl: string, type: string, id: number) {
 
   }
 
-  delete(type: string, entity: any){
-    var url = this.baseUrl + type;
-    var args: RequestOptionsArgs = {search: 'key='+ entity.id};
-    return this.http.delete(url, args);
+  delete(requestingService: any, index: number) {
+    var url = this.baseUrl + requestingService.entityName;
+    var entity = requestingService.cache[index];
+    var args: RequestOptionsArgs = { search: 'key=' + entity.id };
+    this.http.delete(url, args).subscribe(
+      (response) => {
+        requestingService.cache.splice(index, 1);
+        console.log('Deleted ' + entity);
+        console.log(requestingService.cache);
+     },
+      (error) => {
+        console.log(error)
+      }
+    );
   }
 }

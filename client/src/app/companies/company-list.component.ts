@@ -10,7 +10,10 @@ declare var $:any;
   styleUrls: ['./company-list.component.css']
 })
 export class CompanyListComponent implements OnInit {
-
+  // Will be filled by the service
+  companies;
+  listName = 'companies';
+  
   constructor(private service: CompaniesService) {
   }
 

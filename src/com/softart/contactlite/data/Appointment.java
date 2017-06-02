@@ -6,17 +6,16 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Id;
-
+import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.Key;
+import com.googlecode.objectify.annotation.Entity;
 /**
  * @author Robert
  *
  */
-public class Appointment implements Serializable{
+@Entity
+public class Appointment extends EntityBase implements Serializable{
 
-	@Id
-	private Long		id;
 	private Long		positionKey;
     private List<Long> 	personKeys;
 	private Long		companyKey;
@@ -29,9 +28,6 @@ public class Appointment implements Serializable{
 		personKeys = new ArrayList<Long>();
 	}
 	
-	public Long getId() {
-		return id;
-	}
 	public Long getPositionKey() {
 		return positionKey;
 	}

@@ -5,20 +5,18 @@ package com.softart.contactlite.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Id;
-import com.googlecode.objectify.Key;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Entity;
 
 /**
  * @author Robert
  *
  */
-public class Email implements Serializable  {
-	@Id
-	private Long		id;
+@Entity
+public class Email extends EntityBase implements Serializable  {
 	private String		sender;
 	private String		receiver;
 	private Date		date;
@@ -30,14 +28,8 @@ public class Email implements Serializable  {
 		attachments = new ArrayList<Long>();
 	}
 
-	public Long getId() {
-		return id;
-	}
 	public String getText() {
 		return text;
-	}
-	public void setId(Long id) {
-		this.id = id;
 	}
 	public void setText(String text) {
 		this.text = text;

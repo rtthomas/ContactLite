@@ -3,17 +3,16 @@ package com.softart.contactlite.data;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Id;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Entity;
 
-import com.googlecode.objectify.Key;
 /**
  * @author Robert
  *
  */
-public class Contact implements Serializable {
+@Entity
+public class Contact extends EntityBase implements Serializable {
 
-	@Id
-	private Long	id;
 	private Long	positionKeyValue;
 	private Long	personKeyValue;
 	private Date 	date;
@@ -73,9 +72,6 @@ public class Contact implements Serializable {
 	}
 	public void setType(Type type) {
 		this.type = type;
-	}
-	public Long getId() {
-		return id;
 	}
 	public Long getEmail() {
 		return emailKeyValue;

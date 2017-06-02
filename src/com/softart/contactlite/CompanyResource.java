@@ -1,23 +1,12 @@
 package com.softart.contactlite;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 
@@ -32,13 +21,12 @@ import com.googlecode.objectify.Key;
 import com.softart.contactlite.data.Company;
 import com.softart.contactlite.data.DataAccess;
 
-import java.util.Date;
-
 /**
  * Handles requests for companies
  */
 @Path("/company")
 public class CompanyResource  extends AbstractResource{
+	private static final Logger log = Logger.getLogger(CompanyResource.class.getName());
 
     /**
      * Creates a new resource. 
@@ -52,6 +40,7 @@ public class CompanyResource  extends AbstractResource{
     	DataAccess da = new DataAccess();
     	Company company = extractObject(is, Company.class);
     	Key<Company> key = da.ofyPut(company);
+    	log.info("Created " + company.getName() + ": " + company.getId());
     	return responseCreated(key.getId());
     }
     
@@ -67,6 +56,7 @@ public class CompanyResource  extends AbstractResource{
     	DataAccess da = new DataAccess();
     	Company company = extractObject(is, Company.class);
     	da.ofyPut(company);
+    	log.info("Updated " + company.getName() + ": " + company.getId());
     	return responseNoContent();
     }
     
@@ -80,6 +70,7 @@ public class CompanyResource  extends AbstractResource{
     public Response delete(@QueryParam("key") Long id){
     	DataAccess da = new DataAccess();
     	da.ofyDelete(Company.class, id);
+    	log.info("Deleted " + id);
     	return responseNoContent();
     }
     

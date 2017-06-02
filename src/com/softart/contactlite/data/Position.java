@@ -3,15 +3,15 @@ package com.softart.contactlite.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.persistence.Id;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Entity;
 /**
  * @author Robert
  *
  */
-public class Position implements Serializable {
+@Entity
+public class Position extends EntityBase implements Serializable {
 
-	@Id
-	private Long		id;
 	private String 		title;
 	private String 		url;
 	private Long 		companyKeyValue;
@@ -24,10 +24,6 @@ public class Position implements Serializable {
 
 	public String toString(){
 		return title;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getTitle() {
