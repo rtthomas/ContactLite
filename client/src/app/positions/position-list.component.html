@@ -1,0 +1,70 @@
+<a routerLink="/positions/new"><i class="material-icons" style="float:right">add</i></a>
+<a routerLink="/positions/new" class="btn btn-primary new-button" role="button">New Position</a>
+<br><p>
+<!-- List of all positions. On large displays, a conventional table -->
+<div class="table-container hidden-small">
+  <table>
+    <thead>
+      <tr>
+        <th class="edit-cell"></th>
+        <th class="delete-cell"></th>
+        <th>Title</th>
+        <th>Company</th>
+        <th>Person</th>
+        <th>Date Posted</th>
+        <th>Date Applied</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of positions; let i = index">
+        <td class="edit-cell">
+          <a [routerLink]="['/positions', i]" class="btn btn-primary edit-button" role="button">Edit</a>
+        </td>
+        <td [class]="isDeletable(i)">
+          <a (click)="delete(i)" class="btn btn-primary edit-button" role="button">Delete</a>
+        </td>
+        <td [class]="isNotDeletable(i)"></td>
+        <td><a href="http://{{p.url}}" target="_blank">{{p.title}}</a></td>
+        <td>{{p.getCompanyName()}}</td>
+        <td>{{p.getPersonName()}}</td>
+        <td>{{p.formatDatePosted()}}</td>
+        <td>{{p.formatDateApplied()}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- On small displays -->
+<div class="table-container hidden-large">
+  <table *ngFor="let p of positions; let i = index">
+    <tr>
+      <td class="select-edit" colspan="3">
+        <i [routerLink]="['/positions', i]" class="material-icons" style="font-size: 16px;">create</i>
+        <i (click)="delete(i)" style="font-size: 16px;" [class]="isDeletable(i, true)">clear</i>
+      </td>      
+    </tr>
+    <tr>
+      <td class="header">Title</td>
+      <td colspan="2">{{p.title}}</td>
+    </tr>
+    <tr>
+      <td class="header">URL</td>
+      <td colspan="2"><a href="http://{{p.url}}" target="_blank">{{p.title}}</a></td>
+    </tr>
+    <tr>
+      <td class="header">Company</td>
+      <td colspan="2">{{p.getCompanyName()}}</td>
+    </tr>
+    <tr>
+      <td class="header">Person</td>
+      <td colspan="2">{{p.getPersonName()}}</td>
+    </tr>
+    <tr>
+      <td class="header">Date Posted</td>
+      <td colspan="2">{{p.formatDatePosted()}}</td>
+    </tr>
+    <tr>
+      <td class="header">Date Applied</td>
+      <td colspan="2">{{p.formatDateApplied()}}</td>
+    </tr>
+  </table>
+</div>

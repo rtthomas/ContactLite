@@ -1,17 +1,10 @@
 package com.softart.contactlite.data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-//import javax.persistence.Id;
-
 import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
 
 /**
- * @author Robert
- *
+ * Represents a person
  */
 @Entity
 public class Person extends EntityBase implements Serializable {
@@ -19,12 +12,10 @@ public class Person extends EntityBase implements Serializable {
 	private String 		name;
 	private String 		email;
 	private String 		phone;
-	private Long 		companyKeyValue;
-    private List<Long> 	appointmentKeyValues;
+	private Long 		companyId;
 
-	public Person(){
-		appointmentKeyValues = new ArrayList<Long>();
-	}
+	public Person(){}
+	
 	public String toString(){
 		return name;
 	}
@@ -45,5 +36,12 @@ public class Person extends EntityBase implements Serializable {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Long getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
 	}
 }

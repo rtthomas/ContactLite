@@ -1,0 +1,78 @@
+<a routerLink="/contacts/new"><i class="material-icons" style="float:right">add</i></a>
+<a routerLink="/contacts/new" class="btn btn-primary new-button" role="button">New Contact</a>
+<br>
+<p>
+  <!-- List of all contacts. On large displays, a conventional table -->
+  <div class="table-container hidden-small">
+    <table>
+      <thead>
+        <tr>
+          <th class="edit-cell"></th>
+          <th>Date</th>
+          <th>Person</th>
+          <th>Position</th>
+          <th colspan="2">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of contacts; let i = index">
+          <td class="edit-cell">
+            <a [routerLink]="['/contacts', i]" class="btn btn-primary edit-button" role="button">Edit</a>
+          </td>
+          <td>{{c.formatDate()}}</td>
+          <td>{{c.getPersonName()}}</td>
+          <td>{{c.getPositionTitle()}}</td>
+          <td colspan="2" [class]="showIfEmail(i)"><button type="button" class="btn btn-xs btn-basic" (click)="viewEmail(i)">View Email</button></td>
+          <td colspan="2" [class]="showIfPhone(i)">{{c.details}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- On small displays -->
+  <div class="table-container hidden-large">
+    <table *ngFor="let c of contacts; let i = index">
+      <tr>
+        <td class="select-edit" colspan="3">
+          <i [routerLink]="['/contacts', i]" class="material-icons" style="font-size: 16px;">create</i>
+       </td>
+      </tr>
+      <tr>
+        <td class="header">Date</td>
+        <td colspan="2">{{c.formatDate()}}</td>
+      </tr>
+      <tr>
+        <td class="header">Person</td>
+        <td colspan="2">{{c.getPersonName()}}</td>
+      </tr>
+      <tr>
+        <td class="header">Position</td>
+        <td colspan="2">{{c.getPositionTitle()}}</td>
+      </tr>
+      <tr>
+        <td class="header">Details</td>
+        <td colspan="2" [class]="showIfEmail(i)"><button type="button" class="btn btn-xs btn-basic" (click)="viewEmail(i)">View Email</button></td>
+        <td colspan="2" [class]="showIfPhone(i)">{{c.details}}</td>
+      </tr>
+    </table>
+  </div>
+  <!-- Modal displays email content-->
+  <div id="message-text" class="modal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="closeEmail()">&times;</button>
+          <h4 class="modal-title">{{emailSubject}}</h4>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group">
+            <textarea disabled="true" class="email-text">{{emailText}}</textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)="closeEmail()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

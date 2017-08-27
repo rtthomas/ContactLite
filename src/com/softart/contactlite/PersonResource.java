@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.softart.contactlite.data.DataAccess;
+import com.softart.contactlite.data.EntityBase;
 import com.softart.contactlite.data.Person;
 
 import com.googlecode.objectify.Key;
@@ -25,8 +26,8 @@ import com.googlecode.objectify.Key;
 public class PersonResource  extends AbstractResource{
 
     /**
-     * Creates a new resource.
-     * @param is input stream to read JSON representation of the resource
+     * Creates a new person.
+     * @param is input stream to read JSON representation of the person
      * @return a Response object containing the HTTP response code
      * Normal return code 201 Created
      */
@@ -35,13 +36,13 @@ public class PersonResource  extends AbstractResource{
     public Response create(InputStream is){
     	DataAccess da = new DataAccess();
     	Person person = extractObject(is, Person.class);
-    	Key<Person> key = da.ofyPut(person);
+    	Key<EntityBase> key = da.ofyPut(person);
     	return responseCreated(key.getId());
     }
 
     /**
-     * Updates a resource.
-     * @param is input stream to read JSON representation of the resource
+     * Updates a person.
+     * @param is input stream to read JSON representation of the person
      * @return a Response object containing the HTTP response code
      * Normal return code 204 No Content
      */
@@ -50,12 +51,13 @@ public class PersonResource  extends AbstractResource{
     public Response update(InputStream is){
     	DataAccess da = new DataAccess();
     	Person person = extractObject(is, Person.class);
+    	da.ofyPut(person);
     	return responseNoContent();
     }
 
     /**
      * Gets all resources
-     * @return  a Response object containing the HTTP response code and a JSON array of resource resources
+     * @return  a Response object containing the HTTP response code and a JSON array of persons
      * Normal return code 200 OK
      */
     @GET
@@ -67,8 +69,8 @@ public class PersonResource  extends AbstractResource{
     }
 
     /**
-     * Gets a specified resource
-    * @return  a Response object containing the HTTP response code and a JSON representation of the resource
+     * Gets a specified person
+    * @return  a Response object containing the HTTP response code and a JSON representation of the person
      * Normal return code 200 OK
      */
     @GET

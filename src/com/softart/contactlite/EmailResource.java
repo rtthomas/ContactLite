@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -13,35 +12,34 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.googlecode.objectify.Key;
 import com.softart.contactlite.data.DataAccess;
 import com.softart.contactlite.data.Email;
-
-import com.googlecode.objectify.Key;
+import com.softart.contactlite.data.EmailContent;
 
 /**
- * Handles requests for emails
+ * Handles requests for email
  */
 @Path("/email")
-public class EmailResource  extends AbstractResource{
-
-    /**
-     * Creates a new resource.
-     * @param is input stream to read JSON representation of the resource
-     * @return a Response object containing the HTTP response code
-     * Normal return code 201 Created
+public class EmailResource extends AbstractResource{
+    
+	/**
+     * Gets all Email objects
+     * @return  a Response object containing the HTTP response code and a JSON array of Email objects
+     * Normal return code 200 OK
      */
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(InputStream is){
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response get(){
     	DataAccess da = new DataAccess();
-    	Email email = extractObject(is, Email.class);
-    	Key<Email> key = da.ofyPut(email);
-    	return responseCreated(key.getId());
+    	List<Email> list = da.getAll(Email.class);
+ //   	List<Email> list = da.query(Email.class, "assigned", false);
+    	return responseOkWithBody(list);
     }
 
     /**
-     * Updates a resource.
-     * @param is input stream to read JSON representation of the resource
+     * Updates an Email object 
+     * @param is input stream to read JSON representation of the Email object
      * @return a Response object containing the HTTP response code
      * Normal return code 204 No Content
      */
@@ -50,25 +48,13 @@ public class EmailResource  extends AbstractResource{
     public Response update(InputStream is){
     	DataAccess da = new DataAccess();
     	Email email = extractObject(is, Email.class);
+    	da.ofyPut(email);
     	return responseNoContent();
     }
 
     /**
-     * Gets all resources
-     * @return  a Response object containing the HTTP response code and a JSON array of resource resources
-     * Normal return code 200 OK
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response get(){
-    	DataAccess da = new DataAccess();
-    	List<Email> list = da.getAll(Email.class);
-    	return responseOkWithBody(list);
-    }
-
-    /**
-     * Gets a specified resource
-    * @return  a Response object containing the HTTP response code and a JSON representation of the resource
+     * Gets the EmailContent object of a specified email
+     * @return  a Response object containing the HTTP response code and a JSON representation of the EmailContent object
      * Normal return code 200 OK
      */
     @GET
@@ -76,8 +62,9 @@ public class EmailResource  extends AbstractResource{
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("key") Long id){
     	DataAccess da = new DataAccess();
-    	Key<Email> key = Key.create(Email.class, id);
-    	Email o = da.ofyFind(key);
+    	Key<EmailContent> key = Key.create(EmailContent.class, id);
+    	EmailContent o = da.ofyFind(key);
     	return responseOkWithBody(o);
     }
 }
+

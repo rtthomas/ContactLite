@@ -3,80 +3,63 @@ package com.softart.contactlite.data;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Entity;
 
 /**
- * @author Robert
- *
+ * Represents an email, phone or meeting contact
  */
 @Entity
 public class Contact extends EntityBase implements Serializable {
 
-	private Long	positionKeyValue;
-	private Long	personKeyValue;
+	private Long	positionId;
+	private Long	personId;
 	private Date 	date;
-	private Type 	type;
+	private String 	type;
 	private String	details;
-	private Long 	emailKeyValue;
+	private Long 	emailId;
 
-	public String toString(){
-		return date.toString();
-	}
-	
-	public static enum Type {
-		PHONE("Phone"),
-		EMAIL("Email");
-	    private String label;
+	public Contact(){}
 
-	    private Type(String label) {
-	        this.label = label;
-	    }
-	    public String getLabel() {
-	        return label;
-	    }
-	    public String toString(){
-	    	return label;
-	    }
-	};
-	
-    public Type[] getTypes() {
-        return Type.values();
-    }
-	public Long getPosition() {
-		return positionKeyValue;
+	public Long getPositionId() {
+		return positionId;
 	}
-	public void setPosition(Long positionKeyValue) {
-		this.positionKeyValue = positionKeyValue;
+	public void setPositionId(Long positionId) {
+		this.positionId = positionId;
 	}
-	public Long getPerson() {
-		return personKeyValue;
+
+	public Long getPersonId() {
+		return personId;
 	}
-	public void setPerson(Long personKeyValue) {
-		this.personKeyValue = personKeyValue;
+	public void setPersonId(Long personId) {
+		this.personId = personId;
 	}
+
 	public Date getDate() {
 		return date;
 	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getDetails() {
 		return details;
 	}
 	public void setDetails(String details) {
 		this.details = details;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+
+	public Long getEmailId() {
+		return emailId;
 	}
-	public Type getType() {
-		return type;
+	public void setEmailId(Long emailId) {
+		this.emailId = emailId;
 	}
-	public void setType(Type type) {
-		this.type = type;
-	}
-	public Long getEmail() {
-		return emailKeyValue;
-	}
-	public void setEmail(Long emailKeyValue) {
-		this.emailKeyValue = emailKeyValue;
-	}
+	
 }

@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import com.googlecode.objectify.Key;
 import com.softart.contactlite.data.Appointment;
 import com.softart.contactlite.data.DataAccess;
+import com.softart.contactlite.data.EntityBase;
 
 /**
  * Handles requests for appointments
@@ -24,8 +25,8 @@ import com.softart.contactlite.data.DataAccess;
 public class AppointmentResource extends AbstractResource{
 
     /**
-     * Creates a new resource.
-     * @param is input stream to read JSON representation of the resource
+     * Creates a new appointment.
+     * @param is input stream to read JSON representation of the appointment
      * @return a Response object containing the HTTP response code
      * Normal return code 201 Created
      */
@@ -34,13 +35,13 @@ public class AppointmentResource extends AbstractResource{
     public Response create(InputStream is){
     	DataAccess da = new DataAccess();
     	Appointment appointment = extractObject(is, Appointment.class);
-    	Key<Appointment> key = da.ofyPut(appointment);
+    	Key<EntityBase> key = da.ofyPut(appointment);
     	return responseCreated(key.getId());
     }
 
     /**
-     * Updates a resource.
-     * @param is input stream to read JSON representation of the resource
+     * Updates a appointment.
+     * @param is input stream to read JSON representation of the appointment
      * @return a Response object containing the HTTP response code
      * Normal return code 204 No Content
      */
@@ -54,8 +55,8 @@ public class AppointmentResource extends AbstractResource{
     }
 
     /**
-     * Gets all resources
-     * @return  a Response object containing the HTTP response code and a JSON array of resource resources
+     * Gets all appointments.
+     * @return  a Response object containing the HTTP response code and a JSON array of appointment
      * Normal return code 200 OK
      */
     @GET
@@ -67,8 +68,8 @@ public class AppointmentResource extends AbstractResource{
     }
 
     /**
-     * Gets a specified resource
-    * @return  a Response object containing the HTTP response code and a JSON representation of the resource
+     * Gets a specified appointment
+     * @return  a Response object containing the HTTP response code and a JSON representation of the appointment
      * Normal return code 200 OK
      */
     @GET

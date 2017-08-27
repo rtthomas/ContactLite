@@ -1,67 +1,49 @@
 package com.softart.contactlite.data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
+
 /**
- * @author Robert
- *
+ * Represents an appointment
  */
 @Entity
 public class Appointment extends EntityBase implements Serializable{
 
-	private Long		positionKey;
-    private List<Long> 	personKeys;
-	private Long		companyKey;
+	private Long		companyId;
+    private Long	 	personId;
 	private Date 		date;
 	private Date 		time;
-	private String		details;
+	private Long		positionId;
 	
-	
-	public Appointment(){
-		personKeys = new ArrayList<Long>();
+	public Long getCompanyId() {
+		return companyId;
 	}
-	
-	public Long getPositionKey() {
-		return positionKey;
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
 	}
-	public Collection<Long> getPersonKeys(){
-		return personKeys;
+	public Long getPersonId() {
+		return personId;
 	}
-	public Long getCompanyKey() {
-		return companyKey;
+	public void setPersonId(Long personId) {
+		this.personId = personId;
 	}
 	public Date getDate() {
 		return date;
 	}
-	public Date getTime() {
-		return time;
-	}
-	public String getDetails() {
-		return details;
-	}
-	public void setPosition(Long positionKey) {
-		this.positionKey = positionKey;
-	}
-//	public void setPersons(List<Key<Person>> personKeys){
-//		this.personKeys = personKeys;
-//	}
-	public void setCompany(Long companyKey) {
-		this.companyKey = companyKey;
-	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public Date getTime() {
+		return time;
 	}
 	public void setTime(Date time) {
 		this.time = time;
 	}
-	public void setDetails(String details) {
-		this.details = details;
+	public Long getPositionId() {
+		return positionId;
+	}
+	public void setPositionId(Long positionId) {
+		this.positionId = positionId;
 	}
 }

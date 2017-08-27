@@ -14,10 +14,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.softart.contactlite.data.DataAccess;
+import com.softart.contactlite.data.EntityBase;
 import com.softart.contactlite.data.Position;
 
 import com.googlecode.objectify.Key;
-import java.util.Date;
 
 //TODO: Create interface with create(), update(), get() and getall() methods
 /**
@@ -27,8 +27,8 @@ import java.util.Date;
 public class PositionResource extends AbstractResource{
 
     /**
-     * Creates a new resource.
-     * @param is input stream to read JSON representation of the resource
+     * Creates a new position.
+     * @param is input stream to read JSON representation of the position
      * @return a Response object containing the HTTP response code
      * Normal return code 201 Created
      */
@@ -37,13 +37,13 @@ public class PositionResource extends AbstractResource{
     public Response create(InputStream is){
     	DataAccess da = new DataAccess();
     	Position position = extractObject(is, Position.class);
-    	Key<Position> key = da.ofyPut(position);
+    	Key<EntityBase> key = da.ofyPut(position);
     	return responseCreated(key.getId());
     }
 
     /**
-     * Updates a resource.
-     * @param is input stream to read JSON representation of the resource
+     * Updates a position.
+     * @param is input stream to read JSON representation of the position
      * @return a Response object containing the HTTP response code
      * Normal return code 204 No Content
      */
@@ -52,12 +52,13 @@ public class PositionResource extends AbstractResource{
     public Response update(InputStream is){
     	DataAccess da = new DataAccess();
     	Position position = extractObject(is, Position.class);
+    	da.ofyPut(position);
     	return responseNoContent();
     }
 
     /**
      * Gets all resources
-     * @return  a Response object containing the HTTP response code and a JSON array of resource resources
+     * @return  a Response object containing the HTTP response code and a JSON array of positions
      * Normal return code 200 OK
      */
     @GET
@@ -69,8 +70,8 @@ public class PositionResource extends AbstractResource{
     }
 
     /**
-     * Gets a specified resource
-    * @return  a Response object containing the HTTP response code and a JSON representation of the resource
+     * Gets a specified position
+    * @return  a Response object containing the HTTP response code and a JSON representation of the position
      * Normal return code 200 OK
      */
     @GET

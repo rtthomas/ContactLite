@@ -1,35 +1,29 @@
 package com.softart.contactlite.data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Entity;
 /**
- * @author Robert
- *
+ * Represents an advertised position
  */
 @Entity
 public class Position extends EntityBase implements Serializable {
 
 	private String 		title;
 	private String 		url;
-	private Long 		companyKeyValue;
-	private Long 		personKeyValue;
+	private Long 		companyId;
+	private Long 		personId;
 	private Date 		datePosted;
 	private Date 		dateApplied;
 
-	public Position(){
-	}
+	public Position(){}
 
 	public String toString(){
 		return title;
 	}
-
 	public String getTitle() {
 		return title;
 	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -37,31 +31,27 @@ public class Position extends EntityBase implements Serializable {
 	public String getUrl() {
 		return url;
 	}
-
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
-	public Long getCompanyKeyValue() {
-		return companyKeyValue;
+	public Long getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
 	}
 
-	public void setCompanyKeyValue(Long companyKeyValue) {
-		this.companyKeyValue = companyKeyValue;
+	public Long getPersonId() {
+		return personId;
 	}
-
-	public Long getPersonKeyValue() {
-		return personKeyValue;
-	}
-
-	public void setPersonKeyValue(Long personKeyValue) {
-		this.personKeyValue = personKeyValue;
+	public void setPersonId(Long personId) {
+		this.personId = personId;
 	}
 
 	public Date getDatePosted() {
 		return datePosted;
 	}
-
 	public void setDatePosted(Date datePosted) {
 		this.datePosted = datePosted;
 	}
@@ -69,10 +59,8 @@ public class Position extends EntityBase implements Serializable {
 	public Date getDateApplied() {
 		return dateApplied;
 	}
-
 	public void setDateApplied(Date dateApplied) {
 		this.dateApplied = dateApplied;
 	}
-	
 
 }

@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 
 import com.softart.contactlite.data.Contact;
 import com.softart.contactlite.data.DataAccess;
-
+import com.softart.contactlite.data.EntityBase;
 import com.googlecode.objectify.Key;
 
 /**
@@ -25,8 +25,8 @@ import com.googlecode.objectify.Key;
 public class ContactResource  extends AbstractResource{
 
     /**
-     * Creates a new resource.
-     * @param is input stream to read JSON representation of the resource
+     * Creates a new contact.
+     * @param is input stream to read JSON representation of the contact
      * @return a Response object containing the HTTP response code
      * Normal return code 201 Created
      */
@@ -35,13 +35,13 @@ public class ContactResource  extends AbstractResource{
     public Response create(InputStream is){
     	DataAccess da = new DataAccess();
     	Contact contact = extractObject(is, Contact.class);
-    	Key<Contact> key = da.ofyPut(contact);
+    	Key<EntityBase> key = da.ofyPut(contact);
     	return responseCreated(key.getId());
     }
 
     /**
-     * Updates a resource.
-     * @param is input stream to read JSON representation of the resource
+     * Updates a contact.
+     * @param is input stream to read JSON representation of the contact
      * @return a Response object containing the HTTP response code
      * Normal return code 204 No Content
      */
@@ -50,12 +50,13 @@ public class ContactResource  extends AbstractResource{
     public Response update(InputStream is){
     	DataAccess da = new DataAccess();
     	Contact contact = extractObject(is, Contact.class);
+    	da.ofyPut(contact);
     	return responseNoContent();
     }
 
     /**
      * Gets all resources
-     * @return  a Response object containing the HTTP response code and a JSON array of resource resources
+     * @return  a Response object containing the HTTP response code and a JSON array of contacts
      * Normal return code 200 OK
      */
     @GET
@@ -67,8 +68,8 @@ public class ContactResource  extends AbstractResource{
     }
 
     /**
-     * Gets a specified resource
-    * @return  a Response object containing the HTTP response code and a JSON representation of the resource
+     * Gets a specified contact
+    * @return  a Response object containing the HTTP response code and a JSON representation of the contact
      * Normal return code 200 OK
      */
     @GET

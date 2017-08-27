@@ -1,0 +1,54 @@
+<a routerLink="/persons/new"><i class="material-icons" style="float:right">add</i></a>
+<a routerLink="/persons/new" class="btn btn-primary new-button" role="button">New Person</a>
+<br><p>
+<!-- List of all persons. On large displays, a conventional table -->
+<div class="table-container hidden-small">
+  <table>
+    <thead>
+      <tr>
+        <th class="edit-cell"></th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Company</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of persons; let i = index">
+        <td class="edit-cell">
+          <a [routerLink]="['/persons', i]" class="btn btn-primary edit-button" role="button">Edit</a>
+        </td>
+        <td>{{p.name}}</td>
+        <td>{{p.email}}</td>
+        <td>{{p.phone}}</td>
+        <td>{{p.getCompanyName()}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- On small displays -->
+<div class="table-container hidden-large">
+  <table *ngFor="let p of persons; let i = index">
+    <tr>
+      <td class="select-edit" colspan="3">
+        <i [routerLink]="['/persons', i]" class="material-icons" style="font-size: 16px;">create</i>
+      </td>
+    </tr>
+    <tr>
+      <td class="header">Name</td>
+      <td colspan="2">{{p.name}}</td>
+    </tr>
+    <tr>
+      <td class="header">Email</td>
+      <td colspan="2">{{p.email}}</td>
+    </tr>
+    <tr>
+      <td class="header">Phone</td>
+      <td colspan="2">{{p.phone}}</td>
+    </tr>
+    <tr>
+      <td class="header">Company</td>
+      <td colspan="2">{{p.getCompanyName()}}</td>
+    </tr>
+  </table>
+</div>

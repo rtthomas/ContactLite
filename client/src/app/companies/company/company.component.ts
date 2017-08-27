@@ -1,27 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Company } from '../../model/company.model';
-import { CompaniesService } from '../companies.service';
+import { CacheService } from '../../cache.service';
 
 @Component({
   selector: 'app-company',
-  templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css']
+  templateUrl: './company.component.html'
 })
 export class CompanyComponent implements OnInit {
   company: Company;
 
-  constructor(private router: Router, private route: ActivatedRoute, private service: CompaniesService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private service: CacheService) { }
 
   ngOnInit() {
-    var id = this.route.snapshot.params['id'];
+    const  id = this.route.snapshot.params['id'];
     if (id == 'new'){
       // Creating a new one
       this.company = new Company(null, '','','','','');
     }
     else {
       // Viewing or editing
-      this.company = this.service.getCompany(id);
+      this.company = this.service.getByIndex('company', id);
     }
   }
 
@@ -29,13 +28,7 @@ export class CompanyComponent implements OnInit {
     this.router.navigate(['/companies']);
   }
   save(){
-    if (!this.company.url){
-      this.company.url = '';
-    }
-    if (!this.company.phone){
-      this.company.phone = '';
-    }
-    this.service.save(this.company);
+    this.service.save('company', this.company);
     this.router.navigate(['/companies']);
   }
 

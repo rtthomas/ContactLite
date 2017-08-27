@@ -13,13 +13,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.googlecode.objectify.Key;
 import com.softart.contactlite.data.Company;
 import com.softart.contactlite.data.DataAccess;
+import com.softart.contactlite.data.EntityBase;
 
 /**
  * Handles requests for companies
@@ -29,8 +29,8 @@ public class CompanyResource  extends AbstractResource{
 	private static final Logger log = Logger.getLogger(CompanyResource.class.getName());
 
     /**
-     * Creates a new resource. 
-     * @param is input stream to read JSON representation of the resource
+     * Creates a new company. 
+     * @param is input stream to read JSON representation of the company
      * @return a Response object containing the HTTP response code 
      * Normal return code 201 Created
      */
@@ -39,14 +39,14 @@ public class CompanyResource  extends AbstractResource{
     public Response create(InputStream is){
     	DataAccess da = new DataAccess();
     	Company company = extractObject(is, Company.class);
-    	Key<Company> key = da.ofyPut(company);
+    	Key<EntityBase> key = da.ofyPut(company);
     	log.info("Created " + company.getName() + ": " + company.getId());
     	return responseCreated(key.getId());
     }
     
     /**
-     * Updates a resource. 
-     * @param is input stream to read JSON representation of the resource
+     * Updates a company. 
+     * @param is input stream to read JSON representation of the company
      * @return a Response object containing the HTTP response code
      * Normal return code 204 No Content
      */
@@ -61,13 +61,14 @@ public class CompanyResource  extends AbstractResource{
     }
     
     /**
-     * Deletes a resource. 
+     * Deletes a company. 
      * @param key the entity key
      * @return a Response object containing the HTTP response code
      * Normal return code 204 No Content
      */
     @DELETE
-    public Response delete(@QueryParam("key") Long id){
+    @Path("{key}")
+     public Response delete(@PathParam("key") Long id){
     	DataAccess da = new DataAccess();
     	da.ofyDelete(Company.class, id);
     	log.info("Deleted " + id);
@@ -76,7 +77,7 @@ public class CompanyResource  extends AbstractResource{
     
     /**
      * Gets all resources
-     * @return  a Response object containing the HTTP response code and a JSON array of resource resources
+     * @return  a Response object containing the HTTP response code and a JSON array of companies
      * Normal return code 200 OK
      */
     @GET
@@ -88,8 +89,8 @@ public class CompanyResource  extends AbstractResource{
     }
     
     /**
-     * Gets a specified resource
-    * @return  a Response object containing the HTTP response code and a JSON representation of the resource
+     * Gets a specified company
+     * @return  a Response object containing the HTTP response code and a JSON representation of the company
      * Normal return code 200 OK
      */
     @GET

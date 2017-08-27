@@ -29,7 +29,7 @@ public abstract class AbstractResource {
     	return builder.build();
     }
     
-    protected <T> T extractObject(InputStream is, Class clazz){
+    protected <T> T extractObject(InputStream is, Class<T> clazz){
     	T object = (T)gson.fromJson(new InputStreamReader(is), clazz);
     	return object;
     }
@@ -59,11 +59,11 @@ public abstract class AbstractResource {
     	return builder.build();
     }
 
-    protected String keyToString(Key key){
+    protected <T> String keyToString(Key<T> key){
     	return key.getString();
     }
 
-    protected Key keyFromString(String s){
-    	return Key.create(s);
+    protected <T> Key<T> keyFromString(String s, Class<T> clazz){
+    	return Key.create(clazz,  s);
     }
 }

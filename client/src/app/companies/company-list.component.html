@@ -1,17 +1,12 @@
-<!--
-   List of all companies
--->
-<a routerLink="/companies/new"><i class="material-icons">add</i></a>
+<a routerLink="/companies/new"><i class="material-icons" style="float:right">add</i></a>
 <a routerLink="/companies/new" class="btn btn-primary new-button" role="button">New Company</a>
-<br>
-<p>
-<!-- On small displays -->
+<br><p>
+<!-- List of all companies. On large displays, a conventional table -->
 <div class="table-container hidden-small">
   <table>
     <thead>
       <tr>
         <th class="edit-cell"></th>
-        <th class="delete-cell"></th>
         <th>Name</th>
         <th>Phone</th>
         <th>Address</th>
@@ -23,10 +18,7 @@
         <td class="edit-cell">
           <a [routerLink]="['/companies', i]" class="btn btn-primary edit-button" role="button">Edit</a>
         </td>
-        <td class="delete-cell">
-          <a (click)="delete(i)" class="btn btn-primary edit-button" role="button">Delete</a> 
-        </td>
-        <td><a href={{c.url}}>{{c.name}}</a></td>
+        <td><a href="http://{{c.url}}" target="_blank">{{c.name}}</a></td>
         <td>{{c.phone}}</td>
         <td>{{c.address}}</td>
         <td>{{c.city}}</td>
@@ -34,31 +26,29 @@
     </tbody>
   </table>
 </div>
-<!-- On large displays -->
+<!-- On small displays -->
 <div class="table-container hidden-large">
   <table *ngFor="let c of companies; let i = index">
     <tr>
-      <td class="select-edit">
+      <td class="select-edit" colspan="3">
         <i [routerLink]="['/companies', i]" class="material-icons" style="font-size: 16px;">create</i>
-        <i (click)="delete(i)" class="material-icons" style="font-size: 16px;">clear</i>
-      </td>
-      <td></td>
+       </td>
     </tr>
     <tr>
       <td class="header">Name</td>
-      <td><a href={{c.url}}>{{c.name}}</a></td>
+      <td colspan="2"><a href="http://{{c.url}}" target="_blank">{{c.name}}</a></td>
     </tr>
     <tr>
       <td class="header">Phone</td>
-      <td>{{c.phone}}</td>
+      <td colspan="2">{{c.phone}}</td>
     </tr>
     <tr>
       <td class="header">Address</td>
-      <td>{{c.address}}</td>
+      <td colspan="2">{{c.address}}</td>
     </tr>
     <tr>
       <td class="header">City</td>
-      <td>{{c.citye}}</td>
+      <td colspan="2">{{c.citye}}</td>
     </tr>
   </table>
 </div>

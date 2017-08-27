@@ -20,7 +20,25 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>Jersey</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
-	
+ 	
+	<servlet>
+	  	<servlet-name>mailhandler</servlet-name>
+  		<servlet-class>com.softart.contactlite.email.MailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+  		<servlet-name>mailhandler</servlet-name>
+  		<url-pattern>/_ah/mail/*</url-pattern>
+	</servlet-mapping>
+	<security-constraint>
+  		<web-resource-collection>
+    		<web-resource-name>mail</web-resource-name>
+    		<url-pattern>/_ah/mail/*</url-pattern>
+  		</web-resource-collection>
+  		<auth-constraint>
+    		<role-name>admin</role-name>
+  		</auth-constraint>
+	</security-constraint>
+
 	<filter>
 		<filter-name>ObjectifyFilter</filter-name>
 		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>

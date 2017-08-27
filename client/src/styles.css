@@ -16,6 +16,15 @@
 /* ------------------------------------------ 
 
 */
+.centered {
+	margin-left:auto;
+  margin-right:auto;
+	display:block!important;
+}
+.email-text {
+  height: 40em;
+  width: 100%;
+}
 .material-icons {
   margin-right: 0.5em;
 }
@@ -27,8 +36,8 @@
   display: inline;
 }
 .edit-cell {
-  min-width: 60px !important;
-  width: 60px !important;
+  min-width: 90px !important;
+  width: 90px !important;
 }
 .delete-cell {
   min-width: 90px !important;
@@ -60,6 +69,10 @@ table td {
 }
 
 @media screen and (max-width: 768px) {
+  .email-text {
+    height: 20em;
+    width: 100%;
+  }
   .table-container {
     overflow: hidden; 
     max-height: 99999em;
@@ -76,6 +89,9 @@ table td {
   i {
     display: block !important;
     float: left;
+   }
+  td > i {
+    margin-right:2em!important; 
   }
   table thead {
     border: none;

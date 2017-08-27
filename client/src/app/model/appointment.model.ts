@@ -1,0 +1,67 @@
+import { Entity} from './entity.model';
+import { CacheService } from '../cache.service';
+import { Injectable } from '@angular/core';
+import { AppModule } from '../app.module';
+import { DateTimeService } from '../datetime.service';
+
+@Injectable()
+export class Appointment extends Entity{
+    
+    cache = AppModule.injector.get(CacheService);
+    datetime = AppModule.injector.get(DateTimeService);
+
+    static fromJson(json: any){
+        let p = new Appointment(
+            json.id, 
+            json.companyId, 
+            json.personId, 
+            json.date,  
+            Entity.timeFromJSONDate(json.time), 
+            json.positionId);
+        console.log(p);
+        return p;
+    }
+
+    constructor(
+        public id: number,
+        public companyId: number,
+        public personId: number,
+        public date: string,
+        public time: string,
+        public positionId: number
+    ) { super(); }
+    
+    getCompanyName(){
+        if (this.companyId){
+            const company = this.cache.getById('company', this.companyId);
+            return company.name;
+        }
+        else {
+            return "not specified";
+        }
+    }
+    getPersonName(){
+        if (this.personId){
+            const person = this.cache.getById('person', this.personId);
+            return person.name;
+        }
+        else {
+            return "not specified";
+        }
+    }
+    getPositionTitle(){
+         if (this.positionId){
+            const position = this.cache.getById('position', this.positionId);
+            return position.title;
+        }
+        else {
+            return "not specified";
+        }
+     }
+    formatDate(){
+        return this.datetime.formatListDate(this.date);
+    }
+    formatTime(){
+        return this.datetime.formatListTime(this.time);
+    }
+}

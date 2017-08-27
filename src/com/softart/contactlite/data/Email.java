@@ -4,16 +4,12 @@
 package com.softart.contactlite.data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Entity;
 
 /**
- * @author Robert
- *
+ * Holds an email
  */
 @Entity
 public class Email extends EntityBase implements Serializable  {
@@ -21,25 +17,22 @@ public class Email extends EntityBase implements Serializable  {
 	private String		receiver;
 	private Date		date;
 	private String		subject;
-	private String		text;
-    private List<Long> 	attachments;
+	private Long		contentId;
+	@Index
+	private boolean		assigned;	
 	
-	public Email(){
-		attachments = new ArrayList<Long>();
+	public Email(){}
+	
+	public Email(String	sender, String receiver, Date date, String subject, Long contentId){
+		super();
+		this.sender = sender;
+		this.receiver = receiver;
+		this.date = date;
+		this.subject = subject;
+		this.contentId = contentId;
+		assigned = false;
 	}
-
-	public String getText() {
-		return text;
-	}
-	public void setText(String text) {
-		this.text = text;
-	}
-	public List<Long> getAttachments() {
-		return attachments;
-	}
-//	public void setAttachments(Collection<Attachment> attachments) {
-//		this.attachments = attachments;
-//	}
+	
 	public String getSender() {
 		return sender;
 	}
@@ -63,5 +56,19 @@ public class Email extends EntityBase implements Serializable  {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public Long getContentId() {
+		return contentId;
+	}
+
+	public void setContentId(Long contentId) {
+		this.contentId = contentId;
+	}
+
+	public boolean isAssigned() {
+		return assigned;
+	}
+	public void setAssigned(boolean assigned) {
+		this.assigned = assigned;
 	}
 }
