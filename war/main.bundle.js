@@ -160,15 +160,16 @@ var AppointmentComponent = (function (_super) {
         maps = this.createEntityMaps(this.positions, 'title');
         this.positionTitleToId = maps.attributeToId;
         this.positionIdToTitle = maps.idToAttribute;
-        var id = this.route.snapshot.params['id'];
-        if (id === 'new') {
+        this.id = this.route.snapshot.params['id'];
+        if (this.id === 'new') {
+            $('#convert').hide();
             // Creating a new one
             this.appointment = new __WEBPACK_IMPORTED_MODULE_2__model_appointment_model__["a" /* Appointment */](null, null, null, null, null, null);
         }
         else {
             // Viewing or editing
             $('#convert').show();
-            this.appointment = this.cache.getByIndex('appointment', id);
+            this.appointment = this.cache.getByIndex('appointment', this.id);
             if (this.appointment.time) {
                 if (this.appointment.time.length === 4) {
                     this.appointment.time = '0' + this.appointment.time;
@@ -191,10 +192,17 @@ var AppointmentComponent = (function (_super) {
     };
     /** Enables display of the Record button if the appointment date/time has passed */
     AppointmentComponent.prototype.displayIfConvertible = function () {
+        if (this.id === 'new' || !this.appointment.date) {
+            return 'hidden';
+        }
         // Combine the date and time fields
-        var day = new Date(this.appointment.date);
-        var time = new Date(this.appointment.time);
-        var dateTime = new Date(day.getFullYear(), day.getMonth(), day.getDay(), time.getHours(), time.getMinutes());
+        var day = new Date(this.datetime.formatListDate(this.appointment.date));
+        var dateTime = new Date(day.getFullYear(), day.getMonth(), day.getDate());
+        if (this.appointment.time) {
+            var time = this.appointment.time;
+            dateTime.setHours((new Number(time.substr(0, 2)).valueOf()));
+            dateTime.setMinutes((new Number(time.substr(3, 2)).valueOf()));
+        }
         // Convertible if the date/time has been reached
         var canConvert = dateTime.getTime() < (new Date()).getTime();
         return canConvert ? 'btn btn-primary' : 'hidden';
@@ -1755,7 +1763,7 @@ var Contact = Contact_1 = (function (_super) {
             return position.title;
         }
         else {
-            return "not specified";
+            return 'not specified';
         }
     };
     Contact.prototype.getPersonName = function () {
@@ -1764,7 +1772,7 @@ var Contact = Contact_1 = (function (_super) {
             return person.name;
         }
         else {
-            return "not specified";
+            return 'not specified';
         }
     };
     Contact.prototype.formatDate = function () {
@@ -2102,13 +2110,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ServerService = (function () {
     function ServerService(http) {
         this.http = http;
-        if (document.baseURI == "http://localhost:4200/") {
+        if (document.baseURI === 'http://localhost:4200/') {
             // Client loaded from VSCode local server 
-            this.baseUrl = "http://localhost:8888/rest/";
+            this.baseUrl = 'http://localhost:8888/rest/';
         }
         else {
             // CLient loaded from local or remote App Engine server
-            this.baseUrl = document.baseURI + "rest/";
+            this.baseUrl = document.baseURI + 'rest/';
         }
     }
     ServerService.prototype.getAll = function (entityType) {
@@ -2145,11 +2153,11 @@ var ServerService = (function () {
         var converted = {};
         for (var e in entity) {
             var element = entity[e];
-            if (typeof element == "function") {
+            if (typeof element === 'function') {
                 continue;
             }
-            if (typeof element == 'string') {
-                if (element.length == 10 && element.match("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
+            if (typeof element === 'string') {
+                if (element.length === 10 && element.match('[0-9]{4}-[0-9]{2}-[0-9]{2}')) {
                     var parts = element.split('-');
                     var date = new Date();
                     date.setFullYear(+parts[0], (+parts[1]) - 1, +parts[2]);
@@ -2157,7 +2165,7 @@ var ServerService = (function () {
                     converted[e] = s;
                     continue;
                 }
-                else if (element.length == 5 && element.match("[0-9]{2}:[0-9]{2}")) {
+                else if (element.length === 5 && element.match('[0-9]{2}:[0-9]{2}')) {
                     var parts = element.split(':');
                     var date = new Date();
                     date.setHours(+parts[0], +parts[1]);
@@ -2171,7 +2179,7 @@ var ServerService = (function () {
                 converted[e] = s;
                 continue;
             }
-            if (e != "cache") {
+            if (e !== 'cache') {
                 converted[e] = element;
             }
         }

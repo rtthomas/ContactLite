@@ -27,6 +27,7 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
   private companyIdToName = {};
   private positionIdToTitle = {};
   private positionTitleToId = {};
+  private id;
 
   constructor(private router: Router, private route: ActivatedRoute, private cache: CacheService, private datetime: DateTimeService) {
     super();
@@ -47,15 +48,16 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
     this.positionTitleToId = maps.attributeToId;
     this.positionIdToTitle = maps.idToAttribute;
 
-    const  id = this.route.snapshot.params['id'];
-    if (id === 'new') {
+    this.id = this.route.snapshot.params['id'];
+    if (this.id === 'new') {
+      $('#convert').hide();
       // Creating a new one
       this.appointment = new Appointment(null, null, null, null, null, null);
     }
     else {
       // Viewing or editing
       $('#convert').show();
-      this.appointment = this.cache.getByIndex('appointment', id);
+      this.appointment = this.cache.getByIndex('appointment', this.id);
       if (this.appointment.time) {
         if (this.appointment.time.length === 4) {
           this.appointment.time = '0' + this.appointment.time;
@@ -79,11 +81,18 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
   }
 
   /** Enables display of the Record button if the appointment date/time has passed */
-  displayIfConvertible(){
+  displayIfConvertible(): string{
+    if (this.id === 'new' || !this.appointment.date){
+      return 'hidden';
+    }
     // Combine the date and time fields
-    const day: Date = new Date(this.appointment.date);
-    const time: Date = new Date(this.appointment.time);
-    const dateTime = new Date(day.getFullYear(), day.getMonth(), day.getDay(), time.getHours(), time.getMinutes());
+    const day: Date = new Date(this.datetime.formatListDate(this.appointment.date));
+    const dateTime = new Date(day.getFullYear(), day.getMonth(), day.getDate());
+    if (this.appointment.time){
+      const time = this.appointment.time;
+      dateTime.setHours((new Number(time.substr(0, 2)).valueOf()));
+      dateTime.setMinutes((new Number(time.substr(3, 2)).valueOf()));
+    }
     // Convertible if the date/time has been reached
     const canConvert = dateTime.getTime() < (new Date()).getTime();
     return canConvert ? 'btn btn-primary' : 'hidden';
