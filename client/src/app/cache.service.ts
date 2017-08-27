@@ -233,7 +233,7 @@ export class CacheService {
    */
   deleteById(type: string, id: number){
     // Locate index in the cache array
-    for (let index = 0; index < this.entityCache[type].array.length; index++){
+    for (var index = 0; index < this.entityCache[type].array.length; index++){
       const entity = this.entityCache[type].array[index];
       if (entity.id === id){
         break;
