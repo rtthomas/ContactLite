@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import com.googlecode.objectify.Key;
 import com.softart.contactlite.data.Appointment;
+import com.softart.contactlite.data.Company;
 import com.softart.contactlite.data.DataAccess;
 import com.softart.contactlite.data.EntityBase;
 
@@ -81,4 +83,19 @@ public class AppointmentResource extends AbstractResource{
     	Appointment o = da.ofyFind(key);
     	return responseOkWithBody(o);
     }
+    
+    /**
+     * Deletes an appointment. 
+     * @param key the entity key
+     * @return a Response object containing the HTTP response code
+     * Normal return code 204 No Content
+     */
+    @DELETE
+    @Path("{key}")
+     public Response delete(@PathParam("key") Long id){
+    	DataAccess da = new DataAccess();
+    	da.ofyDelete(Appointment.class, id);
+    	return responseNoContent();
+    }
+    
 }
