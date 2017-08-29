@@ -13,3 +13,6 @@ If a Contact is an email message, it is registered with the application by eithe
 Once the date and time of an appointment has passed, it can be converted into a Contact
 ## User Interface
 The application presents the user with a menu corresponding to the entities described above. The UI imnplements a responsive design based on the Bootstrap CSS library. The images below are those which will be rendered on displays with greater than 768 pixel width 
+
+*Under construction!*
+
