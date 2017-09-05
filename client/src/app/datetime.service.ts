@@ -16,7 +16,7 @@ export class DateTimeService {
       if (s.indexOf('-') > 0) {
         const p = s.split('-');
         d = new Date();
-        d.setFullYear(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+        d.setFullYear(+p[0], +p[1] - 1, +p[2]);
       }
       else {
         d = new Date(s);
@@ -40,7 +40,7 @@ export class DateTimeService {
     if (s.indexOf('-') > 0) {
       const p = s.split('-');
       date = new Date();
-      date.setFullYear(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+      date.setFullYear(+p[0], +p[1] - 1, +p[2]);
     }
     else {
       date = new Date(s);
@@ -69,7 +69,7 @@ export class DateTimeService {
       return '';
     }
     const hm = s.split(':');
-    let h: number = Number(hm[0]);
+    let h: number = +hm[0];
     let m: string = hm[1];
     let ampm: string;
 

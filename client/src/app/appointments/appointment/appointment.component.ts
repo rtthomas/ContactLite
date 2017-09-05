@@ -90,8 +90,8 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
     const dateTime = new Date(day.getFullYear(), day.getMonth(), day.getDate());
     if (this.appointment.time){
       const time = this.appointment.time;
-      dateTime.setHours((new Number(time.substr(0, 2)).valueOf()));
-      dateTime.setMinutes((new Number(time.substr(3, 2)).valueOf()));
+      dateTime.setHours(+time.substr(0, 2));
+      dateTime.setMinutes(+time.substr(3, 2));
     }
     // Convertible if the date/time has been reached
     const canConvert = dateTime.getTime() < (new Date()).getTime();
