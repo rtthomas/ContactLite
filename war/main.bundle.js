@@ -200,8 +200,8 @@ var AppointmentComponent = (function (_super) {
         var dateTime = new Date(day.getFullYear(), day.getMonth(), day.getDate());
         if (this.appointment.time) {
             var time = this.appointment.time;
-            dateTime.setHours((new Number(time.substr(0, 2)).valueOf()));
-            dateTime.setMinutes((new Number(time.substr(3, 2)).valueOf()));
+            dateTime.setHours(+time.substr(0, 2));
+            dateTime.setMinutes(+time.substr(3, 2));
         }
         // Convertible if the date/time has been reached
         var canConvert = dateTime.getTime() < (new Date()).getTime();
@@ -374,7 +374,7 @@ var DateTimeService = (function () {
             if (s.indexOf('-') > 0) {
                 var p = s.split('-');
                 d = new Date();
-                d.setFullYear(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+                d.setFullYear(+p[0], +p[1] - 1, +p[2]);
             }
             else {
                 d = new Date(s);
@@ -396,7 +396,7 @@ var DateTimeService = (function () {
         if (s.indexOf('-') > 0) {
             var p = s.split('-');
             date = new Date();
-            date.setFullYear(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+            date.setFullYear(+p[0], +p[1] - 1, +p[2]);
         }
         else {
             date = new Date(s);
@@ -423,7 +423,7 @@ var DateTimeService = (function () {
             return '';
         }
         var hm = s.split(':');
-        var h = Number(hm[0]);
+        var h = +hm[0];
         var m = hm[1];
         var ampm;
         if (h == 12) {
