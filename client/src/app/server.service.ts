@@ -3,7 +3,9 @@ import { Http } from '@angular/http';
 import { Response, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-
+/**
+ * Provides the low level http calls for CRUD operations
+ */
 @Injectable()
 export class ServerService {
 
@@ -20,23 +22,42 @@ export class ServerService {
     }
   }
 
+  /**
+   * Fetches all entities of a specified typoe
+   * @param entityType the entity type
+   */
   getAll(entityType: string) {
     const url = this.baseUrl + entityType;
     return this.http.get(url);
   }
 
+  /**
+   * Updates an entity
+   * @param entityType the entity type
+   * @param entity the entity object (refer to the "model" folder for possible types)
+   */
   update(entityType: string, entity: any) {
     const url = this.baseUrl + entityType;
     const converted = this.convertFields(entity);
     return this.http.put(url, converted);
   }
 
+  /**
+   * Creates an entity
+   * @param entityType the entity type
+   * @param entity the entity object (refer to the "model" folder for possible types)
+   */
   create(entityType: string, entity: any) {
     const url = this.baseUrl + entityType;
     const converted = this.convertFields(entity);
     return this.http.post(url, converted);
   }
 
+  /**
+   * Deletes an entity
+   * @param entityType the entity type
+   * @param entity the entity object (refer to the "model" folder for possible types)
+   */
   delete(entityType: string, entityId) {
     const url = this.baseUrl + entityType + '/' + entityId;
     return this.http.delete(url);
