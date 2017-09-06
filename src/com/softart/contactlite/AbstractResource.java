@@ -3,23 +3,24 @@ package com.softart.contactlite;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import com.google.gson.Gson;
 import com.googlecode.objectify.Key;
-
 /**
  * Base class for all resource classes ("*Resource"), providing common methods
  * for response creation and key conversions
- *
  */
 public abstract class AbstractResource {
 
     private Gson gson = new Gson();
 
+    /**
+     * This method supports Cross-origin resource sharing (CORS) during development,
+     * allowing the client to be invoked from a localhost Angular server 
+     */
     @OPTIONS
     public Response options(){
     	ResponseBuilder builder = Response.status(Response.Status.OK);
@@ -34,6 +35,11 @@ public abstract class AbstractResource {
     	return object;
     }
 
+    /**
+     * Creates a 200 Ok response containing a response body
+     * @param o the object to be placed inthe response body
+     * @return the Response
+     */
     protected Response responseOkWithBody(Object o){
     	String responseBody = gson.toJson(o);
     	Response.ResponseBuilder builder = Response.ok(responseBody);
@@ -53,6 +59,10 @@ public abstract class AbstractResource {
     	return builder.build();
     }
 
+    /**
+     * Creates a 204 No Content response
+     * @return the Response
+     */
     protected Response responseNoContent(){
     	ResponseBuilder builder = Response.status(Response.Status.NO_CONTENT);
     	builder.header("Access-Control-Allow-Origin", "*");
