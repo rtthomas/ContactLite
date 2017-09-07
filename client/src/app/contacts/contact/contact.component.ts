@@ -137,7 +137,6 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
     const email: Email = this.emails[index];
     this.contact.emailId = email.id;
     this.contact.date = email.date;
-
     $('#save-button').removeAttr('disabled');
   }
 

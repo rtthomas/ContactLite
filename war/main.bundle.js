@@ -617,17 +617,12 @@ var ContactComponent = (function (_super) {
             }
             if (this.contact.type === 'email') {
                 this.isEmail = true;
-                $('.show-if-email').show();
-                $('.select-email-or-phone').removeAttr('hidden');
             }
             else if (this.contact.type === 'phone') {
                 this.isPhone = true;
-                $('.show-if-phone').show();
-                $('.select-email-or-phone').removeAttr('hidden');
             }
             else {
                 this.isMeeting = true;
-                $('.show-if-phone').show();
                 $('#save-button').removeAttr('disabled');
             }
         }
@@ -663,17 +658,11 @@ var ContactComponent = (function (_super) {
     ContactComponent.prototype.setEmail = function () {
         this.isEmail = true;
         this.isPhone = false;
-        $('.show-if-phone').hide();
-        $('.show-if-email').show();
     };
     /** Called when Phone radio button clicked */
     ContactComponent.prototype.setPhone = function () {
         this.isEmail = false;
         this.isPhone = true;
-        $('.show-if-email').hide();
-        $('.show-if-phone').show();
-        $('#message-list').hide();
-        $('#message-text').hide();
         $('#save-button').removeAttr('disabled');
     };
     /** Called when email selected from the email list */
@@ -688,7 +677,7 @@ var ContactComponent = (function (_super) {
     ContactComponent.prototype.viewEmail = function (index) {
         var _this = this;
         var email = this.emails[index];
-        this.cache.getEmailContent(email.contentId).subscribe(function (response) { return _this.emailText = response.json().text; });
+        this.cache.getEmailContent(email.contentId).subscribe(function (text) { return _this.emailText = text; });
         this.emailSubject = email.subject;
         $('#message-text').show();
     };
@@ -1326,7 +1315,7 @@ module.exports = "<a routerLink=\"/contacts/new\"><i class=\"material-icons\" st
 /***/ 183:
 /***/ (function(module, exports) {
 
-module.exports = "<!--\nCreate or edit a contact\n-->\n<div>\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n        <h4 class=\"modal-title\">Contact</h4>\n      </div>\n      <div class=\"modal-body\">\n        <form>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Person</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                  <option *ngFor=\"let p of persons\">\n                    {{p.name}}\n                  </option>\n                 </select>\n          </div>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Position</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n                  <option *ngFor=\"let p of positions\">\n                    {{p.title}}\n                  </option>\n                 </select>\n          </div>\n          <div class=\"form-group\">\n            <label>Email&nbsp;&nbsp;</label><input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isEmail\" [checked]='isEmail' disabled (change)=\"setEmail()\">&nbsp;&nbsp;&nbsp;&nbsp;\n            <label>Phone&nbsp;&nbsp;</label><input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isPhone\" [checked]='isPhone' disabled (change)=\"setPhone()\">\n          </div>\n          <!-- Date and details inputs visible only for phone contact -->\n          <div class=\"form-group show-if-phone\" style=\"display:none;\">\n            <label for=\"cmp-date\" class=\"control-label\">Date</label>\n            <input type=\"date\" class=\"form-control\" name=\"date\" [(ngModel)]=\"contact.date\">\n          </div>\n          <div class=\"form-group show-if-phone\" style=\"display:none;\">\n            <label for=\"cmp-details\" class=\"control-label\">Details</label>\n            <input type=\"text\" class=\"form-control\" name=\"details\" [(ngModel)]=\"contact.details\">\n          </div>\n          <!-- Emails selector visible only for email contact -->\n          <div class=\"table-container show-if-email\" id=\"message-list\" style=\"display:none;\">\n            <table *ngFor=\"let m of emails; let i = index\">\n              <tr>\n                <td class=\"select-edit\">\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"selectEmail(i)\">Select</button>\n                </td>\n                <td>\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"viewEmail(i)\">View</button>\n                </td>\n              </tr>\n              <tr>\n                <td class=\"header\">Date</td>\n                <td>{{m.date}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">From</td>\n                <td>{{m.sender}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">To</td>\n                <td>{{m.receiver}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">Subject</td>\n                <td>{{m.subject}}</td>\n              </tr>\n            </table>\n            <!-- Modal displays email content-->\n            <div id=\"message-text\" class=\"modal\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" (click)=\"hideContent()\">&times;</button>\n                    <h4 class=\"modal-title\">{{emailSubject}}</h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <div class=\"form-group\">\n                      <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n                    </div>\n                  </div>\n                  <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" (click)=\"hideContent()\">Close</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n        <button id=\"save-button\" type=\"button\" class=\"btn btn-primary\" (click)=\"save()\" disabled>Save</button>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<!--\nCreate or edit a contact\n-->\n<div>\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n        <h4 class=\"modal-title\">Contact</h4>\n      </div>\n      <div class=\"modal-body\">\n        <form>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Person</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                  <option *ngFor=\"let p of persons\">\n                    {{p.name}}\n                  </option>\n                 </select>\n          </div>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Position</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n                  <option *ngFor=\"let p of positions\">\n                    {{p.title}}\n                  </option>\n                 </select>\n          </div>\n          <div *ngIf='!isMeeting' class=\"form-group\">\n            <label>Email&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isEmail\" [checked]='isEmail' (change)=\"setEmail()\">&nbsp;&nbsp;&nbsp;&nbsp;\n            <label>Phone&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isPhone\" [checked]='isPhone' (change)=\"setPhone()\">\n          </div>\n          <!-- Date and details inputs visible only for phone contact -->\n          <div *ngIf='isPhone || isMeeting'>\n            <div class=\"form-group\">\n              <label for=\"cmp-date\" class=\"control-label\">Date</label>\n              <input type=\"date\" class=\"form-control\" name=\"date\" [(ngModel)]=\"contact.date\">\n            </div>\n            <div class=\"form-group\">\n              <label for=\"cmp-details\" class=\"control-label\">Details</label>\n              <input type=\"text\" class=\"form-control\" name=\"details\" [(ngModel)]=\"contact.details\">\n            </div>\n          </div>\n          <!-- Emails selector visible only for email contact -->\n          <div *ngIf='isEmail' class=\"table-container\" id=\"message-list\">\n            <table *ngFor=\"let m of emails; let i = index\">\n              <tr>\n                <td class=\"select-edit\">\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"selectEmail(i)\">Select</button>\n                </td>\n                <td>\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"viewEmail(i)\">View</button>\n                </td>\n              </tr>\n              <tr>\n                <td class=\"header\">Date</td>\n                <td>{{m.date}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">From</td>\n                <td>{{m.sender}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">To</td>\n                <td>{{m.receiver}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">Subject</td>\n                <td>{{m.subject}}</td>\n              </tr>\n            </table>\n            <!-- Modal displays email content-->\n            <div id=\"message-text\" class=\"modal\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" (click)=\"hideContent()\">&times;</button>\n                    <h4 class=\"modal-title\">{{emailSubject}}</h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <div class=\"form-group\">\n                      <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n                    </div>\n                  </div>\n                  <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" (click)=\"hideContent()\">Close</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n        <button id=\"save-button\" type=\"button\" class=\"btn btn-primary\" (click)=\"save()\" disabled>Save</button>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -2107,6 +2096,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+/**
+ * Provides the low level http calls for CRUD operations
+ */
 var ServerService = (function () {
     function ServerService(http) {
         this.http = http;
@@ -2119,20 +2111,39 @@ var ServerService = (function () {
             this.baseUrl = document.baseURI + 'rest/';
         }
     }
+    /**
+     * Fetches all entities of a specified typoe
+     * @param entityType the entity type
+     */
     ServerService.prototype.getAll = function (entityType) {
         var url = this.baseUrl + entityType;
         return this.http.get(url);
     };
+    /**
+     * Updates an entity
+     * @param entityType the entity type
+     * @param entity the entity object (refer to the "model" folder for possible types)
+     */
     ServerService.prototype.update = function (entityType, entity) {
         var url = this.baseUrl + entityType;
         var converted = this.convertFields(entity);
         return this.http.put(url, converted);
     };
+    /**
+     * Creates an entity
+     * @param entityType the entity type
+     * @param entity the entity object (refer to the "model" folder for possible types)
+     */
     ServerService.prototype.create = function (entityType, entity) {
         var url = this.baseUrl + entityType;
         var converted = this.convertFields(entity);
         return this.http.post(url, converted);
     };
+    /**
+     * Deletes an entity
+     * @param entityType the entity type
+     * @param entity the entity object (refer to the "model" folder for possible types)
+     */
     ServerService.prototype.delete = function (entityType, entityId) {
         var url = this.baseUrl + entityType + '/' + entityId;
         return this.http.delete(url);
