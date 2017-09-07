@@ -77,17 +77,12 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
       }
       if (this.contact.type === 'email') {
         this.isEmail = true;
-        $('.show-if-email').show();
-        $('.select-email-or-phone').removeAttr('hidden');
       }
       else if (this.contact.type === 'phone'){
         this.isPhone = true;
-        $('.show-if-phone').show();
-        $('.select-email-or-phone').removeAttr('hidden');
       }
       else {
         this.isMeeting = true;
-        $('.show-if-phone').show();
         $('#save-button').removeAttr('disabled');
       }
     }
@@ -127,18 +122,12 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   setEmail() {
     this.isEmail = true;
     this.isPhone = false;
-    $('.show-if-phone').hide();
-    $('.show-if-email').show();
   }
 
   /** Called when Phone radio button clicked */
   setPhone() {
     this.isEmail = false;
     this.isPhone = true;
-    $('.show-if-email').hide();
-    $('.show-if-phone').show();
-    $('#message-list').hide();
-    $('#message-text').hide();
     $('#save-button').removeAttr('disabled');
   }
 
@@ -156,7 +145,7 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   viewEmail(index: number) {
     const email = this.emails[index];
     this.cache.getEmailContent(email.contentId).subscribe(
-      (response) => this.emailText = response.json().text);
+      (text: string) => this.emailText = text);
     this.emailSubject = email.subject;
     $('#message-text').show();
   }

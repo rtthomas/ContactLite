@@ -26,21 +26,25 @@ Create or edit a contact
                   </option>
                  </select>
           </div>
-          <div class="form-group">
-            <label>Email&nbsp;&nbsp;</label><input class="select-email-or-phone" type="radio" [value]="isEmail" [checked]='isEmail' disabled (change)="setEmail()">&nbsp;&nbsp;&nbsp;&nbsp;
-            <label>Phone&nbsp;&nbsp;</label><input class="select-email-or-phone" type="radio" [value]="isPhone" [checked]='isPhone' disabled (change)="setPhone()">
+          <div *ngIf='!isMeeting' class="form-group">
+            <label>Email&nbsp;&nbsp;</label>
+            <input class="select-email-or-phone" type="radio" [value]="isEmail" [checked]='isEmail' (change)="setEmail()">&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>Phone&nbsp;&nbsp;</label>
+            <input class="select-email-or-phone" type="radio" [value]="isPhone" [checked]='isPhone' (change)="setPhone()">
           </div>
           <!-- Date and details inputs visible only for phone contact -->
-          <div class="form-group show-if-phone" style="display:none;">
-            <label for="cmp-date" class="control-label">Date</label>
-            <input type="date" class="form-control" name="date" [(ngModel)]="contact.date">
-          </div>
-          <div class="form-group show-if-phone" style="display:none;">
-            <label for="cmp-details" class="control-label">Details</label>
-            <input type="text" class="form-control" name="details" [(ngModel)]="contact.details">
+          <div *ngIf='isPhone || isMeeting'>
+            <div class="form-group">
+              <label for="cmp-date" class="control-label">Date</label>
+              <input type="date" class="form-control" name="date" [(ngModel)]="contact.date">
+            </div>
+            <div class="form-group">
+              <label for="cmp-details" class="control-label">Details</label>
+              <input type="text" class="form-control" name="details" [(ngModel)]="contact.details">
+            </div>
           </div>
           <!-- Emails selector visible only for email contact -->
-          <div class="table-container show-if-email" id="message-list" style="display:none;">
+          <div *ngIf='isEmail' class="table-container" id="message-list">
             <table *ngFor="let m of emails; let i = index">
               <tr>
                 <td class="select-edit">
