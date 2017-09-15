@@ -29,7 +29,7 @@ export class Person  extends Entity{
             return company.name;
         }
         else {
-            return "not specified";
+            return '';
         }
     }
 }

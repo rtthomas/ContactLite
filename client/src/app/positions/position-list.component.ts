@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CacheService } from '../cache.service';
+import { ListComponentBase } from '../listComponentBase';
 
 declare var $:any;
 
@@ -7,11 +8,13 @@ declare var $:any;
   selector: 'app-positions',
   templateUrl: './position-list.component.html'
 })
-export class PositionListComponent implements OnInit {
+export class PositionListComponent extends ListComponentBase implements OnInit {
   // Will be filled by the cache service
   positions;
 
-  constructor(private cache: CacheService) { }
+  constructor(cache: CacheService) {
+    super(cache);
+  }
 
   ngOnInit() {
     this.positions = this.cache.getAll('position');
@@ -51,5 +54,23 @@ export class PositionListComponent implements OnInit {
       }
     }
     position.deletable=true;
+  }
+
+  sort(field: string){
+    if (field === 'title'){
+      this.positions = this.sortList(this.positions, field, false);
+    }    
+    else if (field === 'company'){
+      this.positions = this.sortListReferenced(this.positions, 'companyId', 'company', 'name');
+    }
+    else if (field === 'person'){
+      this.positions = this.sortListReferenced(this.positions, 'personId', 'person', 'name');
+    }
+    else if (field === 'datePosted'){
+      this.positions = this.sortList(this.positions, field, true);
+    }
+    else if (field === 'dateApplied'){
+      this.positions = this.sortList(this.positions, field, true);
+    }
   }
 }

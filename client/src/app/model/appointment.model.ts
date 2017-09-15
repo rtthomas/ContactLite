@@ -37,7 +37,7 @@ export class Appointment extends Entity{
             return company.name;
         }
         else {
-            return "not specified";
+            return '';
         }
     }
     getPersonName(){
@@ -46,7 +46,7 @@ export class Appointment extends Entity{
             return person.name;
         }
         else {
-            return "not specified";
+            return '';
         }
     }
     getPositionTitle(){
@@ -55,7 +55,7 @@ export class Appointment extends Entity{
             return position.title;
         }
         else {
-            return "not specified";
+            return '';
         }
      }
     formatDate(){

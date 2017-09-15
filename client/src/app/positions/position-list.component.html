@@ -1,20 +1,29 @@
 <a routerLink="/positions/new"><i class="material-icons" style="float:right">add</i></a>
 <a routerLink="/positions/new" class="btn btn-primary new-button" role="button">New Position</a>
 <br><p>
-<!-- List of all positions. On large displays, a conventional table -->
+<!-- 
+List of all positions. On large displays, two tables, one for the headers
+and one for the content, so the header remains visible during scrolling
+-->
 <div class="table-container hidden-small">
   <table>
     <thead>
       <tr>
         <th class="edit-cell"></th>
         <th class="delete-cell"></th>
-        <th>Title</th>
-        <th>Company</th>
-        <th>Person</th>
-        <th>Date Posted</th>
-        <th>Date Applied</th>
+        <th>Title   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('title')"></span></th>
+        <th>Company   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('company')"></span></th>
+        <th>Person   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('person')"></span></th>
+        <th>Date Posted   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('datePosted')"></span></th>
+        <th>Date Applied   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('dateApplied')"></span></th>
+        <!-- Ensures column alignment when the scrollbar appears -->
+        <th style="width:18px">&nbsp;</th>
       </tr>
     </thead>
+  </table>
+</div>
+<div class="table-container hidden-small">
+  <table>  
     <tbody>
       <tr *ngFor="let p of positions; let i = index">
         <td class="edit-cell">

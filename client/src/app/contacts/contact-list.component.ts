@@ -3,6 +3,7 @@ import { Contact } from '../model/contact.model';
 import { Email } from '../model/email.model';
 import { CacheService } from '../cache.service';
 import { Subscriber } from 'rxjs/Subscriber';
+import { ListComponentBase } from '../listComponentBase';
 
 declare var $:any;
 
@@ -10,14 +11,15 @@ declare var $:any;
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html'
 })
-export class ContactListComponent implements OnInit, OnDestroy {
+export class ContactListComponent extends ListComponentBase implements OnInit, OnDestroy {
   contacts;
   emailText: string;
   emailSubject:string;
 
   private subscriber:Subscriber<string>;
 
-  constructor(private cache: CacheService) {
+  constructor(cache: CacheService) {
+    super(cache);
   }
 
   ngOnInit() {
@@ -58,4 +60,15 @@ export class ContactListComponent implements OnInit, OnDestroy {
     $('#message-text').hide();
   }
 
+  sort(field: string){
+    if (field === 'date'){
+      this.contacts = this.sortList(this.contacts, field, true);
+    }
+    else if (field === 'person'){
+      this.contacts = this.sortListReferenced(this.contacts, 'personId', 'person', 'name');
+    }
+    else if (field === 'position'){
+      this.contacts = this.sortListReferenced(this.contacts, 'positionId', 'position', 'title');
+    }
+  }
 }

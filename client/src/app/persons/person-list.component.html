@@ -1,18 +1,27 @@
 <a routerLink="/persons/new"><i class="material-icons" style="float:right">add</i></a>
 <a routerLink="/persons/new" class="btn btn-primary new-button" role="button">New Person</a>
 <br><p>
-<!-- List of all persons. On large displays, a conventional table -->
+<!-- 
+List of all persons. On large displays, two tables, one for the headers
+and one for the content, so the header remains visible during scrolling
+-->
 <div class="table-container hidden-small">
   <table>
     <thead>
       <tr>
         <th class="edit-cell"></th>
-        <th>Name</th>
+        <th>Name   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('name')"></span></th>
         <th>Email</th>
         <th>Phone</th>
-        <th>Company</th>
+        <th>Company   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('company')"></span></th>
+        <!-- Ensures column alignment when the scrollbar appears -->
+        <th style="width:18px">&nbsp;</th>
       </tr>
     </thead>
+  </table>
+</div>
+<div class="table-container hidden-small">
+  <table>  
     <tbody>
       <tr *ngFor="let p of persons; let i = index">
         <td class="edit-cell">

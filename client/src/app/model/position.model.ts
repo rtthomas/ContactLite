@@ -39,7 +39,7 @@ export class Position extends Entity {
       return company.name;
     }
     else {
-      return "not specified";
+      return '';
     }
   }
 
@@ -49,7 +49,7 @@ export class Position extends Entity {
       return person.name;
     }
     else {
-      return "not specified";
+      return '';
     }
   }
   formatDateApplied() {

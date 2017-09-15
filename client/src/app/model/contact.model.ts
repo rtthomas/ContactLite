@@ -40,7 +40,7 @@ export class Contact extends Entity {
             return position.title;
         }
         else {
-            return 'not specified';
+            return '';
         }
     }
 
@@ -50,7 +50,7 @@ export class Contact extends Entity {
             return person.name;
         }
         else {
-            return 'not specified';
+            return '';
         }
     }
 
