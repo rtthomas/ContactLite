@@ -12,8 +12,8 @@ import { DateTimeService } from '../../datetime.service';
 })
 export class PositionComponent extends EntityComponentBase implements OnInit {
   position: Position;
-  datePosted:string; // for the html date element, which requires a string yyyy-mm-dd
-  dateApplied:string; // for the html date element, which requires a string yyyy-mm-dd
+  datePosted: string; // for the html date element, which requires a string yyyy-mm-dd
+  dateApplied: string; // for the html date element, which requires a string yyyy-mm-dd
   selectedCompany; // the company name
   selectedPerson; // the person name
   companies = [];
@@ -39,18 +39,18 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
     this.personNameToId = maps.attributeToId;
     this.personIdToName = maps.idToAttribute;
 
-    const  id = this.route.snapshot.params['id'];
-    if (id === 'new'){
+    const id = this.route.snapshot.params['id'];
+    if (id === 'new') {
       // Creating a new one
       this.position = new Position(null, '', '', null, null, null, null);
     }
     else {
       // Viewing or editing
       this.position = this.service.getByIndex('position', id);
-      if (this.position.datePosted){
+      if (this.position.datePosted) {
         this.datePosted = this.datetime.formatDateForInput(this.position.datePosted);
       }
-      if (this.position.dateApplied){
+      if (this.position.dateApplied) {
         this.dateApplied = this.datetime.formatDateForInput(this.position.dateApplied);
       }
       this.selectedCompany = this.companyIdToName[this.position.companyId];
@@ -58,19 +58,22 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
     }
   }
 
-  cancel(){
+  cancel() {
     this.router.navigate(['/positions']);
   }
-  save(){
-    let posted = new Date();
-    let parts: string[] = this.datePosted.split('-');
-    posted.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
-    this.position.datePosted = posted.getTime();
-
-    let applied = new Date();
-    parts = this.dateApplied.split('-');
-    applied.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
-    this.position.dateApplied = applied.getTime();
+  save() {
+    if (this.datePosted) {
+      let posted = new Date();
+      let parts: string[] = this.datePosted.split('-');
+      posted.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
+      this.position.datePosted = posted.getTime();
+    }
+    if (this.dateApplied) {
+      let applied = new Date();
+      parts = this.dateApplied.split('-');
+      applied.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
+      this.position.dateApplied = applied.getTime();
+    }
 
     console.log("Posted " + this.position.datePosted + ' : ' + this.datePosted);
     this.service.save('position', this.position);

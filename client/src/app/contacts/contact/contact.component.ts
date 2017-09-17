@@ -14,7 +14,7 @@ declare var $: any;
 })
 export class ContactComponent extends EntityComponentBase implements OnInit {
   contact: Contact;
-  date:string; // for the html date element, which requires a string yyyy-mm-dd
+  date: string; // for the html date element, which requires a string yyyy-mm-dd
   selectedPerson; // the company name
   selectedPosition; // the company name
   isEmail: boolean;
@@ -79,7 +79,7 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
       if (this.contact.type === 'email') {
         this.isEmail = true;
       }
-      else if (this.contact.type === 'phone'){
+      else if (this.contact.type === 'phone') {
         this.isPhone = true;
       }
       else {
@@ -93,17 +93,19 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
     this.router.navigate(['/contacts']);
   }
   save() {
-    let date = new Date();
-    const parts: string[] = this.date.split('-');
-    date.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
-    this.contact.date = date.getTime();
+    if (this.date) {
+      let date = new Date();
+      const parts: string[] = this.date.split('-');
+      date.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
+      this.contact.date = date.getTime();
+    }
     if (this.isEmail) {
       this.contact.type = 'email';
       const email: Email = this.emails[this.selectedEmailIndex];
       email.assigned = true;
       this.cache.save('email', email);
     }
-    else if (this.isPhone){
+    else if (this.isPhone) {
       this.contact.type = 'phone';
     }
     else {

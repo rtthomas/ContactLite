@@ -6,7 +6,7 @@ import { CacheService } from '../../cache.service';
 import { DateTimeService } from '../../datetime.service';
 import { Contact } from '../../model/contact.model';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-appointment',
@@ -14,8 +14,8 @@ declare var $:any;
 })
 export class AppointmentComponent extends EntityComponentBase implements OnInit {
   appointment: Appointment;
-  time:string; // for the html time element, which requires a string hh:mm
-  date:string; // for the html date element, which requires a string yyyy-mm-dd
+  time: string; // for the html time element, which requires a string hh:mm
+  date: string; // for the html date element, which requires a string yyyy-mm-dd
   selectedCompany: string; // the company name
   selectedPerson: string; // the person name
   selectedPosition: string; // the position title
@@ -64,12 +64,12 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
         const date: Date = new Date(this.appointment.dateTime);
 
         let h: string = Number(date.getHours()).toString();
-        if (h.length === 1){
+        if (h.length === 1) {
           h = '0' + h;
         }
 
         let m: string = Number(date.getMinutes()).toString();
-        if (m.length === 1){
+        if (m.length === 1) {
           m = '0' + m;
         }
 
@@ -90,19 +90,23 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
   }
   save() {
     let dateTime = new Date();
-    const dateParts: string[] = this.date.split('-');
-    dateTime.setFullYear(+dateParts[0], +dateParts[1] - 1, +dateParts[2]);
-    const timeParts: string[] = this.time.split(':');
-    dateTime.setHours(+timeParts[0]);
-    dateTime.setMinutes(+timeParts[1]);
-    this.appointment.dateTime = dateTime.getTime();
+    if (this.time){
+      const timeParts: string[] = this.time.split(':');
+      dateTime.setHours(+timeParts[0]);
+      dateTime.setMinutes(+timeParts[1]);
+    }
+    if (this.date) {
+      const dateParts: string[] = this.date.split('-');
+      dateTime.setFullYear(+dateParts[0], +dateParts[1] - 1, +dateParts[2]);
+      this.appointment.dateTime = dateTime.getTime();
+    }
     this.cache.save('appointment', this.appointment);
     this.router.navigate(['/appointments']);
   }
 
   /** Enables display of the Record button if the appointment date/time has passed */
-  displayIfConvertible(): string{
-    if (this.id === 'new' || !this.appointment.dateTime){
+  displayIfConvertible(): string {
+    if (this.id === 'new' || !this.appointment.dateTime) {
       return 'hidden';
     }
     const dateTime: Date = new Date(this.appointment.dateTime);
@@ -111,7 +115,7 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
     return canConvert ? 'btn btn-primary' : 'hidden';
   }
   /** Converts the appointment to a "meeting" contact */
-  convert(){
+  convert() {
     const contact = new Contact(null, this.appointment.positionId, this.appointment.personId, this.appointment.dateTime, 'meeting', null, null);
     this.cache.save('contact', contact);
     this.cache.deleteById('appointment', this.appointment.id);
