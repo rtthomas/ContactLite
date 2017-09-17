@@ -52,7 +52,7 @@ public class MailServlet extends HttpServlet {
 			    	DataAccess da = new DataAccess();
 					EmailContent content = new EmailContent(text);
 					Key<EntityBase> key = da.ofyPut(content);
-					Email email = new Email(sender, receiver, date, subject, key.getId());
+					Email email = new Email(sender, receiver, date.getTime(), subject, key.getId());
 			    	da.ofyPut(email);
 				}
 			}

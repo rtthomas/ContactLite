@@ -27,8 +27,8 @@ export class Position extends Entity {
     public id: number,
     public title: string,
     public url: string,
-    public dateApplied: string,
-    public datePosted: string,
+    public dateApplied: number,
+    public datePosted: number,
     public companyId: number,
     public personId: number
   ) { super(); }

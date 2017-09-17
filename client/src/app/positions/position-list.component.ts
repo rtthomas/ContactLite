@@ -58,7 +58,7 @@ export class PositionListComponent extends ListComponentBase implements OnInit {
 
   sort(field: string){
     if (field === 'title'){
-      this.positions = this.sortList(this.positions, field, false);
+      this.positions = this.sortList(this.positions, field);
     }    
     else if (field === 'company'){
       this.positions = this.sortListReferenced(this.positions, 'companyId', 'company', 'name');
@@ -67,10 +67,10 @@ export class PositionListComponent extends ListComponentBase implements OnInit {
       this.positions = this.sortListReferenced(this.positions, 'personId', 'person', 'name');
     }
     else if (field === 'datePosted'){
-      this.positions = this.sortList(this.positions, field, true);
+      this.positions = this.sortList(this.positions, field);
     }
     else if (field === 'dateApplied'){
-      this.positions = this.sortList(this.positions, field, true);
+      this.positions = this.sortList(this.positions, field);
     }
   }
 }

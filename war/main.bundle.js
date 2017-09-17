@@ -1,6 +1,6 @@
 webpackJsonp([1,4],{
 
-/***/ 105:
+/***/ 106:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34,8 +34,8 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-root',
-        template: __webpack_require__(177),
-        styles: [__webpack_require__(174)]
+        template: __webpack_require__(178),
+        styles: [__webpack_require__(175)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object])
 ], AppComponent);
@@ -45,7 +45,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 106:
+/***/ 107:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -79,7 +79,7 @@ var AppointmentListComponent = (function () {
 AppointmentListComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-appointment-list',
-        template: __webpack_require__(178)
+        template: __webpack_require__(179)
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object])
 ], AppointmentListComponent);
@@ -89,17 +89,17 @@ var _a;
 
 /***/ }),
 
-/***/ 107:
+/***/ 108:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_appointment_model__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_appointment_model__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entityComponentBase__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__cache_service__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__datetime_service__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__model_contact_model__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__model_contact_model__ = __webpack_require__(40);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppointmentComponent; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -164,19 +164,27 @@ var AppointmentComponent = (function (_super) {
         if (this.id === 'new') {
             $('#convert').hide();
             // Creating a new one
-            this.appointment = new __WEBPACK_IMPORTED_MODULE_2__model_appointment_model__["a" /* Appointment */](null, null, null, null, null, null);
+            this.appointment = new __WEBPACK_IMPORTED_MODULE_2__model_appointment_model__["a" /* Appointment */](null, null, null, null, null);
         }
         else {
             // Viewing or editing
             $('#convert').show();
             this.appointment = this.cache.getByIndex('appointment', this.id);
-            if (this.appointment.time) {
-                if (this.appointment.time.length === 4) {
-                    this.appointment.time = '0' + this.appointment.time;
+            if (this.appointment.dateTime) {
+                var date = new Date(this.appointment.dateTime);
+                var h = Number(date.getHours()).toString();
+                if (h.length === 1) {
+                    h = '0' + h;
                 }
-            }
-            if (this.appointment.date) {
-                this.appointment.date = this.datetime.formatDateForInput(this.appointment.date);
+                var m = Number(date.getMinutes()).toString();
+                if (m.length === 1) {
+                    m = '0' + m;
+                }
+                this.time = h + ":" + m;
+                if (this.time.length === 4) {
+                    this.time = '0' + this.appointment.dateTime;
+                }
+                this.date = this.datetime.formatDateForInput(this.appointment.dateTime);
             }
             this.selectedCompany = this.companyIdToName[this.appointment.companyId];
             this.selectedPerson = this.personIdToName[this.appointment.personId];
@@ -187,29 +195,29 @@ var AppointmentComponent = (function (_super) {
         this.router.navigate(['/appointments']);
     };
     AppointmentComponent.prototype.save = function () {
+        var dateTime = new Date();
+        var dateParts = this.date.split('-');
+        dateTime.setFullYear(+dateParts[0], +dateParts[1] - 1, +dateParts[2]);
+        var timeParts = this.time.split(':');
+        dateTime.setHours(+timeParts[0]);
+        dateTime.setMinutes(+timeParts[1]);
+        this.appointment.dateTime = dateTime.getTime();
         this.cache.save('appointment', this.appointment);
         this.router.navigate(['/appointments']);
     };
     /** Enables display of the Record button if the appointment date/time has passed */
     AppointmentComponent.prototype.displayIfConvertible = function () {
-        if (this.id === 'new' || !this.appointment.date) {
+        if (this.id === 'new' || !this.appointment.dateTime) {
             return 'hidden';
         }
-        // Combine the date and time fields
-        var day = new Date(this.datetime.formatListDate(this.appointment.date));
-        var dateTime = new Date(day.getFullYear(), day.getMonth(), day.getDate());
-        if (this.appointment.time) {
-            var time = this.appointment.time;
-            dateTime.setHours(+time.substr(0, 2));
-            dateTime.setMinutes(+time.substr(3, 2));
-        }
+        var dateTime = new Date(this.appointment.dateTime);
         // Convertible if the date/time has been reached
         var canConvert = dateTime.getTime() < (new Date()).getTime();
         return canConvert ? 'btn btn-primary' : 'hidden';
     };
     /** Converts the appointment to a "meeting" contact */
     AppointmentComponent.prototype.convert = function () {
-        var contact = new __WEBPACK_IMPORTED_MODULE_6__model_contact_model__["a" /* Contact */](null, this.appointment.positionId, this.appointment.personId, this.appointment.date, 'meeting', null, null);
+        var contact = new __WEBPACK_IMPORTED_MODULE_6__model_contact_model__["a" /* Contact */](null, this.appointment.positionId, this.appointment.personId, this.appointment.dateTime, 'meeting', null, null);
         this.cache.save('contact', contact);
         this.cache.deleteById('appointment', this.appointment.id);
     };
@@ -230,7 +238,7 @@ var AppointmentComponent = (function (_super) {
 AppointmentComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-appointment',
-        template: __webpack_require__(179)
+        template: __webpack_require__(180)
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */]) === "function" && _d || Object])
 ], AppointmentComponent);
@@ -240,13 +248,24 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ 108:
+/***/ 109:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__(30);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyListComponent; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -258,23 +277,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var CompanyListComponent = (function () {
-    function CompanyListComponent(service) {
-        this.service = service;
+
+var CompanyListComponent = (function (_super) {
+    __extends(CompanyListComponent, _super);
+    function CompanyListComponent(cache) {
+        return _super.call(this, cache) || this;
     }
     CompanyListComponent.prototype.ngOnInit = function () {
-        this.companies = this.service.getAll('company');
+        this.companies = this.cache.getAll('company');
         // Collapse the menu if it is visible as drop down
         if ($("#nav-toggle").hasClass("in")) {
             $(".collapse").collapse('toggle');
         }
     };
+    CompanyListComponent.prototype.sort = function (field) {
+        this.companies = this.sortList(this.companies, field);
+    };
     return CompanyListComponent;
-}());
+}(__WEBPACK_IMPORTED_MODULE_2__listComponentBase__["a" /* ListComponentBase */]));
 CompanyListComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-company-list',
-        template: __webpack_require__(180)
+        template: __webpack_require__(181)
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object])
 ], CompanyListComponent);
@@ -284,13 +308,108 @@ var _a;
 
 /***/ }),
 
-/***/ 109:
+/***/ 11:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DateTimeService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var DateTimeService = (function () {
+    function DateTimeService() {
+    }
+    /**
+     * Formats a date for display in an entity list in the form "MMM dd, yyyy"
+     * @param d a date millisecond value
+     */
+    DateTimeService.prototype.formatListDate = function (d) {
+        if (d) {
+            var date = new Date(d);
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var f = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+            return f;
+        }
+        else {
+            return '';
+        }
+    };
+    /** Formats a date for use in an HTML date input element
+     * @param d millisecond date value
+     * @return date string in form yyyy-mm-dd
+    */
+    DateTimeService.prototype.formatDateForInput = function (d) {
+        var date = new Date(d);
+        var year = Number(date.getFullYear()).toString();
+        var month = Number(date.getMonth() + 1).toString();
+        if (month.length === 1) {
+            month = '0' + month;
+        }
+        var day = Number(date.getDate()).toString();
+        if (day.length === 1) {
+            day = '0' + day;
+        }
+        var f = year.concat('-').concat(month).concat('-').concat(day);
+        return f;
+    };
+    /**
+    * Formats a date for display in an entity list in the form "hh:mm aa"
+    * @param t a date millisecond value
+    */
+    DateTimeService.prototype.formatListTime = function (t) {
+        if (!t) {
+            return '';
+        }
+        var date = new Date(t);
+        var h = date.getHours();
+        var m = new Number(date.getMinutes()).toString();
+        var ampm;
+        if (h == 12) {
+            ampm = 'PM';
+        }
+        else if (h > 12) {
+            ampm = 'PM';
+            h -= 12;
+        }
+        else {
+            ampm = 'AM';
+            if (h == 0) {
+                h = 12;
+            }
+        }
+        if (m.length == 1) {
+            m = '0' + m;
+        }
+        return String(h) + ':' + m + ' ' + ampm;
+    };
+    return DateTimeService;
+}());
+DateTimeService = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Injectable */])()
+    /** Provides utility methods for date and time formatting */
+    ,
+    __metadata("design:paramtypes", [])
+], DateTimeService);
+
+//# sourceMappingURL=datetime.service.js.map
+
+/***/ }),
+
+/***/ 110:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_company_model__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_company_model__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cache_service__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -335,7 +454,7 @@ var CompanyComponent = (function () {
 CompanyComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-company',
-        template: __webpack_require__(181)
+        template: __webpack_require__(182)
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */]) === "function" && _c || Object])
 ], CompanyComponent);
@@ -345,126 +464,24 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ 11:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DateTimeService; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var DateTimeService = (function () {
-    function DateTimeService() {
-    }
-    /**
-     * Formats a date for display in an entity list in the form "MMM dd, yyyy"
-     * @param s date string in format "yyyy-mm-dd" or MMM yy, yyyy hh:mm:ss aa
-     */
-    DateTimeService.prototype.formatListDate = function (s) {
-        if (s) {
-            var d = void 0;
-            if (s.indexOf('-') > 0) {
-                var p = s.split('-');
-                d = new Date();
-                d.setFullYear(+p[0], +p[1] - 1, +p[2]);
-            }
-            else {
-                d = new Date(s);
-            }
-            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            var f = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
-            return f;
-        }
-        else {
-            return '';
-        }
-    };
-    /** Formats a date for use in an HTML date input element
-     * @param s date string in the form "yyyy-mm-dd" or MMM dd, yyyy hh:mm:ss aa
-     * @return date string in form yyyy-mm-dd
-    */
-    DateTimeService.prototype.formatDateForInput = function (s) {
-        var date;
-        if (s.indexOf('-') > 0) {
-            var p = s.split('-');
-            date = new Date();
-            date.setFullYear(+p[0], +p[1] - 1, +p[2]);
-        }
-        else {
-            date = new Date(s);
-        }
-        var f = String(date.getFullYear()).concat('-');
-        var m = date.getMonth() + 1;
-        if (m < 10) {
-            f = f.concat('0');
-        }
-        f = f.concat(String(m)).concat('-');
-        var d = date.getDate();
-        if (d < 10) {
-            f = f.concat('0');
-        }
-        f = f.concat(String(d));
-        return f;
-    };
-    /**
-    * Formats a date for display in an entity list in the form "hh:mm aa"
-    * @parsm s a time string in the form string "hh:mm"
-    */
-    DateTimeService.prototype.formatListTime = function (s) {
-        if (!s) {
-            return '';
-        }
-        var hm = s.split(':');
-        var h = +hm[0];
-        var m = hm[1];
-        var ampm;
-        if (h == 12) {
-            ampm = 'PM';
-        }
-        else if (h > 12) {
-            ampm = 'PM';
-            h -= 12;
-        }
-        else {
-            ampm = 'AM';
-            if (h == 0) {
-                h = 12;
-            }
-        }
-        if (m.length == 1) {
-            m = '0' + m;
-        }
-        s = String(h) + ':' + m + ' ' + ampm;
-        return s;
-    };
-    return DateTimeService;
-}());
-DateTimeService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Injectable */])()
-    /** Provides utility methods for date and time formatting */
-    ,
-    __metadata("design:paramtypes", [])
-], DateTimeService);
-
-//# sourceMappingURL=datetime.service.js.map
-
-/***/ }),
-
-/***/ 110:
+/***/ 111:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__(30);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactListComponent; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -476,9 +493,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var ContactListComponent = (function () {
+
+var ContactListComponent = (function (_super) {
+    __extends(ContactListComponent, _super);
     function ContactListComponent(cache) {
-        this.cache = cache;
+        return _super.call(this, cache) || this;
     }
     ContactListComponent.prototype.ngOnInit = function () {
         this.contacts = this.cache.getAll('contact');
@@ -514,12 +533,23 @@ var ContactListComponent = (function () {
     ContactListComponent.prototype.closeEmail = function () {
         $('#message-text').hide();
     };
+    ContactListComponent.prototype.sort = function (field) {
+        if (field === 'date') {
+            this.contacts = this.sortList(this.contacts, field);
+        }
+        else if (field === 'person') {
+            this.contacts = this.sortListReferenced(this.contacts, 'personId', 'person', 'name');
+        }
+        else if (field === 'position') {
+            this.contacts = this.sortListReferenced(this.contacts, 'positionId', 'position', 'title');
+        }
+    };
     return ContactListComponent;
-}());
+}(__WEBPACK_IMPORTED_MODULE_2__listComponentBase__["a" /* ListComponentBase */]));
 ContactListComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-contact-list',
-        template: __webpack_require__(182)
+        template: __webpack_require__(183)
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object])
 ], ContactListComponent);
@@ -529,13 +559,13 @@ var _a;
 
 /***/ }),
 
-/***/ 111:
+/***/ 112:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_contact_model__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_contact_model__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cache_service__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__entityComponentBase__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__datetime_service__ = __webpack_require__(11);
@@ -607,7 +637,7 @@ var ContactComponent = (function (_super) {
             // Viewing or editing
             this.contact = this.cache.getByIndex('contact', id);
             if (this.contact.date) {
-                this.contact.date = this.datetime.formatDateForInput(this.contact.date);
+                this.date = this.datetime.formatDateForInput(this.contact.date);
             }
             if (this.contact.positionId) {
                 this.selectedPosition = this.positionIdToTitle[this.contact.positionId];
@@ -631,6 +661,10 @@ var ContactComponent = (function (_super) {
         this.router.navigate(['/contacts']);
     };
     ContactComponent.prototype.save = function () {
+        var date = new Date();
+        var parts = this.date.split('-');
+        date.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
+        this.contact.date = date.getTime();
         if (this.isEmail) {
             this.contact.type = 'email';
             var email = this.emails[this.selectedEmailIndex];
@@ -690,7 +724,7 @@ var ContactComponent = (function (_super) {
 ContactComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-contact',
-        template: __webpack_require__(183)
+        template: __webpack_require__(184)
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */]) === "function" && _d || Object])
 ], ContactComponent);
@@ -700,7 +734,7 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ 112:
+/***/ 113:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -726,7 +760,7 @@ var HomeComponent = (function () {
 HomeComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-home',
-        template: __webpack_require__(184)
+        template: __webpack_require__(185)
     }),
     __metadata("design:paramtypes", [])
 ], HomeComponent);
@@ -735,7 +769,7 @@ HomeComponent = __decorate([
 
 /***/ }),
 
-/***/ 113:
+/***/ 114:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -796,7 +830,7 @@ var Email = Email_1 = (function (_super) {
 }(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
 Email = Email_1 = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["d" /* Injectable */])(),
-    __metadata("design:paramtypes", [Number, String, String, String, String, Number, Boolean])
+    __metadata("design:paramtypes", [Number, String, String, Number, String, Number, Boolean])
 ], Email);
 
 var Email_1;
@@ -804,13 +838,24 @@ var Email_1;
 
 /***/ }),
 
-/***/ 114:
+/***/ 115:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__(30);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PersonListComponent; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -822,23 +867,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var PersonListComponent = (function () {
-    function PersonListComponent(service) {
-        this.service = service;
+
+var PersonListComponent = (function (_super) {
+    __extends(PersonListComponent, _super);
+    function PersonListComponent(cache) {
+        return _super.call(this, cache) || this;
     }
     PersonListComponent.prototype.ngOnInit = function () {
-        this.persons = this.service.getAll('person');
+        this.persons = this.cache.getAll('person');
         // Collapse the menu if it is visible as drop down
         if ($("#nav-toggle").hasClass("in")) {
             $(".collapse").collapse('toggle');
         }
     };
+    PersonListComponent.prototype.sort = function (field) {
+        if (field === 'name') {
+            this.persons = this.sortList(this.persons, field);
+        }
+        else if (field === 'company') {
+            this.persons = this.sortListReferenced(this.persons, 'companyId', 'company', 'name');
+        }
+    };
     return PersonListComponent;
-}());
+}(__WEBPACK_IMPORTED_MODULE_2__listComponentBase__["a" /* ListComponentBase */]));
 PersonListComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-person-list',
-        template: __webpack_require__(185)
+        template: __webpack_require__(186)
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object])
 ], PersonListComponent);
@@ -848,13 +903,13 @@ var _a;
 
 /***/ }),
 
-/***/ 115:
+/***/ 116:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_person_model__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_person_model__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entityComponentBase__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__cache_service__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PersonComponent; });
@@ -929,7 +984,7 @@ var PersonComponent = (function (_super) {
 PersonComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-person',
-        template: __webpack_require__(186)
+        template: __webpack_require__(187)
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */]) === "function" && _c || Object])
 ], PersonComponent);
@@ -939,13 +994,24 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ 116:
+/***/ 117:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__(30);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PositionListComponent; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -957,9 +1023,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var PositionListComponent = (function () {
+
+var PositionListComponent = (function (_super) {
+    __extends(PositionListComponent, _super);
     function PositionListComponent(cache) {
-        this.cache = cache;
+        return _super.call(this, cache) || this;
     }
     PositionListComponent.prototype.ngOnInit = function () {
         this.positions = this.cache.getAll('position');
@@ -1001,12 +1069,29 @@ var PositionListComponent = (function () {
         }
         position.deletable = true;
     };
+    PositionListComponent.prototype.sort = function (field) {
+        if (field === 'title') {
+            this.positions = this.sortList(this.positions, field);
+        }
+        else if (field === 'company') {
+            this.positions = this.sortListReferenced(this.positions, 'companyId', 'company', 'name');
+        }
+        else if (field === 'person') {
+            this.positions = this.sortListReferenced(this.positions, 'personId', 'person', 'name');
+        }
+        else if (field === 'datePosted') {
+            this.positions = this.sortList(this.positions, field);
+        }
+        else if (field === 'dateApplied') {
+            this.positions = this.sortList(this.positions, field);
+        }
+    };
     return PositionListComponent;
-}());
+}(__WEBPACK_IMPORTED_MODULE_2__listComponentBase__["a" /* ListComponentBase */]));
 PositionListComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-positions',
-        template: __webpack_require__(187)
+        template: __webpack_require__(188)
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object])
 ], PositionListComponent);
@@ -1016,13 +1101,13 @@ var _a;
 
 /***/ }),
 
-/***/ 117:
+/***/ 118:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_position_model__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_position_model__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entityComponentBase__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__cache_service__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__datetime_service__ = __webpack_require__(11);
@@ -1087,10 +1172,10 @@ var PositionComponent = (function (_super) {
             // Viewing or editing
             this.position = this.service.getByIndex('position', id);
             if (this.position.datePosted) {
-                this.position.datePosted = this.datetime.formatDateForInput(this.position.datePosted);
+                this.datePosted = this.datetime.formatDateForInput(this.position.datePosted);
             }
             if (this.position.dateApplied) {
-                this.position.dateApplied = this.datetime.formatDateForInput(this.position.dateApplied);
+                this.dateApplied = this.datetime.formatDateForInput(this.position.dateApplied);
             }
             this.selectedCompany = this.companyIdToName[this.position.companyId];
             this.selectedPerson = this.personIdToName[this.position.personId];
@@ -1100,7 +1185,15 @@ var PositionComponent = (function (_super) {
         this.router.navigate(['/positions']);
     };
     PositionComponent.prototype.save = function () {
-        console.log(typeof this.position.datePosted, typeof this.position.dateApplied);
+        var posted = new Date();
+        var parts = this.datePosted.split('-');
+        posted.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
+        this.position.datePosted = posted.getTime();
+        var applied = new Date();
+        parts = this.dateApplied.split('-');
+        applied.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
+        this.position.dateApplied = applied.getTime();
+        console.log("Posted " + this.position.datePosted + ' : ' + this.datePosted);
         this.service.save('position', this.position);
         this.router.navigate(['/positions']);
     };
@@ -1117,7 +1210,7 @@ var PositionComponent = (function (_super) {
 PositionComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-position',
-        template: __webpack_require__(188)
+        template: __webpack_require__(189)
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */]) === "function" && _d || Object])
 ], PositionComponent);
@@ -1127,7 +1220,7 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ 118:
+/***/ 119:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1144,7 +1237,7 @@ var environment = {
 
 /***/ }),
 
-/***/ 174:
+/***/ 175:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(26)(false);
@@ -1162,24 +1255,17 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 177:
+/***/ 178:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"container\">\n  <!-- Contains the menu -->\n  <app-home></app-home>\n  <!-- Will hold one of the five main pages -->\n  <router-outlet></router-outlet>\n</div>"
 
 /***/ }),
 
-/***/ 178:
-/***/ (function(module, exports) {
-
-module.exports = "<a routerLink=\"/appointments/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/appointments/new\" class=\"btn btn-primary new-button\" role=\"button\">New Appointment</a>\n<br><p>\n<!-- List of all appointments. On large displays, a conventional table -->\n<div class=\"table-container hidden-small\">\n  <table>\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Company</th>\n        <th>Person</th>\n        <th>Date</th>\n        <th>Time</th>\n        <th>Position</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let a of appointments; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/appointments', i]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{a.getCompanyName()}}</td>\n        <td>{{a.getPersonName()}}</td>\n        <td>{{a.formatDate()}}</td>\n        <td>{{a.formatTime()}}</td>\n        <td>{{a.getPositionTitle()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let a of appointments; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/appointments', i]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{a.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{a.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date</td>\n      <td colspan=\"2\">{{a.formatDate()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Time</td>\n      <td colspan=\"2\">{{a.formatTime()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Position</td>\n      <td colspan=\"2\">{{a.getPositionTitle()}}</td>\n    </tr>\n  </table>\n</div>"
-
-/***/ }),
-
 /***/ 179:
 /***/ (function(module, exports) {
 
-module.exports = "   <!--\n   Create or edit an appointment \n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Appointment</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"date\" class=\"control-label\">Date</label>\n               <input type=\"date\" class=\"form-control\" name=\"date\" id=\"date\" [(ngModel)]=\"appointment.date\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"time\" class=\"control-label\">Time</label>\n               <input type=\"time\" class=\"form-control\" name=\"time\" id=\"time\" [(ngModel)]=\"appointment.time\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\" class=\"control-label\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany()\">\n                <option *ngFor=\"let c of companies\">\n                  {{c.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel2\" class=\"control-label\">Person</label>\n               <select class=\"form-control\" id=\"sel2\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                <option *ngFor=\"let p of persons\">\n                  {{p.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel3\" class=\"control-label\">Position</label>\n               <select class=\"form-control\" id=\"sel3\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n                <option *ngFor=\"let p of positions\">\n                  {{p.title}}\n                </option>\n               </select>\n             </div>\n          </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n          <!-- Convert button visible only for edit -->\n          <button type=\"button\" [class]=\"displayIfConvertible()\" id=\"convert\" (click)=\"convert()\">Record</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
+module.exports = "<a routerLink=\"/appointments/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/appointments/new\" class=\"btn btn-primary new-button\" role=\"button\">New Appointment</a>\n<br><p>\n<!-- List of all appointments. On large displays, a conventional table -->\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Company</th>\n        <th>Person</th>\n        <th>Date</th>\n        <th>Time</th>\n        <th>Position</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let a of appointments; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/appointments', i]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{a.getCompanyName()}}</td>\n        <td>{{a.getPersonName()}}</td>\n        <td>{{a.formatDate()}}</td>\n        <td>{{a.formatTime()}}</td>\n        <td>{{a.getPositionTitle()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let a of appointments; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/appointments', i]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{a.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{a.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date</td>\n      <td colspan=\"2\">{{a.formatDate()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Time</td>\n      <td colspan=\"2\">{{a.formatTime()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Position</td>\n      <td colspan=\"2\">{{a.getPositionTitle()}}</td>\n    </tr>\n  </table>\n</div>"
 
 /***/ }),
 
@@ -1189,23 +1275,23 @@ module.exports = "   <!--\n   Create or edit an appointment \n   -->\n   <div>\n
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__home_home_component__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__companies_company_list_component__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__companies_company_company_component__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__positions_position_list_component__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__positions_position_position_component__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__persons_person_list_component__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__persons_person_person_component__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_list_component__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__appointments_appointment_appointment_component__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__contacts_contact_list_component__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__contacts_contact_contact_component__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__server_service__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__home_home_component__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__companies_company_list_component__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__companies_company_company_component__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__positions_position_list_component__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__positions_position_position_component__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__persons_person_list_component__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__persons_person_person_component__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_list_component__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__appointments_appointment_appointment_component__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__contacts_contact_list_component__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__contacts_contact_contact_component__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__server_service__ = __webpack_require__(71);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__cache_service__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__datetime_service__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
@@ -1294,63 +1380,70 @@ var AppModule_1, _a;
 /***/ 180:
 /***/ (function(module, exports) {
 
-module.exports = "<a routerLink=\"/companies/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/companies/new\" class=\"btn btn-primary new-button\" role=\"button\">New Company</a>\n<br><p>\n<!-- List of all companies. On large displays, a conventional table -->\n<div class=\"table-container hidden-small\">\n  <table>\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Name</th>\n        <th>Phone</th>\n        <th>Address</th>\n        <th>City</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let c of companies; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/companies', i]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n        <td>{{c.phone}}</td>\n        <td>{{c.address}}</td>\n        <td>{{c.city}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let c of companies; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/companies', i]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n       </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\"><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{c.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Address</td>\n      <td colspan=\"2\">{{c.address}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">City</td>\n      <td colspan=\"2\">{{c.citye}}</td>\n    </tr>\n  </table>\n</div>"
+module.exports = "   <!--\n   Create or edit an appointment \n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Appointment</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"date\" class=\"control-label\">Date</label>\n               <input type=\"date\" class=\"form-control\" name=\"date\" id=\"date\" [(ngModel)]=\"date\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"time\" class=\"control-label\">Time</label>\n               <input type=\"time\" class=\"form-control\" name=\"time\" id=\"time\" [(ngModel)]=\"time\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\" class=\"control-label\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany()\">\n                <option *ngFor=\"let c of companies\">\n                  {{c.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel2\" class=\"control-label\">Person</label>\n               <select class=\"form-control\" id=\"sel2\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                <option *ngFor=\"let p of persons\">\n                  {{p.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel3\" class=\"control-label\">Position</label>\n               <select class=\"form-control\" id=\"sel3\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n                <option *ngFor=\"let p of positions\">\n                  {{p.title}}\n                </option>\n               </select>\n             </div>\n          </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n          <!-- Convert button visible only for edit -->\n          <button type=\"button\" [class]=\"displayIfConvertible()\" id=\"convert\" (click)=\"convert()\">Record</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
 
 /***/ }),
 
 /***/ 181:
 /***/ (function(module, exports) {
 
-module.exports = "   <!--\n   Create or edit a company\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Company</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Name</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"company.name\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">URL</label>\n               <input type=\"text\" class=\"form-control\" name=\"url\" [(ngModel)]=\"company.url\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Address</label>\n               <input type=\"text\" class=\"form-control\" name=\"address\" [(ngModel)]=\"company.address\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">City</label>\n               <input type=\"text\" class=\"form-control\" name=\"city\" [(ngModel)]=\"company.city\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Phone</label>\n               <input type=\"text\" class=\"form-control\"  name=\"phone\" [(ngModel)]=\"company.phone\">\n             </div>\n          </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
+module.exports = "<a routerLink=\"/companies/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/companies/new\" class=\"btn btn-primary new-button\" role=\"button\">New Company</a>\n<br><p>\n<!-- \nList of all companies. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Name   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('name')\"></span></th>\n        <th>Phone</th>\n        <th>Address</th>\n        <th>City   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('city')\"></span></th>\n        <!-- Ensures column alignment when the scrollbar appears \n        <th style=\"width:18px\">&nbsp;</th>-->\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <tbody>\n      <tr *ngFor=\"let c of companies; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/companies', i]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n        <td>{{c.phone}}</td>\n        <td>{{c.address}}</td>\n        <td>{{c.city}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let c of companies; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/companies', i]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n       </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\"><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{c.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Address</td>\n      <td colspan=\"2\">{{c.address}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">City</td>\n      <td colspan=\"2\">{{c.citye}}</td>\n    </tr>\n  </table>\n</div>"
 
 /***/ }),
 
 /***/ 182:
 /***/ (function(module, exports) {
 
-module.exports = "<a routerLink=\"/contacts/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/contacts/new\" class=\"btn btn-primary new-button\" role=\"button\">New Contact</a>\n<br>\n<p>\n  <!-- List of all contacts. On large displays, a conventional table -->\n  <div class=\"table-container hidden-small\">\n    <table>\n      <thead>\n        <tr>\n          <th class=\"edit-cell\"></th>\n          <th>Date</th>\n          <th>Person</th>\n          <th>Position</th>\n          <th colspan=\"2\">Details</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let c of contacts; let i = index\">\n          <td class=\"edit-cell\">\n            <a [routerLink]=\"['/contacts', i]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n          </td>\n          <td>{{c.formatDate()}}</td>\n          <td>{{c.getPersonName()}}</td>\n          <td>{{c.getPositionTitle()}}</td>\n          <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n          <td colspan=\"2\" [class]=\"showIfPhone(i)\">{{c.details}}</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n  <!-- On small displays -->\n  <div class=\"table-container hidden-large\">\n    <table *ngFor=\"let c of contacts; let i = index\">\n      <tr>\n        <td class=\"select-edit\" colspan=\"3\">\n          <i [routerLink]=\"['/contacts', i]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n       </td>\n      </tr>\n      <tr>\n        <td class=\"header\">Date</td>\n        <td colspan=\"2\">{{c.formatDate()}}</td>\n      </tr>\n      <tr>\n        <td class=\"header\">Person</td>\n        <td colspan=\"2\">{{c.getPersonName()}}</td>\n      </tr>\n      <tr>\n        <td class=\"header\">Position</td>\n        <td colspan=\"2\">{{c.getPositionTitle()}}</td>\n      </tr>\n      <tr>\n        <td class=\"header\">Details</td>\n        <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n        <td colspan=\"2\" [class]=\"showIfPhone(i)\">{{c.details}}</td>\n      </tr>\n    </table>\n  </div>\n  <!-- Modal displays email content-->\n  <div id=\"message-text\" class=\"modal\" role=\"dialog\">\n    <div class=\"modal-dialog\">\n      <!-- Modal content-->\n      <div class=\"modal-content\">\n        <div class=\"modal-header\">\n          <button type=\"button\" class=\"close\" (click)=\"closeEmail()\">&times;</button>\n          <h4 class=\"modal-title\">{{emailSubject}}</h4>\n        </div>\n\n        <div class=\"modal-body\">\n          <div class=\"form-group\">\n            <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n          </div>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-default\" (click)=\"closeEmail()\">Close</button>\n        </div>\n      </div>\n    </div>\n  </div>"
+module.exports = "   <!--\n   Create or edit a company\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Company</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Name</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"company.name\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">URL</label>\n               <input type=\"text\" class=\"form-control\" name=\"url\" [(ngModel)]=\"company.url\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Address</label>\n               <input type=\"text\" class=\"form-control\" name=\"address\" [(ngModel)]=\"company.address\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">City</label>\n               <input type=\"text\" class=\"form-control\" name=\"city\" [(ngModel)]=\"company.city\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Phone</label>\n               <input type=\"text\" class=\"form-control\"  name=\"phone\" [(ngModel)]=\"company.phone\">\n             </div>\n          </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
 
 /***/ }),
 
 /***/ 183:
 /***/ (function(module, exports) {
 
-module.exports = "<!--\nCreate or edit a contact\n-->\n<div>\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n        <h4 class=\"modal-title\">Contact</h4>\n      </div>\n      <div class=\"modal-body\">\n        <form>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Person</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                  <option *ngFor=\"let p of persons\">\n                    {{p.name}}\n                  </option>\n                 </select>\n          </div>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Position</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n                  <option *ngFor=\"let p of positions\">\n                    {{p.title}}\n                  </option>\n                 </select>\n          </div>\n          <div *ngIf='!isMeeting' class=\"form-group\">\n            <label>Email&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isEmail\" [checked]='isEmail' (change)=\"setEmail()\">&nbsp;&nbsp;&nbsp;&nbsp;\n            <label>Phone&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isPhone\" [checked]='isPhone' (change)=\"setPhone()\">\n          </div>\n          <!-- Date and details inputs visible only for phone contact -->\n          <div *ngIf='isPhone || isMeeting'>\n            <div class=\"form-group\">\n              <label for=\"cmp-date\" class=\"control-label\">Date</label>\n              <input type=\"date\" class=\"form-control\" name=\"date\" [(ngModel)]=\"contact.date\">\n            </div>\n            <div class=\"form-group\">\n              <label for=\"cmp-details\" class=\"control-label\">Details</label>\n              <input type=\"text\" class=\"form-control\" name=\"details\" [(ngModel)]=\"contact.details\">\n            </div>\n          </div>\n          <!-- Emails selector visible only for email contact -->\n          <div *ngIf='isEmail' class=\"table-container\" id=\"message-list\">\n            <table *ngFor=\"let m of emails; let i = index\">\n              <tr>\n                <td class=\"select-edit\">\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"selectEmail(i)\">Select</button>\n                </td>\n                <td>\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"viewEmail(i)\">View</button>\n                </td>\n              </tr>\n              <tr>\n                <td class=\"header\">Date</td>\n                <td>{{m.date}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">From</td>\n                <td>{{m.sender}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">To</td>\n                <td>{{m.receiver}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">Subject</td>\n                <td>{{m.subject}}</td>\n              </tr>\n            </table>\n            <!-- Modal displays email content-->\n            <div id=\"message-text\" class=\"modal\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" (click)=\"hideContent()\">&times;</button>\n                    <h4 class=\"modal-title\">{{emailSubject}}</h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <div class=\"form-group\">\n                      <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n                    </div>\n                  </div>\n                  <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" (click)=\"hideContent()\">Close</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n        <button id=\"save-button\" type=\"button\" class=\"btn btn-primary\" (click)=\"save()\" disabled>Save</button>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<a routerLink=\"/contacts/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/contacts/new\" class=\"btn btn-primary new-button\" role=\"button\">New Contact</a>\n<br>\n<p>\n<!-- \nList of all contacts. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling \n-->\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Date   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('date')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th>Position   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('position')\"></span></th>\n        <th colspan=\"2\">Details</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let c of contacts; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/contacts', i]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{c.formatDate()}}</td>\n        <td>{{c.getPersonName()}}</td>\n        <td>{{c.getPositionTitle()}}</td>\n        <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n        <td colspan=\"2\" [class]=\"showIfPhone(i)\">{{c.details}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let c of contacts; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/contacts', i]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n     </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date</td>\n      <td colspan=\"2\">{{c.formatDate()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{c.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Position</td>\n      <td colspan=\"2\">{{c.getPositionTitle()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Details</td>\n      <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n      <td colspan=\"2\" [class]=\"showIfPhone(i)\">{{c.details}}</td>\n    </tr>\n  </table>\n</div>\n<!-- Modal displays email content-->\n<div id=\"message-text\" class=\"modal\" role=\"dialog\">\n  <div class=\"modal-dialog\">\n    <!-- Modal content-->\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" (click)=\"closeEmail()\">&times;</button>\n        <h4 class=\"modal-title\">{{emailSubject}}</h4>\n      </div>\n      <div class=\"modal-body\">\n        <div class=\"form-group\">\n          <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n        </div>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-default\" (click)=\"closeEmail()\">Close</button>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
 /***/ 184:
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default\" role=\"navigation\">\n  <div class=\"navbar-header\">\n    <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-toggle\">\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n        </button>\n  </div>\n\n  <div class=\"collapse navbar-collapse\" id=\"nav-toggle\">\n    <ul class=\"nav navbar-nav\">\n      <li routerLinkActive=\"active\"><a routerLink=\"/companies\">Companies</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/persons\">People</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/positions\">Positions</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/contacts\">Contacts</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/appointments\">Appointments</a></li>\n    </ul>\n  </div>\n</nav>"
+module.exports = "<!--\nCreate or edit a contact\n-->\n<div>\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n        <h4 class=\"modal-title\">Contact</h4>\n      </div>\n      <div class=\"modal-body\">\n        <form>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Person</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                  <option *ngFor=\"let p of persons\">\n                    {{p.name}}\n                  </option>\n                 </select>\n          </div>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Position</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n                  <option *ngFor=\"let p of positions\">\n                    {{p.title}}\n                  </option>\n                 </select>\n          </div>\n          <div *ngIf='!isMeeting' class=\"form-group\">\n            <label>Email&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isEmail\" [checked]='isEmail' (change)=\"setEmail()\">&nbsp;&nbsp;&nbsp;&nbsp;\n            <label>Phone&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isPhone\" [checked]='isPhone' (change)=\"setPhone()\">\n          </div>\n          <!-- Date and details inputs visible only for phone contact -->\n          <div *ngIf='isPhone || isMeeting'>\n            <div class=\"form-group\">\n              <label for=\"cmp-date\" class=\"control-label\">Date</label>\n              <input type=\"date\" class=\"form-control\" name=\"date\" [(ngModel)]=\"date\">\n            </div>\n            <div class=\"form-group\">\n              <label for=\"cmp-details\" class=\"control-label\">Details</label>\n              <input type=\"text\" class=\"form-control\" name=\"details\" [(ngModel)]=\"contact.details\">\n            </div>\n          </div>\n          <!-- Emails selector visible only for email contact -->\n          <div *ngIf='isEmail' class=\"table-container\" id=\"message-list\">\n            <table *ngFor=\"let m of emails; let i = index\">\n              <tr>\n                <td class=\"select-edit\">\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"selectEmail(i)\">Select</button>\n                </td>\n                <td>\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"viewEmail(i)\">View</button>\n                </td>\n              </tr>\n              <tr>\n                <td class=\"header\">Date</td>\n                <td>{{m.formatDate()}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">From</td>\n                <td>{{m.sender}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">To</td>\n                <td>{{m.receiver}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">Subject</td>\n                <td>{{m.subject}}</td>\n              </tr>\n            </table>\n            <!-- Modal displays email content-->\n            <div id=\"message-text\" class=\"modal\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" (click)=\"hideContent()\">&times;</button>\n                    <h4 class=\"modal-title\">{{emailSubject}}</h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <div class=\"form-group\">\n                      <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n                    </div>\n                  </div>\n                  <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" (click)=\"hideContent()\">Close</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n        <button id=\"save-button\" type=\"button\" class=\"btn btn-primary\" (click)=\"save()\" disabled>Save</button>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
 /***/ 185:
 /***/ (function(module, exports) {
 
-module.exports = "<a routerLink=\"/persons/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/persons/new\" class=\"btn btn-primary new-button\" role=\"button\">New Person</a>\n<br><p>\n<!-- List of all persons. On large displays, a conventional table -->\n<div class=\"table-container hidden-small\">\n  <table>\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Name</th>\n        <th>Email</th>\n        <th>Phone</th>\n        <th>Company</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let p of persons; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/persons', i]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{p.name}}</td>\n        <td>{{p.email}}</td>\n        <td>{{p.phone}}</td>\n        <td>{{p.getCompanyName()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of persons; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/persons', i]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\">{{p.name}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Email</td>\n      <td colspan=\"2\">{{p.email}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{p.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n  </table>\n</div>"
+module.exports = "<nav class=\"navbar navbar-default\" role=\"navigation\">\n  <div class=\"navbar-header\">\n    <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-toggle\">\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n        </button>\n  </div>\n\n  <div class=\"collapse navbar-collapse\" id=\"nav-toggle\">\n    <ul class=\"nav navbar-nav\">\n      <li routerLinkActive=\"active\"><a routerLink=\"/companies\">Companies</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/persons\">People</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/positions\">Positions</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/contacts\">Contacts</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/appointments\">Appointments</a></li>\n    </ul>\n  </div>\n</nav>"
 
 /***/ }),
 
 /***/ 186:
 /***/ (function(module, exports) {
 
-module.exports = "   <!--\n   Create or edit a person\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Person</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Name</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"person.name\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Email</label>\n               <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"person.email\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Phone</label>\n               <input type=\"text\" class=\"form-control\" name=\"phone\" [(ngModel)]=\"person.phone\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"select($event)\">\n                  <option *ngFor=\"let c of companies\">\n                    {{c.name}}\n                  </option>\n                 </select>\n             </div>\n           </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
+module.exports = "<a routerLink=\"/persons/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/persons/new\" class=\"btn btn-primary new-button\" role=\"button\">New Person</a>\n<br><p>\n<!-- \nList of all persons. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Name   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('name')\"></span></th>\n        <th>Email</th>\n        <th>Phone</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of persons; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/persons', i]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{p.name}}</td>\n        <td>{{p.email}}</td>\n        <td>{{p.phone}}</td>\n        <td>{{p.getCompanyName()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of persons; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/persons', i]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\">{{p.name}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Email</td>\n      <td colspan=\"2\">{{p.email}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{p.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n  </table>\n</div>"
 
 /***/ }),
 
 /***/ 187:
 /***/ (function(module, exports) {
 
-module.exports = "<a routerLink=\"/positions/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/positions/new\" class=\"btn btn-primary new-button\" role=\"button\">New Position</a>\n<br><p>\n<!-- List of all positions. On large displays, a conventional table -->\n<div class=\"table-container hidden-small\">\n  <table>\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th>Title</th>\n        <th>Company</th>\n        <th>Person</th>\n        <th>Date Posted</th>\n        <th>Date Applied</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let p of positions; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/positions', i]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td [class]=\"isDeletable(i)\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td [class]=\"isNotDeletable(i)\"></td>\n        <td><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n        <td>{{p.getCompanyName()}}</td>\n        <td>{{p.getPersonName()}}</td>\n        <td>{{p.formatDatePosted()}}</td>\n        <td>{{p.formatDateApplied()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of positions; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/positions', i]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n        <i (click)=\"delete(i)\" style=\"font-size: 16px;\" [class]=\"isDeletable(i, true)\">clear</i>\n      </td>      \n    </tr>\n    <tr>\n      <td class=\"header\">Title</td>\n      <td colspan=\"2\">{{p.title}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">URL</td>\n      <td colspan=\"2\"><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{p.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Posted</td>\n      <td colspan=\"2\">{{p.formatDatePosted()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Applied</td>\n      <td colspan=\"2\">{{p.formatDateApplied()}}</td>\n    </tr>\n  </table>\n</div>"
+module.exports = "   <!--\n   Create or edit a person\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Person</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Name</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"person.name\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Email</label>\n               <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"person.email\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Phone</label>\n               <input type=\"text\" class=\"form-control\" name=\"phone\" [(ngModel)]=\"person.phone\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"select($event)\">\n                  <option *ngFor=\"let c of companies\">\n                    {{c.name}}\n                  </option>\n                 </select>\n             </div>\n           </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
 
 /***/ }),
 
 /***/ 188:
 /***/ (function(module, exports) {
 
-module.exports = "   <!--\n   Create or edit a position\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Position</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Title</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"position.title\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">URL</label>\n               <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"position.url\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany()\">\n                  <option *ngFor=\"let c of companies\">\n                    {{c.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Person</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                  <option *ngFor=\"let p of persons\">\n                    {{p.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Posted</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-posted\" [(ngModel)]=\"position.datePosted\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Applied</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-applied\" [(ngModel)]=\"position.dateApplied\">\n             </div>\n           </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n"
+module.exports = "<a routerLink=\"/positions/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/positions/new\" class=\"btn btn-primary new-button\" role=\"button\">New Position</a>\n<br><p>\n<!-- \nList of all positions. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th>Title   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('title')\"></span></th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th>Date Posted   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('datePosted')\"></span></th>\n        <th>Date Applied   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('dateApplied')\"></span></th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of positions; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/positions', i]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td [class]=\"isDeletable(i)\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td [class]=\"isNotDeletable(i)\"></td>\n        <td><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n        <td>{{p.getCompanyName()}}</td>\n        <td>{{p.getPersonName()}}</td>\n        <td>{{p.formatDatePosted()}}</td>\n        <td>{{p.formatDateApplied()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of positions; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/positions', i]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n        <i (click)=\"delete(i)\" style=\"font-size: 16px;\" [class]=\"isDeletable(i, true)\">clear</i>\n      </td>      \n    </tr>\n    <tr>\n      <td class=\"header\">Title</td>\n      <td colspan=\"2\">{{p.title}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">URL</td>\n      <td colspan=\"2\"><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{p.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Posted</td>\n      <td colspan=\"2\">{{p.formatDatePosted()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Applied</td>\n      <td colspan=\"2\">{{p.formatDateApplied()}}</td>\n    </tr>\n  </table>\n</div>"
+
+/***/ }),
+
+/***/ 189:
+/***/ (function(module, exports) {
+
+module.exports = "   <!--\n   Create or edit a position\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Position</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Title</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"position.title\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">URL</label>\n               <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"position.url\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany()\">\n                  <option *ngFor=\"let c of companies\">\n                    {{c.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Person</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                  <option *ngFor=\"let p of persons\">\n                    {{p.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Posted</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-posted\" [(ngModel)]=\"datePosted\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Applied</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-applied\" [(ngModel)]=\"dateApplied\">\n             </div>\n           </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n"
 
 /***/ }),
 
@@ -1389,13 +1482,13 @@ var Entity = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__server_service__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_company_model__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_person_model__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_position_model__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__model_appointment_model__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__model_contact_model__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__model_email_model__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__server_service__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_company_model__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_person_model__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_position_model__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__model_appointment_model__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__model_contact_model__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__model_email_model__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_Observable__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_Observable__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CacheService; });
@@ -1648,10 +1741,10 @@ var _a;
 
 /***/ }),
 
-/***/ 225:
+/***/ 226:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(97);
+module.exports = __webpack_require__(98);
 
 
 /***/ }),
@@ -1692,7 +1785,98 @@ var EntityComponentBase = (function () {
 
 /***/ }),
 
-/***/ 39:
+/***/ 30:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListComponentBase; });
+/**
+ * Base class for list components, providing common utility functions
+ */
+var ListComponentBase = (function () {
+    function ListComponentBase(cache) {
+        this.cache = cache;
+    }
+    /**
+     * Sorts an array of entities.
+     * @param list the array to be sorted
+     * @param sortBy the field of the entity class on which to sort
+     * @param isDate true if the sortBy field is a date string
+     */
+    ListComponentBase.prototype.sortList = function (list, sortBy) {
+        var sortKeys = [];
+        var elementMap = {};
+        var sortedList = [];
+        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+            var element = list_1[_i];
+            var sortField = element[sortBy];
+            sortKeys.push(sortField);
+            if (!elementMap[sortField]) {
+                elementMap[sortField] = [];
+            }
+            elementMap[sortField].push(element);
+        }
+        sortKeys.sort();
+        // Preserve original order of elements with same sort value
+        for (var index in elementMap) {
+            elementMap[index].reverse();
+        }
+        for (var _a = 0, sortKeys_1 = sortKeys; _a < sortKeys_1.length; _a++) {
+            var key = sortKeys_1[_a];
+            var element = elementMap[key].pop();
+            sortedList.push(element);
+        }
+        return sortedList;
+    };
+    /**
+     * Sorts an array of entities.
+     * @param list the array to be sorted
+     * @param sortBy name of a "foreign id" attribute of the entity which references another entity containing the value on which to sort
+     * @param referenceType the referenced entity type
+     * @param referenceField the name of the attribute in the referenced entity on which to sort
+     */
+    ListComponentBase.prototype.sortListReferenced = function (list, sortBy, referenceType, referenceField) {
+        var sortKeys = [];
+        var elementMap = {};
+        var sortedList = [];
+        for (var _i = 0, list_2 = list; _i < list_2.length; _i++) {
+            var element = list_2[_i];
+            var referenceId = element[sortBy];
+            var referencedEntity = void 0;
+            var sortField = void 0;
+            if (referenceId) {
+                referencedEntity = this.cache.getById(referenceType, referenceId);
+                sortField = referencedEntity[referenceField];
+            }
+            else {
+                sortField = '';
+            }
+            sortKeys.push(sortField);
+            if (!elementMap[sortField]) {
+                elementMap[sortField] = [];
+            }
+            elementMap[sortField].push(element);
+        }
+        sortKeys.sort();
+        // Preserve original order of elements with same sort value
+        for (var index in elementMap) {
+            elementMap[index].reverse();
+        }
+        for (var _a = 0, sortKeys_2 = sortKeys; _a < sortKeys_2.length; _a++) {
+            var key = sortKeys_2[_a];
+            var element = elementMap[key].pop();
+            sortedList.push(element);
+        }
+        return sortedList;
+    };
+    return ListComponentBase;
+}());
+
+//# sourceMappingURL=listComponentBase.js.map
+
+/***/ }),
+
+/***/ 40:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1752,7 +1936,7 @@ var Contact = Contact_1 = (function (_super) {
             return position.title;
         }
         else {
-            return 'not specified';
+            return '';
         }
     };
     Contact.prototype.getPersonName = function () {
@@ -1761,7 +1945,7 @@ var Contact = Contact_1 = (function (_super) {
             return person.name;
         }
         else {
-            return 'not specified';
+            return '';
         }
     };
     Contact.prototype.formatDate = function () {
@@ -1771,7 +1955,7 @@ var Contact = Contact_1 = (function (_super) {
 }(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
 Contact = Contact_1 = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["d" /* Injectable */])(),
-    __metadata("design:paramtypes", [Number, Number, Number, String, String, String, Number])
+    __metadata("design:paramtypes", [Number, Number, Number, Number, String, String, Number])
 ], Contact);
 
 var Contact_1;
@@ -1779,7 +1963,7 @@ var Contact_1;
 
 /***/ }),
 
-/***/ 66:
+/***/ 67:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1815,20 +1999,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var Appointment = Appointment_1 = (function (_super) {
     __extends(Appointment, _super);
-    function Appointment(id, companyId, personId, date, time, positionId) {
+    function Appointment(id, companyId, personId, dateTime, positionId) {
         var _this = _super.call(this) || this;
         _this.id = id;
         _this.companyId = companyId;
         _this.personId = personId;
-        _this.date = date;
-        _this.time = time;
+        _this.dateTime = dateTime;
         _this.positionId = positionId;
         _this.cache = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]);
         _this.datetime = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_4__datetime_service__["a" /* DateTimeService */]);
         return _this;
     }
     Appointment.fromJson = function (json) {
-        var p = new Appointment_1(json.id, json.companyId, json.personId, json.date, __WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */].timeFromJSONDate(json.time), json.positionId);
+        var p = new Appointment_1(json.id, json.companyId, json.personId, json.dateTime, json.positionId);
         console.log(p);
         return p;
     };
@@ -1838,7 +2021,7 @@ var Appointment = Appointment_1 = (function (_super) {
             return company.name;
         }
         else {
-            return "not specified";
+            return '';
         }
     };
     Appointment.prototype.getPersonName = function () {
@@ -1847,7 +2030,7 @@ var Appointment = Appointment_1 = (function (_super) {
             return person.name;
         }
         else {
-            return "not specified";
+            return '';
         }
     };
     Appointment.prototype.getPositionTitle = function () {
@@ -1856,20 +2039,20 @@ var Appointment = Appointment_1 = (function (_super) {
             return position.title;
         }
         else {
-            return "not specified";
+            return '';
         }
     };
     Appointment.prototype.formatDate = function () {
-        return this.datetime.formatListDate(this.date);
+        return this.datetime.formatListDate(this.dateTime);
     };
     Appointment.prototype.formatTime = function () {
-        return this.datetime.formatListTime(this.time);
+        return this.datetime.formatListTime(this.dateTime);
     };
     return Appointment;
 }(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
 Appointment = Appointment_1 = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["d" /* Injectable */])(),
-    __metadata("design:paramtypes", [Number, Number, Number, String, String, Number])
+    __metadata("design:paramtypes", [Number, Number, Number, Number, Number])
 ], Appointment);
 
 var Appointment_1;
@@ -1877,7 +2060,7 @@ var Appointment_1;
 
 /***/ }),
 
-/***/ 67:
+/***/ 68:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1918,7 +2101,7 @@ var Company = (function (_super) {
 
 /***/ }),
 
-/***/ 68:
+/***/ 69:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1973,7 +2156,7 @@ var Person = Person_1 = (function (_super) {
             return company.name;
         }
         else {
-            return "not specified";
+            return '';
         }
     };
     return Person;
@@ -1988,7 +2171,7 @@ var Person_1;
 
 /***/ }),
 
-/***/ 69:
+/***/ 70:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2048,7 +2231,7 @@ var Position = Position_1 = (function (_super) {
             return company.name;
         }
         else {
-            return "not specified";
+            return '';
         }
     };
     Position.prototype.getPersonName = function () {
@@ -2057,7 +2240,7 @@ var Position = Position_1 = (function (_super) {
             return person.name;
         }
         else {
-            return "not specified";
+            return '';
         }
     };
     Position.prototype.formatDateApplied = function () {
@@ -2070,7 +2253,7 @@ var Position = Position_1 = (function (_super) {
 }(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
 Position = Position_1 = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["d" /* Injectable */])(),
-    __metadata("design:paramtypes", [Number, String, String, String, String, Number, Number])
+    __metadata("design:paramtypes", [Number, String, String, Number, Number, Number, Number])
 ], Position);
 
 var Position_1;
@@ -2078,12 +2261,12 @@ var Position_1;
 
 /***/ }),
 
-/***/ 70:
+/***/ 71:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(66);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ServerService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2221,7 +2404,7 @@ var _a;
 
 /***/ }),
 
-/***/ 96:
+/***/ 97:
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -2230,20 +2413,20 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 96;
+webpackEmptyContext.id = 97;
 
 
 /***/ }),
 
-/***/ 97:
+/***/ 98:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(119);
 
 
 
@@ -2256,5 +2439,5 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 
 /***/ })
 
-},[225]);
+},[226]);
 //# sourceMappingURL=main.bundle.js.map

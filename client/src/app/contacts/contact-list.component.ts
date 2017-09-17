@@ -62,7 +62,7 @@ export class ContactListComponent extends ListComponentBase implements OnInit, O
 
   sort(field: string){
     if (field === 'date'){
-      this.contacts = this.sortList(this.contacts, field, true);
+      this.contacts = this.sortList(this.contacts, field);
     }
     else if (field === 'person'){
       this.contacts = this.sortListReferenced(this.contacts, 'personId', 'person', 'name');

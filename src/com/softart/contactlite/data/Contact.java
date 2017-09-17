@@ -1,7 +1,6 @@
 package com.softart.contactlite.data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import com.googlecode.objectify.annotation.Entity;
 
@@ -13,7 +12,7 @@ public class Contact extends EntityBase implements Serializable {
 
 	private Long	positionId;
 	private Long	personId;
-	private Date 	date;
+	private Long 	date;
 	private String 	type;
 	private String	details;
 	private Long 	emailId;
@@ -34,10 +33,10 @@ public class Contact extends EntityBase implements Serializable {
 		this.personId = personId;
 	}
 
-	public Date getDate() {
+	public Long getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Long date) {
 		this.date = date;
 	}
 

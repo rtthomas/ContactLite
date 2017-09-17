@@ -12,24 +12,26 @@ export class ListComponentBase {
      * @param sortBy the field of the entity class on which to sort
      * @param isDate true if the sortBy field is a date string
      */
-    sortList(list: any, sortBy: string, isDate: boolean){
+    sortList(list: any, sortBy: string){
         const sortKeys = [];
         const elementMap = {};
         const sortedList = [];
         for (const element of list){
             const sortField = element[sortBy];
-            if (isDate){
-//                const date = 
-sortKeys.push(sortField);
+            sortKeys.push(sortField);
+            if (!elementMap[sortField]){
+               elementMap[sortField] = []; 
             }
-            else {
-                sortKeys.push(sortField);
-            }
-            elementMap[sortField] = element;
+            elementMap[sortField].push(element);
         }
         sortKeys.sort();
+        // Preserve original order of elements with same sort value
+        for (const index in elementMap){
+            elementMap[index].reverse();
+        }
         for (const key of sortKeys){
-            sortedList.push(elementMap[key]);
+            const element = elementMap[key].pop();
+            sortedList.push(element);
         }
         return sortedList;
     }

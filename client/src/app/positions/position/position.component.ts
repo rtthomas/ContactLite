@@ -12,6 +12,8 @@ import { DateTimeService } from '../../datetime.service';
 })
 export class PositionComponent extends EntityComponentBase implements OnInit {
   position: Position;
+  datePosted:string; // for the html date element, which requires a string yyyy-mm-dd
+  dateApplied:string; // for the html date element, which requires a string yyyy-mm-dd
   selectedCompany; // the company name
   selectedPerson; // the person name
   companies = [];
@@ -46,10 +48,10 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
       // Viewing or editing
       this.position = this.service.getByIndex('position', id);
       if (this.position.datePosted){
-        this.position.datePosted = this.datetime.formatDateForInput(this.position.datePosted);
+        this.datePosted = this.datetime.formatDateForInput(this.position.datePosted);
       }
       if (this.position.dateApplied){
-        this.position.dateApplied = this.datetime.formatDateForInput(this.position.dateApplied);
+        this.dateApplied = this.datetime.formatDateForInput(this.position.dateApplied);
       }
       this.selectedCompany = this.companyIdToName[this.position.companyId];
       this.selectedPerson = this.personIdToName[this.position.personId];
@@ -60,7 +62,17 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
     this.router.navigate(['/positions']);
   }
   save(){
-    console.log(typeof this.position.datePosted, typeof this.position.dateApplied);
+    let posted = new Date();
+    let parts: string[] = this.datePosted.split('-');
+    posted.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
+    this.position.datePosted = posted.getTime();
+
+    let applied = new Date();
+    parts = this.dateApplied.split('-');
+    applied.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
+    this.position.dateApplied = applied.getTime();
+
+    console.log("Posted " + this.position.datePosted + ' : ' + this.datePosted);
     this.service.save('position', this.position);
     this.router.navigate(['/positions']);
   }

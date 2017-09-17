@@ -26,7 +26,7 @@ export class PersonListComponent extends ListComponentBase implements OnInit {
 
   sort(field: string){
     if (field === 'name'){
-      this.persons = this.sortList(this.persons, field, false);
+      this.persons = this.sortList(this.persons, field);
     }
     else if (field === 'company'){
       this.persons = this.sortListReferenced(this.persons, 'companyId', 'company', 'name');

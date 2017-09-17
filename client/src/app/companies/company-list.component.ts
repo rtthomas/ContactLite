@@ -26,6 +26,6 @@ export class CompanyListComponent extends ListComponentBase implements OnInit {
   }
 
   sort(field: string){
-    this.companies = this.sortList(this.companies, field, false);
+    this.companies = this.sortList(this.companies, field);
   }
 }

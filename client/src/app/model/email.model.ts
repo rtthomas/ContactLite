@@ -26,7 +26,7 @@ export class Email extends Entity {
         public id: number,
         public sender: string,
         public receiver: string,
-        public date: string,
+        public date: number,
         public subject: string,
         public contentId: number,
         public assigned: boolean

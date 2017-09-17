@@ -8,21 +8,13 @@ export class DateTimeService {
 
   /**
    * Formats a date for display in an entity list in the form "MMM dd, yyyy"
-   * @param s date string in format "yyyy-mm-dd" or MMM yy, yyyy hh:mm:ss aa 
+   * @param d a date millisecond value
    */
-  public formatListDate(s: string) {
-    if (s) {
-      let d: Date;
-      if (s.indexOf('-') > 0) {
-        const p = s.split('-');
-        d = new Date();
-        d.setFullYear(+p[0], +p[1] - 1, +p[2]);
-      }
-      else {
-        d = new Date(s);
-      }
+  public formatListDate(d: number) {
+    if (d) {
+      let date: Date = new Date(d);
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-      const f = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+      const f = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
       return f;
     }
     else {
@@ -30,47 +22,36 @@ export class DateTimeService {
     }
   }
 
-
   /** Formats a date for use in an HTML date input element 
-   * @param s date string in the form "yyyy-mm-dd" or MMM dd, yyyy hh:mm:ss aa
+   * @param d millisecond date value
    * @return date string in form yyyy-mm-dd
   */
-  formatDateForInput(s: string) {
-    let date: Date;
-    if (s.indexOf('-') > 0) {
-      const p = s.split('-');
-      date = new Date();
-      date.setFullYear(+p[0], +p[1] - 1, +p[2]);
+  formatDateForInput(d: number) {
+    const date: Date = new Date(d);
+    const year: string = Number(date.getFullYear()).toString();
+    let month: string = Number(date.getMonth() + 1).toString();
+    if (month.length === 1){
+      month = '0' + month;
     }
-    else {
-      date = new Date(s);
+    let day: string = Number(date.getDate()).toString();
+    if (day.length === 1){
+      day = '0' + day;
     }
-
-    let f = String(date.getFullYear()).concat('-');
-    const m = date.getMonth() + 1;
-    if (m < 10) {
-      f = f.concat('0');
-    }
-    f = f.concat(String(m)).concat('-');
-    const d = date.getDate();
-    if (d < 10) {
-      f = f.concat('0');
-    }
-    f = f.concat(String(d));
+    const f = year.concat('-').concat(month).concat('-').concat(day);
     return f;
   }
 
   /**
   * Formats a date for display in an entity list in the form "hh:mm aa"
-  * @parsm s a time string in the form string "hh:mm" 
+  * @param t a date millisecond value  
   */
-  public formatListTime(s: string) {
-    if (!s) {
+  public formatListTime(t: number) {
+    if (!t) {
       return '';
     }
-    const hm = s.split(':');
-    let h: number = +hm[0];
-    let m: string = hm[1];
+    const date:Date = new Date(t);
+    let h: number = date.getHours();
+    let m: string = new Number(date.getMinutes()).toString();
     let ampm: string;
 
     if (h == 12) {
@@ -90,7 +71,6 @@ export class DateTimeService {
     if (m.length == 1) {
       m = '0' + m;
     }
-    s = String(h) + ':' + m + ' ' + ampm;
-    return s;
+    return String(h) + ':' + m + ' ' + ampm;
   }
 }

@@ -36,7 +36,7 @@ Create or edit a contact
           <div *ngIf='isPhone || isMeeting'>
             <div class="form-group">
               <label for="cmp-date" class="control-label">Date</label>
-              <input type="date" class="form-control" name="date" [(ngModel)]="contact.date">
+              <input type="date" class="form-control" name="date" [(ngModel)]="date">
             </div>
             <div class="form-group">
               <label for="cmp-details" class="control-label">Details</label>
@@ -56,7 +56,7 @@ Create or edit a contact
               </tr>
               <tr>
                 <td class="header">Date</td>
-                <td>{{m.date}}</td>
+                <td>{{m.formatDate()}}</td>
               </tr>
               <tr>
                 <td class="header">From</td>

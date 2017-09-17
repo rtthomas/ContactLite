@@ -1,7 +1,6 @@
 package com.softart.contactlite.data;
 
 import java.io.Serializable;
-import java.util.Date;
 import com.googlecode.objectify.annotation.Entity;
 /**
  * Represents an advertised position
@@ -13,8 +12,8 @@ public class Position extends EntityBase implements Serializable {
 	private String 		url;
 	private Long 		companyId;
 	private Long 		personId;
-	private Date 		datePosted;
-	private Date 		dateApplied;
+	private Long 		datePosted;
+	private Long 		dateApplied;
 
 	public Position(){}
 
@@ -49,17 +48,17 @@ public class Position extends EntityBase implements Serializable {
 		this.personId = personId;
 	}
 
-	public Date getDatePosted() {
+	public Long getDatePosted() {
 		return datePosted;
 	}
-	public void setDatePosted(Date datePosted) {
+	public void setDatePosted(Long datePosted) {
 		this.datePosted = datePosted;
 	}
 
-	public Date getDateApplied() {
+	public Long getDateApplied() {
 		return dateApplied;
 	}
-	public void setDateApplied(Date dateApplied) {
+	public void setDateApplied(Long dateApplied) {
 		this.dateApplied = dateApplied;
 	}
 

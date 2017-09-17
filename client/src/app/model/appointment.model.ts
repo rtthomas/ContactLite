@@ -15,8 +15,7 @@ export class Appointment extends Entity{
             json.id, 
             json.companyId, 
             json.personId, 
-            json.date,  
-            Entity.timeFromJSONDate(json.time), 
+            json.dateTime,  
             json.positionId);
         console.log(p);
         return p;
@@ -26,8 +25,7 @@ export class Appointment extends Entity{
         public id: number,
         public companyId: number,
         public personId: number,
-        public date: string,
-        public time: string,
+        public dateTime: number,
         public positionId: number
     ) { super(); }
     
@@ -59,9 +57,9 @@ export class Appointment extends Entity{
         }
      }
     formatDate(){
-        return this.datetime.formatListDate(this.date);
+        return this.datetime.formatListDate(this.dateTime);
     }
     formatTime(){
-        return this.datetime.formatListTime(this.time);
+        return this.datetime.formatListTime(this.dateTime);
     }
 }

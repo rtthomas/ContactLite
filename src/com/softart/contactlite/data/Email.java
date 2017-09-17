@@ -4,7 +4,6 @@
 package com.softart.contactlite.data;
 
 import java.io.Serializable;
-import java.util.Date;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Entity;
 
@@ -15,7 +14,7 @@ import com.googlecode.objectify.annotation.Entity;
 public class Email extends EntityBase implements Serializable  {
 	private String		sender;
 	private String		receiver;
-	private Date		date;
+	private Long		date;
 	private String		subject;
 	private Long		contentId;
 	@Index
@@ -23,7 +22,7 @@ public class Email extends EntityBase implements Serializable  {
 	
 	public Email(){}
 	
-	public Email(String	sender, String receiver, Date date, String subject, Long contentId){
+	public Email(String	sender, String receiver, Long date, String subject, Long contentId){
 		super();
 		this.sender = sender;
 		this.receiver = receiver;
@@ -51,10 +50,10 @@ public class Email extends EntityBase implements Serializable  {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public Date getDate() {
+	public Long getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Long date) {
 		this.date = date;
 	}
 	public Long getContentId() {

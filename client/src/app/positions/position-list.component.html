@@ -6,7 +6,7 @@ List of all positions. On large displays, two tables, one for the headers
 and one for the content, so the header remains visible during scrolling
 -->
 <div class="table-container hidden-small">
-  <table>
+  <table class="table-condensed">
     <thead>
       <tr>
         <th class="edit-cell"></th>
@@ -16,14 +16,12 @@ and one for the content, so the header remains visible during scrolling
         <th>Person   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('person')"></span></th>
         <th>Date Posted   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('datePosted')"></span></th>
         <th>Date Applied   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('dateApplied')"></span></th>
-        <!-- Ensures column alignment when the scrollbar appears -->
-        <th style="width:18px">&nbsp;</th>
       </tr>
     </thead>
   </table>
 </div>
 <div class="table-container hidden-small">
-  <table>  
+  <table class="table-condensed">  
     <tbody>
       <tr *ngFor="let p of positions; let i = index">
         <td class="edit-cell">

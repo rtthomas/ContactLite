@@ -28,7 +28,7 @@ export class Contact extends Entity {
         public id: number,
         public positionId: number,
         public personId: number,
-        public date: string,
+        public date: number,
         public type: string,
         public details: string,
         public emailId: number

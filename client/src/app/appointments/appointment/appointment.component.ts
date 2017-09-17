@@ -14,6 +14,8 @@ declare var $:any;
 })
 export class AppointmentComponent extends EntityComponentBase implements OnInit {
   appointment: Appointment;
+  time:string; // for the html time element, which requires a string hh:mm
+  date:string; // for the html date element, which requires a string yyyy-mm-dd
   selectedCompany: string; // the company name
   selectedPerson: string; // the person name
   selectedPosition: string; // the position title
@@ -52,19 +54,30 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
     if (this.id === 'new') {
       $('#convert').hide();
       // Creating a new one
-      this.appointment = new Appointment(null, null, null, null, null, null);
+      this.appointment = new Appointment(null, null, null, null, null);
     }
     else {
       // Viewing or editing
       $('#convert').show();
       this.appointment = this.cache.getByIndex('appointment', this.id);
-      if (this.appointment.time) {
-        if (this.appointment.time.length === 4) {
-          this.appointment.time = '0' + this.appointment.time;
+      if (this.appointment.dateTime) {
+        const date: Date = new Date(this.appointment.dateTime);
+
+        let h: string = Number(date.getHours()).toString();
+        if (h.length === 1){
+          h = '0' + h;
         }
-      }
-      if (this.appointment.date) {
-        this.appointment.date = this.datetime.formatDateForInput(this.appointment.date);
+
+        let m: string = Number(date.getMinutes()).toString();
+        if (m.length === 1){
+          m = '0' + m;
+        }
+
+        this.time = h + ":" + m;
+        if (this.time.length === 4) {
+          this.time = '0' + this.appointment.dateTime;
+        }
+        this.date = this.datetime.formatDateForInput(this.appointment.dateTime);
       }
       this.selectedCompany = this.companyIdToName[this.appointment.companyId];
       this.selectedPerson = this.personIdToName[this.appointment.personId];
@@ -76,30 +89,30 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
     this.router.navigate(['/appointments']);
   }
   save() {
+    let dateTime = new Date();
+    const dateParts: string[] = this.date.split('-');
+    dateTime.setFullYear(+dateParts[0], +dateParts[1] - 1, +dateParts[2]);
+    const timeParts: string[] = this.time.split(':');
+    dateTime.setHours(+timeParts[0]);
+    dateTime.setMinutes(+timeParts[1]);
+    this.appointment.dateTime = dateTime.getTime();
     this.cache.save('appointment', this.appointment);
     this.router.navigate(['/appointments']);
   }
 
   /** Enables display of the Record button if the appointment date/time has passed */
   displayIfConvertible(): string{
-    if (this.id === 'new' || !this.appointment.date){
+    if (this.id === 'new' || !this.appointment.dateTime){
       return 'hidden';
     }
-    // Combine the date and time fields
-    const day: Date = new Date(this.datetime.formatListDate(this.appointment.date));
-    const dateTime = new Date(day.getFullYear(), day.getMonth(), day.getDate());
-    if (this.appointment.time){
-      const time = this.appointment.time;
-      dateTime.setHours(+time.substr(0, 2));
-      dateTime.setMinutes(+time.substr(3, 2));
-    }
+    const dateTime: Date = new Date(this.appointment.dateTime);
     // Convertible if the date/time has been reached
     const canConvert = dateTime.getTime() < (new Date()).getTime();
     return canConvert ? 'btn btn-primary' : 'hidden';
   }
   /** Converts the appointment to a "meeting" contact */
   convert(){
-    const contact = new Contact(null, this.appointment.positionId, this.appointment.personId, this.appointment.date, 'meeting', null, null);
+    const contact = new Contact(null, this.appointment.positionId, this.appointment.personId, this.appointment.dateTime, 'meeting', null, null);
     this.cache.save('contact', contact);
     this.cache.deleteById('appointment', this.appointment.id);
   }
