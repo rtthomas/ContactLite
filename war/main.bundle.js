@@ -196,12 +196,16 @@ var AppointmentComponent = (function (_super) {
     };
     AppointmentComponent.prototype.save = function () {
         var dateTime = new Date();
-        var dateParts = this.date.split('-');
-        dateTime.setFullYear(+dateParts[0], +dateParts[1] - 1, +dateParts[2]);
-        var timeParts = this.time.split(':');
-        dateTime.setHours(+timeParts[0]);
-        dateTime.setMinutes(+timeParts[1]);
-        this.appointment.dateTime = dateTime.getTime();
+        if (this.time) {
+            var timeParts = this.time.split(':');
+            dateTime.setHours(+timeParts[0]);
+            dateTime.setMinutes(+timeParts[1]);
+        }
+        if (this.date) {
+            var dateParts = this.date.split('-');
+            dateTime.setFullYear(+dateParts[0], +dateParts[1] - 1, +dateParts[2]);
+            this.appointment.dateTime = dateTime.getTime();
+        }
         this.cache.save('appointment', this.appointment);
         this.router.navigate(['/appointments']);
     };
@@ -661,10 +665,12 @@ var ContactComponent = (function (_super) {
         this.router.navigate(['/contacts']);
     };
     ContactComponent.prototype.save = function () {
-        var date = new Date();
-        var parts = this.date.split('-');
-        date.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
-        this.contact.date = date.getTime();
+        if (this.date) {
+            var date = new Date();
+            var parts = this.date.split('-');
+            date.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
+            this.contact.date = date.getTime();
+        }
         if (this.isEmail) {
             this.contact.type = 'email';
             var email = this.emails[this.selectedEmailIndex];
@@ -1185,14 +1191,18 @@ var PositionComponent = (function (_super) {
         this.router.navigate(['/positions']);
     };
     PositionComponent.prototype.save = function () {
-        var posted = new Date();
-        var parts = this.datePosted.split('-');
-        posted.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
-        this.position.datePosted = posted.getTime();
-        var applied = new Date();
-        parts = this.dateApplied.split('-');
-        applied.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
-        this.position.dateApplied = applied.getTime();
+        if (this.datePosted) {
+            var posted = new Date();
+            var parts = this.datePosted.split('-');
+            posted.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
+            this.position.datePosted = posted.getTime();
+        }
+        if (this.dateApplied) {
+            var applied = new Date();
+            var parts = this.dateApplied.split('-');
+            applied.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
+            this.position.dateApplied = applied.getTime();
+        }
         console.log("Posted " + this.position.datePosted + ' : ' + this.datePosted);
         this.service.save('position', this.position);
         this.router.navigate(['/positions']);

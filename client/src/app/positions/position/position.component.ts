@@ -70,7 +70,7 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
     }
     if (this.dateApplied) {
       let applied = new Date();
-      parts = this.dateApplied.split('-');
+      let parts = this.dateApplied.split('-');
       applied.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
       this.position.dateApplied = applied.getTime();
     }
