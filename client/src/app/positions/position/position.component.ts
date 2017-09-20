@@ -46,7 +46,7 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
     }
     else {
       // Viewing or editing
-      this.position = this.service.getByIndex('position', id);
+      this.position = this.service.getById('position', id);
       if (this.position.datePosted) {
         this.datePosted = this.datetime.formatDateForInput(this.position.datePosted);
       }

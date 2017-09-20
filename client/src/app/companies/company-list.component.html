@@ -25,7 +25,7 @@ and one for the content, so the header remains visible during scrolling
     <tbody>
       <tr *ngFor="let c of companies; let i = index">
         <td class="edit-cell">
-          <a [routerLink]="['/companies', i]" class="btn btn-primary edit-button" role="button">Edit</a>
+          <a [routerLink]="['/companies', companies[i].id]" class="btn btn-primary edit-button" role="button">Edit</a>
         </td>
         <td><a href="http://{{c.url}}" target="_blank">{{c.name}}</a></td>
         <td>{{c.phone}}</td>
@@ -40,7 +40,7 @@ and one for the content, so the header remains visible during scrolling
   <table *ngFor="let c of companies; let i = index">
     <tr>
       <td class="select-edit" colspan="3">
-        <i [routerLink]="['/companies', i]" class="material-icons" style="font-size: 16px;">create</i>
+        <i [routerLink]="['/companies', companies[i].id]" class="material-icons" style="font-size: 16px;">create</i>
        </td>
     </tr>
     <tr>

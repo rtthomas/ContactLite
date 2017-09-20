@@ -20,7 +20,7 @@ export class CompanyComponent implements OnInit {
     }
     else {
       // Viewing or editing
-      this.company = this.service.getByIndex('company', id);
+      this.company = this.service.getById('company', id);
     }
   }
 

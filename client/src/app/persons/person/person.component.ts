@@ -34,7 +34,7 @@ export class PersonComponent extends EntityComponentBase implements OnInit {
     }
     else {
       // Viewing or editing
-      this.person = this.service.getByIndex('person', id);
+      this.person = this.service.getById('person', id);
       this.selectedCompany = this.companyIdToName[this.person.companyId];
     }
   }

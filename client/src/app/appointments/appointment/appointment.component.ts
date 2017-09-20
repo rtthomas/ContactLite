@@ -59,7 +59,7 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
     else {
       // Viewing or editing
       $('#convert').show();
-      this.appointment = this.cache.getByIndex('appointment', this.id);
+      this.appointment = this.cache.getById('appointment', this.id);
       if (this.appointment.dateTime) {
         const date: Date = new Date(this.appointment.dateTime);
 

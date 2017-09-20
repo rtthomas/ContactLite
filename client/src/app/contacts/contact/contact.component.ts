@@ -66,7 +66,7 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
     }
     else {
       // Viewing or editing
-      this.contact = this.cache.getByIndex('contact', id);
+      this.contact = this.cache.getById('contact', id);
       if (this.contact.date) {
         this.date = this.datetime.formatDateForInput(this.contact.date);
       }
