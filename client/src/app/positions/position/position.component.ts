@@ -42,7 +42,7 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
     const id = this.route.snapshot.params['id'];
     if (id === 'new') {
       // Creating a new one
-      this.position = new Position(null, '', '', null, null, null, null);
+      this.position = new Position(null, '', '', '', null, null, null, null);
     }
     else {
       // Viewing or editing

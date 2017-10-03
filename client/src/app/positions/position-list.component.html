@@ -12,6 +12,7 @@ and one for the content, so the header remains visible during scrolling
         <th class="edit-cell"></th>
         <th class="delete-cell"></th>
         <th>Title   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('title')"></span></th>
+        <th>Reference No.</th>
         <th>Company   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('company')"></span></th>
         <th>Person   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('person')"></span></th>
         <th>Date Posted   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('datePosted')"></span></th>
@@ -34,6 +35,7 @@ and one for the content, so the header remains visible during scrolling
         </td>
         <td [class]="isNotDeletable(i)"></td>
         <td><a href="http://{{p.url}}" target="_blank">{{p.title}}</a></td>
+        <td>{{p.reference}}</td>
         <td>{{p.getCompanyName()}}</td>
         <td>{{p.getPersonName()}}</td>
         <td>{{p.formatDatePosted()}}</td>
@@ -54,6 +56,10 @@ and one for the content, so the header remains visible during scrolling
     <tr>
       <td class="header">Title</td>
       <td colspan="2">{{p.title}}</td>
+    </tr>
+    <tr>
+      <td class="header">Reference No.</td>
+      <td colspan="2">{{p.reference}}</td>
     </tr>
     <tr>
       <td class="header">URL</td>

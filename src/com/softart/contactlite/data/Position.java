@@ -10,6 +10,7 @@ public class Position extends EntityBase implements Serializable {
 
 	private String 		title;
 	private String 		url;
+	private String 		reference;
 	private Long 		companyId;
 	private Long 		personId;
 	private Long 		datePosted;
@@ -32,6 +33,14 @@ public class Position extends EntityBase implements Serializable {
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
 	public Long getCompanyId() {
