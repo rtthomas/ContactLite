@@ -9,12 +9,12 @@ import { Email } from './model/email.model';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-@Injectable()
 /** 
  * Maintains cached copies of all entities. Each entity type ('company', 'person', etc.) is 
  * used to access the corresponding cache arrays. The entity type also forms the path segment
  * in the REST api 
  */
+@Injectable()
 export class CacheService {
 
   private entityCache = {

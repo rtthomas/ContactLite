@@ -116,7 +116,7 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
   }
   /** Converts the appointment to a "meeting" contact */
   convert() {
-    const contact = new Contact(null, this.appointment.positionId, this.appointment.personId, this.appointment.dateTime, 'meeting', null, null);
+    const contact = new Contact(null, this.appointment.companyId, this.appointment.positionId, this.appointment.personId, this.appointment.dateTime, 'meeting', null, null);
     this.cache.save('contact', contact);
     this.cache.deleteById('appointment', this.appointment.id);
   }

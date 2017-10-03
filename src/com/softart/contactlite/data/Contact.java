@@ -10,6 +10,7 @@ import com.googlecode.objectify.annotation.Entity;
 @Entity
 public class Contact extends EntityBase implements Serializable {
 
+	private Long	companyId;
 	private Long	positionId;
 	private Long	personId;
 	private Long 	date;
@@ -18,6 +19,14 @@ public class Contact extends EntityBase implements Serializable {
 	private Long 	emailId;
 
 	public Contact(){}
+
+	public Long getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
 
 	public Long getPositionId() {
 		return positionId;

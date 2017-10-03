@@ -6,7 +6,7 @@
 List of all contacts. On large displays, two tables, one for the headers
 and one for the content, so the header remains visible during scrolling 
 -->
-<div class="table-container hidden-small">
+<div class="hidden-small">
   <table class="table-condensed">
     <thead>
       <tr>
@@ -14,7 +14,10 @@ and one for the content, so the header remains visible during scrolling
         <th>Date   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('date')"></span></th>
         <th>Person   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('person')"></span></th>
         <th>Position   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('position')"></span></th>
+        <th>Company   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('company')"></span></th>
         <th colspan="2">Details</th>
+        <!-- Pad for tble scrollbar --> 
+        <th style="width:18px">&nbsp;</th>
       </tr>
     </thead>
   </table>
@@ -29,6 +32,7 @@ and one for the content, so the header remains visible during scrolling
         <td>{{c.formatDate()}}</td>
         <td>{{c.getPersonName()}}</td>
         <td>{{c.getPositionTitle()}}</td>
+        <td>{{c.getCompanyName()}}</td>
         <td colspan="2" [class]="showIfEmail(i)"><button type="button" class="btn btn-xs btn-basic" (click)="viewEmail(i)">View Email</button></td>
         <td colspan="2" [class]="showIfPhone(i)">{{c.details}}</td>
       </tr>
@@ -54,6 +58,10 @@ and one for the content, so the header remains visible during scrolling
     <tr>
       <td class="header">Position</td>
       <td colspan="2">{{c.getPositionTitle()}}</td>
+    </tr>
+    <tr>
+      <td class="header">Company</td>
+      <td colspan="2">{{c.getCompanyName()}}</td>
     </tr>
     <tr>
       <td class="header">Details</td>

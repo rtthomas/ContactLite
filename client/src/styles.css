@@ -29,8 +29,8 @@
   margin-right: 0.5em;
 }
 .table-container {
-  overflow: auto; 
-  max-height: 45em;
+  overflow-y: scroll; 
+  max-height: 40em;
 }
 .new-button,.edit-button {
   display: inline;

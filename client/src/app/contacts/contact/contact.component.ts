@@ -15,8 +15,9 @@ declare var $: any;
 export class ContactComponent extends EntityComponentBase implements OnInit {
   contact: Contact;
   date: string; // for the html date element, which requires a string yyyy-mm-dd
-  selectedPerson; // the company name
-  selectedPosition; // the company name
+  selectedPerson; // the person name
+  selectedPosition; // the position title
+  selectedCompany; // the company name
   isEmail: boolean;
   isPhone: boolean;
   isMeeting: boolean;
@@ -24,12 +25,15 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   emailSubject: string = '';
   persons = [];
   positions = [];
+  companies = [];
   emails = [];
 
   private personIdToName = {};
   private personNameToId = {};
   private positionIdToTitle = {};
   private positionTitleToId = {};
+  private companyIdToName = {};
+  private companyNameToId = {};
   private selectedEmailIndex: number;
 
   constructor(
@@ -43,13 +47,18 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   ngOnInit() {
     this.persons = this.cache.getAll('person');
     this.positions = this.cache.getAll('position');
-    // Map person and position names to their entity ids and vice-versa
+    this.companies = this.cache.getAll('company');
+    
+    // Map person, position and company names/title to their entity ids and vice-versa
     let maps = this.createEntityMaps(this.positions, 'title');
     this.positionIdToTitle = maps.idToAttribute;
     this.positionTitleToId = maps.attributeToId;
     maps = this.createEntityMaps(this.persons, 'name');
     this.personIdToName = maps.idToAttribute;
     this.personNameToId = maps.attributeToId;
+    maps = this.createEntityMaps(this.companies, 'name');
+    this.companyIdToName = maps.idToAttribute;
+    this.companyNameToId = maps.attributeToId;
 
     // Retrieve email list, filter out assigned ones
     this.emails = this.cache.getAll('email').filter(
@@ -59,7 +68,7 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
     const id = this.route.snapshot.params['id'];
     if (id === 'new') {
       // Creating a new one
-      this.contact = new Contact(null, null, null, null, undefined, '', null);
+      this.contact = new Contact(null, null, null, null, null, undefined, '', null);
       this.isEmail = false;
       this.isPhone = false;
       this.isMeeting = false;
@@ -76,6 +85,9 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
       if (this.contact.personId) {
         this.selectedPerson = this.personIdToName[this.contact.personId];
       }
+      if (this.contact.companyId) {
+        this.selectedCompany = this.personIdToName[this.contact.companyId];
+      }
       if (this.contact.type === 'email') {
         this.isEmail = true;
       }
@@ -84,8 +96,8 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
       }
       else {
         this.isMeeting = true;
-        $('#save-button').removeAttr('disabled');
       }
+      $('#save-button').removeAttr('disabled');
     }
   }
 
@@ -123,6 +135,11 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   /** Called upon selection of a position from the position selector */
   selectPosition() {
     this.contact.positionId = this.positionTitleToId[this.selectedPosition];
+  }
+
+  /** Called upon selection of a company from the company selector */
+  selectCompany() {
+    this.contact.companyId = this.companyNameToId[this.selectedCompany];
   }
 
   /** Called when Email radio button clicked */

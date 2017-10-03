@@ -5,7 +5,7 @@
 List of all companies. On large displays, two tables, one for the headers
 and one for the content, so the header remains visible during scrolling
 -->
-<div class="table-container hidden-small">
+<div class="hidden-small">
   <table class="table-condensed">
     <thead>
       <tr>
@@ -14,8 +14,10 @@ and one for the content, so the header remains visible during scrolling
         <th>Phone</th>
         <th>Address</th>
         <th>City   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('city')"></span></th>
-        <!-- Ensures column alignment when the scrollbar appears 
-        <th style="width:18px">&nbsp;</th>-->
+        <th>Login Hint</th>
+        <th>Password Hint</th>
+        <!-- Pad for tble scrollbar --> 
+        <th style="width:18px">&nbsp;</th>
       </tr>
     </thead>
   </table>
@@ -31,6 +33,8 @@ and one for the content, so the header remains visible during scrolling
         <td>{{c.phone}}</td>
         <td>{{c.address}}</td>
         <td>{{c.city}}</td>
+        <td>{{c.login}}</td>
+        <td>{{c.password}}</td>
       </tr>
     </tbody>
   </table>
@@ -57,7 +61,15 @@ and one for the content, so the header remains visible during scrolling
     </tr>
     <tr>
       <td class="header">City</td>
-      <td colspan="2">{{c.citye}}</td>
+      <td colspan="2">{{c.city}}</td>
+    </tr>
+    <tr>
+      <td class="header">Login Hint</td>
+      <td colspan="2">{{c.login}}</td>
+    </tr>
+    <tr>
+      <td class="header">Password Hint</td>
+      <td colspan="2">{{c.password}}</td>
     </tr>
   </table>
 </div>

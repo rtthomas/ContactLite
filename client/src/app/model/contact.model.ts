@@ -14,6 +14,7 @@ export class Contact extends Entity {
     static fromJson(json: any) {
         const p = new Contact(
             json.id, 
+            json.companyId, 
             json.positionId, 
             json.personId, 
             json.date,   
@@ -26,6 +27,7 @@ export class Contact extends Entity {
 
     constructor(
         public id: number,
+        public companyId: number,
         public positionId: number,
         public personId: number,
         public date: number,
@@ -48,6 +50,16 @@ export class Contact extends Entity {
         if (this.personId){
             const person = this.cache.getById('person', this.personId);
             return person.name;
+        }
+        else {
+            return '';
+        }
+    }
+
+    getCompanyName(){
+        if (this.companyId){
+            const company = this.cache.getById('company', this.companyId);
+            return company.name;
         }
         else {
             return '';

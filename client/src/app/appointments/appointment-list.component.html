@@ -1,8 +1,11 @@
 <a routerLink="/appointments/new"><i class="material-icons" style="float:right">add</i></a>
 <a routerLink="/appointments/new" class="btn btn-primary new-button" role="button">New Appointment</a>
 <br><p>
-<!-- List of all appointments. On large displays, a conventional table -->
-<div class="table-container hidden-small">
+<!-- 
+  List of all appointments. On large displays, two tables, one for the headers
+and one for the content, so the header remains visible during scrolling
+-->
+<div class="hidden-small">
   <table class="table-condensed">
     <thead>
       <tr>
@@ -12,8 +15,14 @@
         <th>Date</th>
         <th>Time</th>
         <th>Position</th>
+        <!-- Pad for tble scrollbar --> 
+        <th style="width:18px">&nbsp;</th>
       </tr>
     </thead>
+  </table>
+</div>
+<div class="table-container hidden-small">
+  <table class="table-condensed">
     <tbody>
       <tr *ngFor="let a of appointments; let i = index">
         <td class="edit-cell">

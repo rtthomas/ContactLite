@@ -26,6 +26,14 @@ Create or edit a contact
                   </option>
                  </select>
           </div>
+          <div class="form-group">
+            <label for="sel1">Company</label>
+            <select class="form-control" id="sel1" name="company" [(ngModel)]="selectedCompany" (change)="selectCompany()">
+                  <option *ngFor="let c of companies">
+                    {{c.name}}
+                  </option>
+                 </select>
+          </div>
           <div *ngIf='!isMeeting' class="form-group">
             <label>Email&nbsp;&nbsp;</label>
             <input class="select-email-or-phone" type="radio" [value]="isEmail" [checked]='isEmail' (change)="setEmail()">&nbsp;&nbsp;&nbsp;&nbsp;

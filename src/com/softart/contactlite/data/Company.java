@@ -14,6 +14,8 @@ public class Company extends EntityBase implements Serializable {
 	private String 		address;
 	private String 		city;
 	private String 		phone;
+	private String 		login;
+	private String 		password;
 
 	public String toString(){
 		return name;
@@ -48,5 +50,21 @@ public class Company extends EntityBase implements Serializable {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }
