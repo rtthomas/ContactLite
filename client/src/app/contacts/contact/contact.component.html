@@ -13,26 +13,26 @@ Create or edit a contact
           <div class="form-group">
             <label for="sel1">Person</label>
             <select class="form-control" id="sel1" name="person" [(ngModel)]="selectedPerson" (change)="selectPerson()">
-                  <option *ngFor="let p of persons">
-                    {{p.name}}
-                  </option>
-                 </select>
+              <option *ngFor="let p of persons">
+                {{p.name}}
+              </option>
+            </select>
           </div>
           <div class="form-group">
             <label for="sel1">Position</label>
             <select class="form-control" id="sel1" name="position" [(ngModel)]="selectedPosition" (change)="selectPosition()">
-                  <option *ngFor="let p of positions">
-                    {{p.title}}
-                  </option>
-                 </select>
+              <option *ngFor="let p of positions">
+                {{p.title}}
+              </option>
+            </select>
           </div>
           <div class="form-group">
-            <label for="sel1">Company</label>
-            <select class="form-control" id="sel1" name="company" [(ngModel)]="selectedCompany" (change)="selectCompany()">
-                  <option *ngFor="let c of companies">
-                    {{c.name}}
-                  </option>
-                 </select>
+            <label class="control-label">Reference No.</label>
+            <input type="text" class="form-control" name="name" disabled [(ngModel)]="positionReference">
+          </div>
+          <div class="form-group">
+            <label class="control-label">Company</label>
+            <input type="text" class="form-control" name="ref" disabled [(ngModel)]="companyName">
           </div>
           <div *ngIf='!isMeeting' class="form-group">
             <label>Email&nbsp;&nbsp;</label>

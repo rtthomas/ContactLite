@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Contact } from '../../model/contact.model';
+import { Company } from '../../model/company.model';
+import { Position } from '../../model/position.model';
 import { Email } from '../../model/email.model';
 import { CacheService } from '../../cache.service';
 import { EntityComponentBase } from '../../entityComponentBase';
@@ -17,7 +19,8 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   date: string; // for the html date element, which requires a string yyyy-mm-dd
   selectedPerson; // the person name
   selectedPosition; // the position title
-  selectedCompany; // the company name
+  companyName: string;
+  positionReference: string;
   isEmail: boolean;
   isPhone: boolean;
   isMeeting: boolean;
@@ -33,8 +36,7 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   private positionIdToTitle = {};
   private positionTitleToId = {};
   private companyIdToName = {};
-  private companyNameToId = {};
-  private selectedEmailIndex: number;
+   private selectedEmailIndex: number;
 
   constructor(
     private router: Router,
@@ -58,7 +60,6 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
     this.personNameToId = maps.attributeToId;
     maps = this.createEntityMaps(this.companies, 'name');
     this.companyIdToName = maps.idToAttribute;
-    this.companyNameToId = maps.attributeToId;
 
     // Retrieve email list, filter out assigned ones
     this.emails = this.cache.getAll('email').filter(
@@ -81,12 +82,13 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
       }
       if (this.contact.positionId) {
         this.selectedPosition = this.positionIdToTitle[this.contact.positionId];
+        const position: Position = this.cache.getById('position', this.contact.positionId);
+        this.positionReference = position.reference;
+        const company: Company = this.cache.getById('company', position.companyId);
+        this.companyName = company.name;
       }
       if (this.contact.personId) {
         this.selectedPerson = this.personIdToName[this.contact.personId];
-      }
-      if (this.contact.companyId) {
-        this.selectedCompany = this.personIdToName[this.contact.companyId];
       }
       if (this.contact.type === 'email') {
         this.isEmail = true;
@@ -135,11 +137,11 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   /** Called upon selection of a position from the position selector */
   selectPosition() {
     this.contact.positionId = this.positionTitleToId[this.selectedPosition];
-  }
-
-  /** Called upon selection of a company from the company selector */
-  selectCompany() {
-    this.contact.companyId = this.companyNameToId[this.selectedCompany];
+    const position: Position = this.cache.getById('position', this.contact.positionId);
+    this.positionReference = position.reference;
+    const company = this.cache.getById('company', position.companyId);
+    this.contact.companyId = company.id;
+    this.companyName = company.name;
   }
 
   /** Called when Email radio button clicked */

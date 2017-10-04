@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Contact } from '../model/contact.model';
+import { Position } from '../model/position.model';
 import { Email } from '../model/email.model';
 import { CacheService } from '../cache.service';
 import { Subscriber } from 'rxjs/Subscriber';
@@ -70,5 +71,17 @@ export class ContactListComponent extends ListComponentBase implements OnInit, O
     else if (field === 'position'){
       this.contacts = this.sortListReferenced(this.contacts, 'positionId', 'position', 'title');
     }
+    else if (field === 'company'){
+      this.contacts = this.sortListReferenced(this.contacts, 'companyId', 'company', 'name');
+    }
+  }
+
+  getPositionReference(id: number){
+    const contact: Contact = this.cache.getById('contact', id);
+    if (!contact.positionId){
+      return;
+    }
+    const position: Position = this.cache.getById('position', contact.positionId);
+    return position.reference;
   }
 }
