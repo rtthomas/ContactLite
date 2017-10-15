@@ -13,9 +13,9 @@ export class EntityComponentBase {
      */
     createEntityMaps(entityList: Array<any>, attribute: string) {
         const maps = {attributeToId: {}, idToAttribute: {}};
-        for (let i = 0; i < entityList.length; i++) {
-            const id = entityList[i]['id'];
-            const value = entityList[i][attribute];
+            for (const entity of entityList){
+            const id = entity['id'];
+            const value = entity[attribute];
             maps.attributeToId[value] = id;
             maps.idToAttribute[id] = value;
          }

@@ -51,54 +51,33 @@ export class CacheService {
 
   /** Initializes the cache from the server */
   initialize() {
+    const observable = Observable.create((observer: Observer<any>) => {
+      const pendingTransactions = {count: 6};
+      this.fetchAll('company', observer, pendingTransactions);
+      this.fetchAll('person', observer, pendingTransactions);
+      this.fetchAll('position', observer, pendingTransactions);
+      this.fetchAll('appointment', observer, pendingTransactions);
+      this.fetchAll('contact', observer, pendingTransactions);
+      this.fetchAll('email', observer, pendingTransactions);
+    });
+    return observable;
+  }
 
-    this.server.getAll('company').subscribe(
-      (response) => {
-        this.entityCache['company'].array = response.json();
-        this.convertToClasses(this.entityCache['company'].array, 'company');
-        this.mapIdToEntity('company');
-
-        this.server.getAll('person').subscribe(
-          (response) => {
-            this.entityCache['person'].array = response.json();
-            this.convertToClasses(this.entityCache['person'].array, 'person');
-            this.mapIdToEntity('person');
-
-            this.server.getAll('position').subscribe(
-              (response) => {
-                this.entityCache['position'].array = response.json();
-                this.convertToClasses(this.entityCache['position'].array, 'position');
-                this.mapIdToEntity('position');
-
-                this.server.getAll('appointment').subscribe(
-                  (response) => {
-                    this.entityCache['appointment'].array = response.json();
-                    this.convertToClasses(this.entityCache['appointment'].array, 'appointment');
-                    this.mapIdToEntity('appointment');
-
-                    this.server.getAll('contact').subscribe(
-                      (response) => {
-                        this.entityCache['contact'].array = response.json();
-                        this.convertToClasses(this.entityCache['contact'].array, 'contact');
-                        this.mapIdToEntity('contact');
-
-                        this.server.getAll('email').subscribe(
-                          (response) => {
-                            this.entityCache['email'].array = response.json();
-                            this.convertToClasses( this.entityCache['email'].array, 'email');
-                            this.mapIdToEntity('email');
-                          }
-                        );
-                      }
-                    );
-                  }
-                );
-              }
-            );
+  /** 
+   * Fetches all entities of a specified type, and decrements the pending transation count.
+   * When the count reaches zero the observer complete() method is called
+   */
+  private fetchAll(entityType: string, observer: Observer<any>, pendingTransactions){
+      this.server.getAll(entityType).subscribe(
+        (response) => {
+          this.entityCache[entityType].array = response.json();
+          this.convertToClasses(this.entityCache[entityType].array, entityType);
+          this.mapIdToEntity(entityType);
+          if (--pendingTransactions.count === 0) {
+            observer.complete();
           }
-        );
-      }
-    );
+        }
+      );
   }
 
   /** 
@@ -126,8 +105,7 @@ export class CacheService {
    */
   private mapIdToEntity(type: string) {
     const array = this.entityCache[type].array;
-    for (let i = 0; i < array.length; i++) {
-      const entity = array[i];
+    for (const entity of array) {
       this.entityCache[type].idToEntity[entity.id] = entity;
     }
   }
@@ -166,7 +144,7 @@ export class CacheService {
   getEmailContent(id: number) {
     return Observable.create((observer: Observer<string>) => {
 
-      const text:string = this.emailContentCache[id];
+      const text: string = this.emailContentCache[id];
       if (text) {
         // Text is already in the cache
         observer.next(text);
@@ -231,19 +209,19 @@ export class CacheService {
    * @param type the entity type
    * @param id the entity id
    */
-  deleteById(type: string, id: number){
+  deleteById(type: string, id: number) {
     // Locate index in the cache array
-    for (var index = 0; index < this.entityCache[type].array.length; index++){
+    for (var index = 0; index < this.entityCache[type].array.length; index++) {
       const entity = this.entityCache[type].array[index];
-      if (entity.id === id){
-        break;
-      } 
+      if (entity.id === id) {
+        this.delete(type, id, index);
+        return;
+      }
     }
-    this.delete(type, id, index);
   }
 
   /** Sends the delete requrst to the server removes the entity from the cache array */
-  private delete(type: string, id: number, index: number){
+  private delete(type: string, id: number, index: number) {
     this.server.delete(type, id).subscribe(
       (response) => {
         // Remove the entity from the cache array
