@@ -21,6 +21,8 @@ import { ContactComponent } from './contacts/contact/contact.component';
 import { ServerService } from './server.service';
 import { CacheService } from './cache.service';
 import { DateTimeService } from './datetime.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatProgressSpinnerModule} from '@angular/material';
 
 const appRoutes: Routes = [
   {path: 'companies', component: CompanyListComponent},
@@ -54,7 +56,9 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule
   ],
   providers: [ServerService, CacheService, {provide: LocationStrategy, useClass: HashLocationStrategy}, DateTimeService],
   bootstrap: [AppComponent]

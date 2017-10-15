@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CacheService } from './cache.service';
 import { Router } from '@angular/router';
+import {MatProgressSpinnerModule} from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent {
   constructor(private cache: CacheService, private router: Router) { }
 
   ngOnInit() {
+    /*
     const observable: Observable<any> = this.cache.initialize();
     observable.subscribe(
       (next: any) => { },
@@ -24,5 +26,6 @@ export class AppComponent {
         this.router.navigate(['/']);
       }
     );
+    */
   }
 }
