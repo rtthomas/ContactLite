@@ -20,7 +20,7 @@
              </div>
              <div class="form-group">
                <label for="sel1" class="control-label">Company</label>
-               <select class="form-control" id="sel1" name="company" [(ngModel)]="selectedCompany" (change)="selectCompany()">
+               <select class="form-control" id="sel1" name="company" [(ngModel)]="selectedCompany" (change)="selectCompany($event)">
                 <option *ngFor="let c of companies">
                   {{c.name}}
                 </option>
@@ -28,7 +28,7 @@
              </div>
              <div class="form-group">
                <label for="sel2" class="control-label">Person</label>
-               <select class="form-control" id="sel2" name="person" [(ngModel)]="selectedPerson" (change)="selectPerson()">
+               <select class="form-control" id="sel2" name="person" [(ngModel)]="selectedPerson" (change)="selectPerson($event)">
                 <option *ngFor="let p of persons">
                   {{p.name}}
                 </option>
@@ -36,7 +36,7 @@
              </div>
              <div class="form-group">
                <label for="sel3" class="control-label">Position</label>
-               <select class="form-control" id="sel3" name="position" [(ngModel)]="selectedPosition" (change)="selectPosition()">
+               <select class="form-control" id="sel3" name="position" [(ngModel)]="selectedPosition" (change)="selectPosition($event)">
                 <option *ngFor="let p of positions">
                   {{p.title}}
                 </option>

@@ -25,18 +25,15 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   isPhone: boolean;
   isMeeting: boolean;
   emailText: string;
-  emailSubject: string = '';
+  emailSubject = '';
   persons = [];
   positions = [];
-  companies = [];
   emails = [];
 
   private personIdToName = {};
-  private personNameToId = {};
   private positionIdToTitle = {};
-  private positionTitleToId = {};
   private companyIdToName = {};
-   private selectedEmailIndex: number;
+  private selectedEmailIndex: number;
 
   constructor(
     private router: Router,
@@ -47,23 +44,19 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   }
 
   ngOnInit() {
+    const persons = this.cache.getAll('person');
     this.persons = this.cache.getAll('person');
     this.positions = this.cache.getAll('position');
-    this.companies = this.cache.getAll('company');
+    const companies = this.cache.getAll('company');
     
-    // Map person, position and company names/title to their entity ids and vice-versa
-    let maps = this.createEntityMaps(this.positions, 'title');
-    this.positionIdToTitle = maps.idToAttribute;
-    this.positionTitleToId = maps.attributeToId;
-    maps = this.createEntityMaps(this.persons, 'name');
-    this.personIdToName = maps.idToAttribute;
-    this.personNameToId = maps.attributeToId;
-    maps = this.createEntityMaps(this.companies, 'name');
-    this.companyIdToName = maps.idToAttribute;
+    // Map person, position and company ids to names/title
+    this.positionIdToTitle = this.mapToAttribute(this.positions, 'title');
+    this.personIdToName = this.mapToAttribute(persons, 'name');
+    this.companyIdToName = this.mapToAttribute(companies, 'name');
 
     // Retrieve email list, filter out assigned ones
     this.emails = this.cache.getAll('email').filter(
-      (email: Email) => { return !email.assigned; }
+      (email: Email) => !email.assigned
     );
 
     const id = this.route.snapshot.params['id'];
@@ -108,7 +101,7 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   }
   save() {
     if (this.date) {
-      let date = new Date();
+      const date = new Date();
       const parts: string[] = this.date.split('-');
       date.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
       this.contact.date = date.getTime();
@@ -130,13 +123,15 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   }
 
   /** Called upon selection of a person from the person selector */
-  selectPerson() {
-    this.contact.personId = this.personNameToId[this.selectedPerson];
+  selectPerson(event) {
+    const i = event.target.options.selectedIndex;
+    this.contact.personId = this.persons[i].id;
   }
 
   /** Called upon selection of a position from the position selector */
-  selectPosition() {
-    this.contact.positionId = this.positionTitleToId[this.selectedPosition];
+  selectPosition(event) {
+    const i = event.target.options.selectedIndex;
+    this.contact.positionId = this.positions[i].id;
     const position: Position = this.cache.getById('position', this.contact.positionId);
     this.positionReference = position.reference;
     const company = this.cache.getById('company', position.companyId);

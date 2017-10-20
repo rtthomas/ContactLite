@@ -1,13 +1,55 @@
-webpackJsonp([1,4],{
+webpackJsonp(["main"],{
 
-/***/ 106:
+/***/ "../../../../../src/$$_gendir lazy recursive":
+/***/ (function(module, exports) {
+
+function webpackEmptyAsyncContext(req) {
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
+}
+webpackEmptyAsyncContext.keys = function() { return []; };
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+module.exports = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container\">\r\n  <!--\r\n  <mat-progress-spinner *ngIf='!initialized' mode=\"indeterminate\"></mat-progress-spinner>\r\n  -->\r\n  <nav class=\"navbar navbar-default\" role=\"navigation\" *ngIf='initialized'>\r\n    <div class=\"navbar-header\">\r\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-toggle\">\r\n          <span class=\"icon-bar\"></span>\r\n          <span class=\"icon-bar\"></span>\r\n          <span class=\"icon-bar\"></span>\r\n        </button>\r\n    </div>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"nav-toggle\">\r\n      <ul class=\"nav navbar-nav\">\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/companies\">Companies</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/persons\">People</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/positions\">Positions</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/contacts\">Contacts</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/appointments\">Appointments</a></li>\r\n      </ul>\r\n    </div>\r\n  </nav>\r\n  <router-outlet></router-outlet>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(14);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,22 +62,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+// import {MatProgressSpinnerModule} from '@angular/material';
 var AppComponent = (function () {
     function AppComponent(cache, router) {
         this.cache = cache;
         this.router = router;
+        this.initialized = false;
     }
     AppComponent.prototype.ngOnInit = function () {
-        this.cache.initialize();
-        this.router.navigate(['/']);
+        var _this = this;
+        var observable = this.cache.initialize();
+        observable.subscribe(function (next) { }, function (error) { }, function () {
+            _this.initialized = true;
+            console.log('Initialized');
+            _this.router.navigate(['/']);
+        });
     };
     return AppComponent;
 }());
 AppComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-root',
-        template: __webpack_require__(178),
-        styles: [__webpack_require__(175)]
+        template: __webpack_require__("../../../../../src/app/app.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/app.component.css")]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object])
 ], AppComponent);
@@ -45,13 +94,132 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 107:
+/***/ "../../../../../src/app/app.module.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__home_home_component__ = __webpack_require__("../../../../../src/app/home/home.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__companies_company_list_component__ = __webpack_require__("../../../../../src/app/companies/company-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__companies_company_company_component__ = __webpack_require__("../../../../../src/app/companies/company/company.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__positions_position_list_component__ = __webpack_require__("../../../../../src/app/positions/position-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__positions_position_position_component__ = __webpack_require__("../../../../../src/app/positions/position/position.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__persons_person_list_component__ = __webpack_require__("../../../../../src/app/persons/person-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__persons_person_person_component__ = __webpack_require__("../../../../../src/app/persons/person/person.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_list_component__ = __webpack_require__("../../../../../src/app/appointments/appointment-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__appointments_appointment_appointment_component__ = __webpack_require__("../../../../../src/app/appointments/appointment/appointment.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__contacts_contact_list_component__ = __webpack_require__("../../../../../src/app/contacts/contact-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__contacts_contact_contact_component__ = __webpack_require__("../../../../../src/app/contacts/contact/contact.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__server_service__ = __webpack_require__("../../../../../src/app/server.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__datetime_service__ = __webpack_require__("../../../../../src/app/datetime.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+// import {MatProgressSpinnerModule} from '@angular/material';
+var appRoutes = [
+    { path: 'companies', component: __WEBPACK_IMPORTED_MODULE_8__companies_company_list_component__["a" /* CompanyListComponent */] },
+    { path: 'companies/:id', component: __WEBPACK_IMPORTED_MODULE_9__companies_company_company_component__["a" /* CompanyComponent */] },
+    { path: 'positions', component: __WEBPACK_IMPORTED_MODULE_10__positions_position_list_component__["a" /* PositionListComponent */] },
+    { path: 'positions/:id', component: __WEBPACK_IMPORTED_MODULE_11__positions_position_position_component__["a" /* PositionComponent */] },
+    { path: 'appointments', component: __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_list_component__["a" /* AppointmentListComponent */] },
+    { path: 'appointments/:id', component: __WEBPACK_IMPORTED_MODULE_15__appointments_appointment_appointment_component__["a" /* AppointmentComponent */] },
+    { path: 'contacts', component: __WEBPACK_IMPORTED_MODULE_16__contacts_contact_list_component__["a" /* ContactListComponent */] },
+    { path: 'contacts/:id', component: __WEBPACK_IMPORTED_MODULE_17__contacts_contact_contact_component__["a" /* ContactComponent */] },
+    { path: 'persons', component: __WEBPACK_IMPORTED_MODULE_12__persons_person_list_component__["a" /* PersonListComponent */] },
+    { path: 'persons/:id', component: __WEBPACK_IMPORTED_MODULE_13__persons_person_person_component__["a" /* PersonComponent */] },
+];
+var AppModule = AppModule_1 = (function () {
+    function AppModule(injector) {
+        AppModule_1.injector = injector;
+    }
+    return AppModule;
+}());
+AppModule = AppModule_1 = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* NgModule */])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */],
+            __WEBPACK_IMPORTED_MODULE_7__home_home_component__["a" /* HomeComponent */],
+            __WEBPACK_IMPORTED_MODULE_8__companies_company_list_component__["a" /* CompanyListComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__companies_company_company_component__["a" /* CompanyComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__positions_position_list_component__["a" /* PositionListComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__positions_position_position_component__["a" /* PositionComponent */],
+            __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_list_component__["a" /* AppointmentListComponent */],
+            __WEBPACK_IMPORTED_MODULE_15__appointments_appointment_appointment_component__["a" /* AppointmentComponent */],
+            __WEBPACK_IMPORTED_MODULE_16__contacts_contact_list_component__["a" /* ContactListComponent */],
+            __WEBPACK_IMPORTED_MODULE_17__contacts_contact_contact_component__["a" /* ContactComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__persons_person_list_component__["a" /* PersonListComponent */],
+            __WEBPACK_IMPORTED_MODULE_13__persons_person_person_component__["a" /* PersonComponent */],
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* RouterModule */].forRoot(appRoutes)
+            //    BrowserAnimationsModule,
+            //    MatProgressSpinnerModule
+        ],
+        providers: [__WEBPACK_IMPORTED_MODULE_18__server_service__["a" /* ServerService */], __WEBPACK_IMPORTED_MODULE_19__cache_service__["a" /* CacheService */], { provide: __WEBPACK_IMPORTED_MODULE_5__angular_common__["g" /* LocationStrategy */], useClass: __WEBPACK_IMPORTED_MODULE_5__angular_common__["d" /* HashLocationStrategy */] }, __WEBPACK_IMPORTED_MODULE_20__datetime_service__["a" /* DateTimeService */]],
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */]]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["E" /* Injector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["E" /* Injector */]) === "function" && _a || Object])
+], AppModule);
+
+var AppModule_1, _a;
+//# sourceMappingURL=app.module.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/appointments/appointment-list.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<a routerLink=\"/appointments/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/appointments/new\" class=\"btn btn-primary new-button\" role=\"button\">New Appointment</a>\n<br><p>\n<!-- \n  List of all appointments. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Company</th>\n        <th>Person</th>\n        <th>Date</th>\n        <th>Time</th>\n        <th>Position</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <tbody>\n      <tr *ngFor=\"let a of appointments; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/appointments', appointments[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{a.getCompanyName()}}</td>\n        <td>{{a.getPersonName()}}</td>\n        <td>{{a.formatDate()}}</td>\n        <td>{{a.formatTime()}}</td>\n        <td>{{a.getPositionTitle()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let a of appointments; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/appointments', appointments[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{a.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{a.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date</td>\n      <td colspan=\"2\">{{a.formatDate()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Time</td>\n      <td colspan=\"2\">{{a.formatTime()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Position</td>\n      <td colspan=\"2\">{{a.getPositionTitle()}}</td>\n    </tr>\n  </table>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/appointments/appointment-list.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppointmentListComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -77,9 +245,9 @@ var AppointmentListComponent = (function () {
     return AppointmentListComponent;
 }());
 AppointmentListComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-appointment-list',
-        template: __webpack_require__(179)
+        template: __webpack_require__("../../../../../src/app/appointments/appointment-list.component.html")
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object])
 ], AppointmentListComponent);
@@ -89,18 +257,25 @@ var _a;
 
 /***/ }),
 
-/***/ 108:
+/***/ "../../../../../src/app/appointments/appointment/appointment.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "   <!--\n   Create or edit an appointment \n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Appointment</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"date\" class=\"control-label\">Date</label>\n               <input type=\"date\" class=\"form-control\" name=\"date\" id=\"date\" [(ngModel)]=\"date\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"time\" class=\"control-label\">Time</label>\n               <input type=\"time\" class=\"form-control\" name=\"time\" id=\"time\" [(ngModel)]=\"time\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\" class=\"control-label\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany()\">\n                <option *ngFor=\"let c of companies\">\n                  {{c.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel2\" class=\"control-label\">Person</label>\n               <select class=\"form-control\" id=\"sel2\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                <option *ngFor=\"let p of persons\">\n                  {{p.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel3\" class=\"control-label\">Position</label>\n               <select class=\"form-control\" id=\"sel3\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n                <option *ngFor=\"let p of positions\">\n                  {{p.title}}\n                </option>\n               </select>\n             </div>\n          </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n          <!-- Convert button visible only for edit -->\n          <button type=\"button\" [class]=\"displayIfConvertible()\" id=\"convert\" (click)=\"convert()\">Record</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/appointments/appointment/appointment.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_appointment_model__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entityComponentBase__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__datetime_service__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__model_contact_model__ = __webpack_require__(40);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppointmentComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_appointment_model__ = __webpack_require__("../../../../../src/app/model/appointment.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entityComponentBase__ = __webpack_require__("../../../../../src/app/entityComponentBase.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__datetime_service__ = __webpack_require__("../../../../../src/app/datetime.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__model_contact_model__ = __webpack_require__("../../../../../src/app/model/contact.model.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -240,11 +415,11 @@ var AppointmentComponent = (function (_super) {
     return AppointmentComponent;
 }(__WEBPACK_IMPORTED_MODULE_3__entityComponentBase__["a" /* EntityComponentBase */]));
 AppointmentComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-appointment',
-        template: __webpack_require__(180)
+        template: __webpack_require__("../../../../../src/app/appointments/appointment/appointment.component.html")
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */]) === "function" && _d || Object])
 ], AppointmentComponent);
 
 var _a, _b, _c, _d;
@@ -252,14 +427,279 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ 109:
+/***/ "../../../../../src/app/cache.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__(30);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CacheService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__server_service__ = __webpack_require__("../../../../../src/app/server.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_company_model__ = __webpack_require__("../../../../../src/app/model/company.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_person_model__ = __webpack_require__("../../../../../src/app/model/person.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_position_model__ = __webpack_require__("../../../../../src/app/model/position.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__model_appointment_model__ = __webpack_require__("../../../../../src/app/model/appointment.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__model_contact_model__ = __webpack_require__("../../../../../src/app/model/contact.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__model_email_model__ = __webpack_require__("../../../../../src/app/model/email.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_Observable__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+/**
+ * Maintains cached copies of all entities. Each entity type ('company', 'person', etc.) is
+ * used to access the corresponding cache arrays. The entity type also forms the path segment
+ * in the REST api
+ */
+var CacheService = (function () {
+    function CacheService(server) {
+        this.server = server;
+        this.entityCache = {
+            company: {
+                array: [],
+                idToEntity: {}
+            },
+            person: {
+                array: [],
+                idToEntity: {}
+            },
+            position: {
+                array: [],
+                idToEntity: {}
+            },
+            contact: {
+                array: [],
+                idToEntity: {}
+            },
+            appointment: {
+                array: [],
+                idToEntity: {}
+            },
+            email: {
+                array: [],
+                idToEntity: {}
+            },
+        };
+        /** Email content is "lazy" fetched from the server  */
+        this.emailContentCache = {};
+    }
+    /** Initializes the cache from the server */
+    CacheService.prototype.initialize = function () {
+        var _this = this;
+        var observable = __WEBPACK_IMPORTED_MODULE_8_rxjs_Observable__["Observable"].create(function (observer) {
+            var pendingTransactions = { count: 6 };
+            _this.fetchAll('company', observer, pendingTransactions);
+            _this.fetchAll('person', observer, pendingTransactions);
+            _this.fetchAll('position', observer, pendingTransactions);
+            _this.fetchAll('appointment', observer, pendingTransactions);
+            _this.fetchAll('contact', observer, pendingTransactions);
+            _this.fetchAll('email', observer, pendingTransactions);
+        });
+        return observable;
+    };
+    /**
+     * Fetches all entities of a specified type, and decrements the pending transation count.
+     * When the count reaches zero the observer complete() method is called
+     */
+    CacheService.prototype.fetchAll = function (entityType, observer, pendingTransactions) {
+        var _this = this;
+        this.server.getAll(entityType).subscribe(function (response) {
+            _this.entityCache[entityType].array = response.json();
+            _this.convertToClasses(_this.entityCache[entityType].array, entityType);
+            _this.mapIdToEntity(entityType);
+            if (--pendingTransactions.count === 0) {
+                observer.complete();
+            }
+        });
+    };
+    /**
+     * Converts JSON representation of an entity into an object of the entity'e class
+     * @param array the entity array
+     * @param type the entity type
+     */
+    CacheService.prototype.convertToClasses = function (array, type) {
+        for (var i = 0; i < array.length; i++) {
+            var elem = array[i];
+            switch (type) {
+                case 'company':
+                    array[i] = __WEBPACK_IMPORTED_MODULE_2__model_company_model__["a" /* Company */].fromJson(elem);
+                    break;
+                case 'person':
+                    array[i] = __WEBPACK_IMPORTED_MODULE_3__model_person_model__["a" /* Person */].fromJson(elem);
+                    break;
+                case 'position':
+                    array[i] = __WEBPACK_IMPORTED_MODULE_4__model_position_model__["a" /* Position */].fromJson(elem);
+                    break;
+                case 'appointment':
+                    array[i] = __WEBPACK_IMPORTED_MODULE_5__model_appointment_model__["a" /* Appointment */].fromJson(elem);
+                    break;
+                case 'contact':
+                    array[i] = __WEBPACK_IMPORTED_MODULE_6__model_contact_model__["a" /* Contact */].fromJson(elem);
+                    break;
+                case 'email':
+                    array[i] = __WEBPACK_IMPORTED_MODULE_7__model_email_model__["a" /* Email */].fromJson(elem);
+                    break;
+            }
+        }
+    };
+    /**
+     * Creates a map of entity id to entity object
+     * @param type the entity type
+     */
+    CacheService.prototype.mapIdToEntity = function (type) {
+        var array = this.entityCache[type].array;
+        for (var _i = 0, array_1 = array; _i < array_1.length; _i++) {
+            var entity = array_1[_i];
+            this.entityCache[type].idToEntity[entity.id] = entity;
+        }
+    };
+    /**
+     * Returns all entities of a given type as an array.
+     * @param type the entity type
+     */
+    CacheService.prototype.getAll = function (type) {
+        return this.entityCache[type].array;
+    };
+    /**
+     * Returns a map of id to entity for a specified entity type all entities of a given type as an array.
+     * @param type the entity type
+     */
+    CacheService.prototype.getIdMap = function (type) {
+        return this.entityCache[type].idToEntity;
+    };
+    /** Gets an entity specified by its array index */
+    CacheService.prototype.getByIndex = function (type, index) {
+        return this.entityCache[type].array[index];
+    };
+    /** Gets an entity specified by its id */
+    CacheService.prototype.getById = function (type, id) {
+        return this.entityCache[type].idToEntity[id];
+    };
+    /**
+     * Fetches the text body content of an email from the server and caches it
+     * @param id the id of the email entity
+     * @return an Observable providing the email text
+     */
+    CacheService.prototype.getEmailContent = function (id) {
+        var _this = this;
+        return __WEBPACK_IMPORTED_MODULE_8_rxjs_Observable__["Observable"].create(function (observer) {
+            var text = _this.emailContentCache[id];
+            if (text) {
+                // Text is already in the cache
+                observer.next(text);
+            }
+            else {
+                // Retrieve from the server and store in the cache
+                _this.server.getEmailContent(id).subscribe(function (response) {
+                    var text = response.json().text;
+                    _this.emailContentCache[id] = text;
+                    observer.next(text);
+                });
+            }
+        });
+    };
+    /**
+     * Creates or updates an entity
+     * @param type the entity type
+     * @param entity the entity object
+     */
+    CacheService.prototype.save = function (type, entity) {
+        var _this = this;
+        if (entity.id) {
+            // Update
+            this.server.update(type, entity).subscribe(function (response) { }, function (error) {
+                console.log(error);
+            });
+        }
+        else {
+            // Create
+            this.server.create(type, entity).subscribe(function (response) {
+                entity.id = response.json();
+                // Add it to the cache and the id to entity map
+                _this.entityCache[type].array.push(entity);
+                var id = entity['id'];
+                _this.entityCache[type].idToEntity[id] = entity;
+            }, function (error) {
+                console.log(error);
+            });
+        }
+    };
+    /**
+     * Deletes an entity
+     * @param type the entity type
+     * @param index the index of the object in the cached entity array
+     */
+    CacheService.prototype.deleteByIndex = function (type, index) {
+        var entity = this.entityCache[type].array[index];
+        this.delete(type, entity.id, index);
+    };
+    /**
+     * Deletes an entity
+     * @param type the entity type
+     * @param id the entity id
+     */
+    CacheService.prototype.deleteById = function (type, id) {
+        // Locate index in the cache array
+        for (var index = 0; index < this.entityCache[type].array.length; index++) {
+            var entity = this.entityCache[type].array[index];
+            if (entity.id === id) {
+                this.delete(type, id, index);
+                return;
+            }
+        }
+    };
+    /** Sends the delete requrst to the server removes the entity from the cache array */
+    CacheService.prototype.delete = function (type, id, index) {
+        var _this = this;
+        this.server.delete(type, id).subscribe(function (response) {
+            // Remove the entity from the cache array
+            _this.entityCache[type].array.splice(index, 1);
+            console.log('Deleted ' + type + ' ' + id);
+        }, function (error) {
+            console.log(error);
+        });
+    };
+    return CacheService;
+}());
+CacheService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__server_service__["a" /* ServerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__server_service__["a" /* ServerService */]) === "function" && _a || Object])
+], CacheService);
+
+var _a;
+//# sourceMappingURL=cache.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/companies/company-list.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<a routerLink=\"/companies/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/companies/new\" class=\"btn btn-primary new-button\" role=\"button\">New Company</a>\n<br><p>\n<!-- \nList of all companies. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Name   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('name')\"></span></th>\n        <th>Phone</th>\n        <th>Address</th>\n        <th>City   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('city')\"></span></th>\n        <th>Login Hint</th>\n        <th>Password Hint</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <tbody>\n      <tr *ngFor=\"let c of companies; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/companies', companies[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n        <td>{{c.phone}}</td>\n        <td>{{c.address}}</td>\n        <td>{{c.city}}</td>\n        <td>{{c.login}}</td>\n        <td>{{c.password}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let c of companies; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/companies', companies[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n       </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\"><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{c.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Address</td>\n      <td colspan=\"2\">{{c.address}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">City</td>\n      <td colspan=\"2\">{{c.city}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Login Hint</td>\n      <td colspan=\"2\">{{c.login}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Password Hint</td>\n      <td colspan=\"2\">{{c.password}}</td>\n    </tr>\n  </table>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/companies/company-list.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyListComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__("../../../../../src/app/listComponentBase.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -300,9 +740,9 @@ var CompanyListComponent = (function (_super) {
     return CompanyListComponent;
 }(__WEBPACK_IMPORTED_MODULE_2__listComponentBase__["a" /* ListComponentBase */]));
 CompanyListComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-company-list',
-        template: __webpack_require__(181)
+        template: __webpack_require__("../../../../../src/app/companies/company-list.component.html")
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object])
 ], CompanyListComponent);
@@ -312,110 +752,22 @@ var _a;
 
 /***/ }),
 
-/***/ 11:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "../../../../../src/app/companies/company/company.component.html":
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DateTimeService; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var DateTimeService = (function () {
-    function DateTimeService() {
-    }
-    /**
-     * Formats a date for display in an entity list in the form "MMM dd, yyyy"
-     * @param d a date millisecond value
-     */
-    DateTimeService.prototype.formatListDate = function (d) {
-        if (d) {
-            var date = new Date(d);
-            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            var f = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
-            return f;
-        }
-        else {
-            return '';
-        }
-    };
-    /** Formats a date for use in an HTML date input element
-     * @param d millisecond date value
-     * @return date string in form yyyy-mm-dd
-    */
-    DateTimeService.prototype.formatDateForInput = function (d) {
-        var date = new Date(d);
-        var year = Number(date.getFullYear()).toString();
-        var month = Number(date.getMonth() + 1).toString();
-        if (month.length === 1) {
-            month = '0' + month;
-        }
-        var day = Number(date.getDate()).toString();
-        if (day.length === 1) {
-            day = '0' + day;
-        }
-        var f = year.concat('-').concat(month).concat('-').concat(day);
-        return f;
-    };
-    /**
-    * Formats a date for display in an entity list in the form "hh:mm aa"
-    * @param t a date millisecond value
-    */
-    DateTimeService.prototype.formatListTime = function (t) {
-        if (!t) {
-            return '';
-        }
-        var date = new Date(t);
-        var h = date.getHours();
-        var m = new Number(date.getMinutes()).toString();
-        var ampm;
-        if (h == 12) {
-            ampm = 'PM';
-        }
-        else if (h > 12) {
-            ampm = 'PM';
-            h -= 12;
-        }
-        else {
-            ampm = 'AM';
-            if (h == 0) {
-                h = 12;
-            }
-        }
-        if (m.length == 1) {
-            m = '0' + m;
-        }
-        return String(h) + ':' + m + ' ' + ampm;
-    };
-    return DateTimeService;
-}());
-DateTimeService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Injectable */])()
-    /** Provides utility methods for date and time formatting */
-    ,
-    __metadata("design:paramtypes", [])
-], DateTimeService);
-
-//# sourceMappingURL=datetime.service.js.map
+module.exports = "   <!--\n   Create or edit a company\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Company</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Name</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"company.name\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">URL</label>\n               <input type=\"text\" class=\"form-control\" name=\"url\" [(ngModel)]=\"company.url\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Address</label>\n               <input type=\"text\" class=\"form-control\" name=\"address\" [(ngModel)]=\"company.address\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">City</label>\n               <input type=\"text\" class=\"form-control\" name=\"city\" [(ngModel)]=\"company.city\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Phone</label>\n               <input type=\"text\" class=\"form-control\"  name=\"phone\" [(ngModel)]=\"company.phone\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Login Hint</label>\n               <input type=\"text\" class=\"form-control\"  name=\"login\" [(ngModel)]=\"company.login\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Password Hint</label>\n               <input type=\"text\" class=\"form-control\"  name=\"password\" [(ngModel)]=\"company.password\">\n             </div>\n          </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
 
 /***/ }),
 
-/***/ 110:
+/***/ "../../../../../src/app/companies/company/company.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_company_model__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cache_service__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_company_model__ = __webpack_require__("../../../../../src/app/model/company.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -456,11 +808,11 @@ var CompanyComponent = (function () {
     return CompanyComponent;
 }());
 CompanyComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-company',
-        template: __webpack_require__(182)
+        template: __webpack_require__("../../../../../src/app/companies/company/company.component.html")
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */]) === "function" && _c || Object])
 ], CompanyComponent);
 
 var _a, _b, _c;
@@ -468,14 +820,21 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ 111:
+/***/ "../../../../../src/app/contacts/contact-list.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<a routerLink=\"/contacts/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/contacts/new\" class=\"btn btn-primary new-button\" role=\"button\">New Contact</a>\n<br>\n<p>\n<!-- \nList of all contacts. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling \n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Date   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('date')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th>Position   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('position')\"></span></th>\n        <th>Reference</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <th colspan=\"2\">Details</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let c of contacts; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/contacts', contacts[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{c.formatDate()}}</td>\n        <td>{{c.getPersonName()}}</td>\n        <td>{{c.getPositionTitle()}}</td>\n        <td>{{getPositionReference(c.id)}}</td>\n        <td>{{c.getCompanyName()}}</td>\n        <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n        <td colspan=\"2\" [class]=\"showIfPhone(i)\">{{c.details}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let c of contacts; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/contacts', contacts[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n     </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date</td>\n      <td colspan=\"2\">{{c.formatDate()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{c.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Position</td>\n      <td colspan=\"2\">{{c.getPositionTitle()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{c.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Details</td>\n      <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n      <td colspan=\"2\" [class]=\"showIfPhone(i)\">{{c.details}}</td>\n    </tr>\n  </table>\n</div>\n<!-- Modal displays email content-->\n<div id=\"message-text\" class=\"modal\" role=\"dialog\">\n  <div class=\"modal-dialog\">\n    <!-- Modal content-->\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" (click)=\"closeEmail()\">&times;</button>\n        <h4 class=\"modal-title\">{{emailSubject}}</h4>\n      </div>\n      <div class=\"modal-body\">\n        <div class=\"form-group\">\n          <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n        </div>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-default\" (click)=\"closeEmail()\">Close</button>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/contacts/contact-list.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__(30);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactListComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__("../../../../../src/app/listComponentBase.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -562,9 +921,9 @@ var ContactListComponent = (function (_super) {
     return ContactListComponent;
 }(__WEBPACK_IMPORTED_MODULE_2__listComponentBase__["a" /* ListComponentBase */]));
 ContactListComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-contact-list',
-        template: __webpack_require__(183)
+        template: __webpack_require__("../../../../../src/app/contacts/contact-list.component.html")
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object])
 ], ContactListComponent);
@@ -574,17 +933,24 @@ var _a;
 
 /***/ }),
 
-/***/ 112:
+/***/ "../../../../../src/app/contacts/contact/contact.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<!--\nCreate or edit a contact\n-->\n<div>\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n        <h4 class=\"modal-title\">Contact</h4>\n      </div>\n      <div class=\"modal-body\">\n        <form>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Person</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n              <option *ngFor=\"let p of persons\">\n                {{p.name}}\n              </option>\n            </select>\n          </div>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Position</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n              <option *ngFor=\"let p of positions\">\n                {{p.title}}\n              </option>\n            </select>\n          </div>\n          <div class=\"form-group\">\n            <label class=\"control-label\">Reference No.</label>\n            <input type=\"text\" class=\"form-control\" name=\"name\" disabled [(ngModel)]=\"positionReference\">\n          </div>\n          <div class=\"form-group\">\n            <label class=\"control-label\">Company</label>\n            <input type=\"text\" class=\"form-control\" name=\"ref\" disabled [(ngModel)]=\"companyName\">\n          </div>\n          <div *ngIf='!isMeeting' class=\"form-group\">\n            <label>Email&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isEmail\" [checked]='isEmail' (change)=\"setEmail()\">&nbsp;&nbsp;&nbsp;&nbsp;\n            <label>Phone&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isPhone\" [checked]='isPhone' (change)=\"setPhone()\">\n          </div>\n          <!-- Date and details inputs visible only for phone contact -->\n          <div *ngIf='isPhone || isMeeting'>\n            <div class=\"form-group\">\n              <label for=\"cmp-date\" class=\"control-label\">Date</label>\n              <input type=\"date\" class=\"form-control\" name=\"date\" [(ngModel)]=\"date\">\n            </div>\n            <div class=\"form-group\">\n              <label for=\"cmp-details\" class=\"control-label\">Details</label>\n              <input type=\"text\" class=\"form-control\" name=\"details\" [(ngModel)]=\"contact.details\">\n            </div>\n          </div>\n          <!-- Emails selector visible only for email contact -->\n          <div *ngIf='isEmail' class=\"table-container\" id=\"message-list\">\n            <table *ngFor=\"let m of emails; let i = index\">\n              <tr>\n                <td class=\"select-edit\">\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"selectEmail(i)\">Select</button>\n                </td>\n                <td>\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"viewEmail(i)\">View</button>\n                </td>\n              </tr>\n              <tr>\n                <td class=\"header\">Date</td>\n                <td>{{m.formatDate()}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">From</td>\n                <td>{{m.sender}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">To</td>\n                <td>{{m.receiver}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">Subject</td>\n                <td>{{m.subject}}</td>\n              </tr>\n            </table>\n            <!-- Modal displays email content-->\n            <div id=\"message-text\" class=\"modal\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" (click)=\"hideContent()\">&times;</button>\n                    <h4 class=\"modal-title\">{{emailSubject}}</h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <div class=\"form-group\">\n                      <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n                    </div>\n                  </div>\n                  <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" (click)=\"hideContent()\">Close</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n        <button id=\"save-button\" type=\"button\" class=\"btn btn-primary\" (click)=\"save()\" disabled>Save</button>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/contacts/contact/contact.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_contact_model__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__entityComponentBase__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__datetime_service__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_contact_model__ = __webpack_require__("../../../../../src/app/model/contact.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__entityComponentBase__ = __webpack_require__("../../../../../src/app/entityComponentBase.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__datetime_service__ = __webpack_require__("../../../../../src/app/datetime.service.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -753,11 +1119,11 @@ var ContactComponent = (function (_super) {
     return ContactComponent;
 }(__WEBPACK_IMPORTED_MODULE_4__entityComponentBase__["a" /* EntityComponentBase */]));
 ContactComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-contact',
-        template: __webpack_require__(184)
+        template: __webpack_require__("../../../../../src/app/contacts/contact/contact.component.html")
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__cache_service__["a" /* CacheService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */]) === "function" && _d || Object])
 ], ContactComponent);
 
 var _a, _b, _c, _d;
@@ -765,12 +1131,151 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ 113:
+/***/ "../../../../../src/app/datetime.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DateTimeService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var DateTimeService = (function () {
+    function DateTimeService() {
+    }
+    /**
+     * Formats a date for display in an entity list in the form "MMM dd, yyyy"
+     * @param d a date millisecond value
+     */
+    DateTimeService.prototype.formatListDate = function (d) {
+        if (d) {
+            var date = new Date(d);
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var f = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+            return f;
+        }
+        else {
+            return '';
+        }
+    };
+    /** Formats a date for use in an HTML date input element
+     * @param d millisecond date value
+     * @return date string in form yyyy-mm-dd
+    */
+    DateTimeService.prototype.formatDateForInput = function (d) {
+        var date = new Date(d);
+        var year = Number(date.getFullYear()).toString();
+        var month = Number(date.getMonth() + 1).toString();
+        if (month.length === 1) {
+            month = '0' + month;
+        }
+        var day = Number(date.getDate()).toString();
+        if (day.length === 1) {
+            day = '0' + day;
+        }
+        var f = year.concat('-').concat(month).concat('-').concat(day);
+        return f;
+    };
+    /**
+    * Formats a date for display in an entity list in the form "hh:mm aa"
+    * @param t a date millisecond value
+    */
+    DateTimeService.prototype.formatListTime = function (t) {
+        if (!t) {
+            return '';
+        }
+        var date = new Date(t);
+        var h = date.getHours();
+        var m = new Number(date.getMinutes()).toString();
+        var ampm;
+        if (h == 12) {
+            ampm = 'PM';
+        }
+        else if (h > 12) {
+            ampm = 'PM';
+            h -= 12;
+        }
+        else {
+            ampm = 'AM';
+            if (h == 0) {
+                h = 12;
+            }
+        }
+        if (m.length == 1) {
+            m = '0' + m;
+        }
+        return String(h) + ':' + m + ' ' + ampm;
+    };
+    return DateTimeService;
+}());
+DateTimeService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])()
+    /** Provides utility methods for date and time formatting */
+    ,
+    __metadata("design:paramtypes", [])
+], DateTimeService);
+
+//# sourceMappingURL=datetime.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/entityComponentBase.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EntityComponentBase; });
+/**
+ * Base class for all "entity" components, providing common utility methods
+ */
+var EntityComponentBase = (function () {
+    function EntityComponentBase() {
+    }
+    /**
+     * For a given array of entity objects, creates a pair of maps;
+     * the "attributeToId" maps a specified entity atttribute to the 'id' field;
+     * the "idToAttribute" maps the inverse relationship
+     * @param entityList Array of entity objects
+     * @param attribute name of the entity attribute
+     * @return the maps object
+     */
+    EntityComponentBase.prototype.createEntityMaps = function (entityList, attribute) {
+        var maps = { attributeToId: {}, idToAttribute: {} };
+        for (var _i = 0, entityList_1 = entityList; _i < entityList_1.length; _i++) {
+            var entity = entityList_1[_i];
+            var id = entity['id'];
+            var value = entity[attribute];
+            maps.attributeToId[value] = id;
+            maps.idToAttribute[id] = value;
+        }
+        return maps;
+    };
+    return EntityComponentBase;
+}());
+
+//# sourceMappingURL=entityComponentBase.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/home/home.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<nav class=\"navbar navbar-default\" role=\"navigation\">\n  <div class=\"navbar-header\">\n    <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-toggle\">\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n        </button>\n  </div>\n\n  <div class=\"collapse navbar-collapse\" id=\"nav-toggle\">\n    <ul class=\"nav navbar-nav\">\n      <li routerLinkActive=\"active\"><a routerLink=\"/companies\">Companies</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/persons\">People</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/positions\">Positions</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/contacts\">Contacts</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/appointments\">Appointments</a></li>\n    </ul>\n  </div>\n</nav>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/home/home.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -789,9 +1294,9 @@ var HomeComponent = (function () {
     return HomeComponent;
 }());
 HomeComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-home',
-        template: __webpack_require__(185)
+        template: __webpack_require__("../../../../../src/app/home/home.component.html")
     }),
     __metadata("design:paramtypes", [])
 ], HomeComponent);
@@ -800,16 +1305,344 @@ HomeComponent = __decorate([
 
 /***/ }),
 
-/***/ 114:
+/***/ "../../../../../src/app/listComponentBase.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__entity_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_module__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__datetime_service__ = __webpack_require__(11);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListComponentBase; });
+/**
+ * Base class for list components, providing common utility functions
+ */
+var ListComponentBase = (function () {
+    function ListComponentBase(cache) {
+        this.cache = cache;
+    }
+    /**
+     * Sorts an array of entities.
+     * @param list the array to be sorted
+     * @param sortBy the field of the entity class on which to sort
+     * @param isDate true if the sortBy field is a date string
+     */
+    ListComponentBase.prototype.sortList = function (list, sortBy) {
+        var sortKeys = [];
+        var elementMap = {};
+        var sortedList = [];
+        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+            var element = list_1[_i];
+            var sortField = element[sortBy];
+            sortKeys.push(sortField);
+            if (!elementMap[sortField]) {
+                elementMap[sortField] = [];
+            }
+            elementMap[sortField].push(element);
+        }
+        sortKeys.sort();
+        // Preserve original order of elements with same sort value
+        for (var index in elementMap) {
+            elementMap[index].reverse();
+        }
+        for (var _a = 0, sortKeys_1 = sortKeys; _a < sortKeys_1.length; _a++) {
+            var key = sortKeys_1[_a];
+            var element = elementMap[key].pop();
+            sortedList.push(element);
+        }
+        return sortedList;
+    };
+    /**
+     * Sorts an array of entities.
+     * @param list the array to be sorted
+     * @param sortBy name of a "foreign id" attribute of the entity which references another entity containing the value on which to sort
+     * @param referenceType the referenced entity type
+     * @param referenceField the name of the attribute in the referenced entity on which to sort
+     */
+    ListComponentBase.prototype.sortListReferenced = function (list, sortBy, referenceType, referenceField) {
+        var sortKeys = [];
+        var elementMap = {};
+        var sortedList = [];
+        for (var _i = 0, list_2 = list; _i < list_2.length; _i++) {
+            var element = list_2[_i];
+            var referenceId = element[sortBy];
+            var referencedEntity = void 0;
+            var sortField = void 0;
+            if (referenceId) {
+                referencedEntity = this.cache.getById(referenceType, referenceId);
+                sortField = referencedEntity[referenceField];
+            }
+            else {
+                sortField = '';
+            }
+            sortKeys.push(sortField);
+            if (!elementMap[sortField]) {
+                elementMap[sortField] = [];
+            }
+            elementMap[sortField].push(element);
+        }
+        sortKeys.sort();
+        // Preserve original order of elements with same sort value
+        for (var index in elementMap) {
+            elementMap[index].reverse();
+        }
+        for (var _a = 0, sortKeys_2 = sortKeys; _a < sortKeys_2.length; _a++) {
+            var key = sortKeys_2[_a];
+            var element = elementMap[key].pop();
+            sortedList.push(element);
+        }
+        return sortedList;
+    };
+    return ListComponentBase;
+}());
+
+//# sourceMappingURL=listComponentBase.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/model/appointment.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Appointment; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__entity_model__ = __webpack_require__("../../../../../src/app/model/entity.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_module__ = __webpack_require__("../../../../../src/app/app.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__datetime_service__ = __webpack_require__("../../../../../src/app/datetime.service.ts");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var Appointment = Appointment_1 = (function (_super) {
+    __extends(Appointment, _super);
+    function Appointment(id, companyId, personId, dateTime, positionId) {
+        var _this = _super.call(this) || this;
+        _this.id = id;
+        _this.companyId = companyId;
+        _this.personId = personId;
+        _this.dateTime = dateTime;
+        _this.positionId = positionId;
+        _this.cache = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]);
+        _this.datetime = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_4__datetime_service__["a" /* DateTimeService */]);
+        return _this;
+    }
+    Appointment.fromJson = function (json) {
+        var p = new Appointment_1(json.id, json.companyId, json.personId, json.dateTime, json.positionId);
+        console.log(p);
+        return p;
+    };
+    Appointment.prototype.getCompanyName = function () {
+        if (this.companyId) {
+            var company = this.cache.getById('company', this.companyId);
+            return company.name;
+        }
+        else {
+            return '';
+        }
+    };
+    Appointment.prototype.getPersonName = function () {
+        if (this.personId) {
+            var person = this.cache.getById('person', this.personId);
+            return person.name;
+        }
+        else {
+            return '';
+        }
+    };
+    Appointment.prototype.getPositionTitle = function () {
+        if (this.positionId) {
+            var position = this.cache.getById('position', this.positionId);
+            return position.title;
+        }
+        else {
+            return '';
+        }
+    };
+    Appointment.prototype.formatDate = function () {
+        return this.datetime.formatListDate(this.dateTime);
+    };
+    Appointment.prototype.formatTime = function () {
+        return this.datetime.formatListTime(this.dateTime);
+    };
+    return Appointment;
+}(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
+Appointment = Appointment_1 = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [Number, Number, Number, Number, Number])
+], Appointment);
+
+var Appointment_1;
+//# sourceMappingURL=appointment.model.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/model/company.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Company; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__entity_model__ = __webpack_require__("../../../../../src/app/model/entity.model.ts");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+var Company = (function (_super) {
+    __extends(Company, _super);
+    function Company(id, address, city, name, phone, url, login, password) {
+        var _this = _super.call(this) || this;
+        _this.id = id;
+        _this.address = address;
+        _this.city = city;
+        _this.name = name;
+        _this.phone = phone;
+        _this.url = url;
+        _this.login = login;
+        _this.password = password;
+        return _this;
+    }
+    Company.fromJson = function (json) {
+        var p = new Company(json.id, json.address, json.city, json.name, json.phone, json.url, json.login, json.password);
+        console.log(p);
+        return p;
+    };
+    return Company;
+}(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
+
+//# sourceMappingURL=company.model.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/model/contact.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Contact; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__entity_model__ = __webpack_require__("../../../../../src/app/model/entity.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_module__ = __webpack_require__("../../../../../src/app/app.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__datetime_service__ = __webpack_require__("../../../../../src/app/datetime.service.ts");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var Contact = Contact_1 = (function (_super) {
+    __extends(Contact, _super);
+    function Contact(id, companyId, positionId, personId, date, type, details, emailId) {
+        var _this = _super.call(this) || this;
+        _this.id = id;
+        _this.companyId = companyId;
+        _this.positionId = positionId;
+        _this.personId = personId;
+        _this.date = date;
+        _this.type = type;
+        _this.details = details;
+        _this.emailId = emailId;
+        _this.cache = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]);
+        _this.datetime = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_4__datetime_service__["a" /* DateTimeService */]);
+        return _this;
+    }
+    Contact.fromJson = function (json) {
+        var p = new Contact_1(json.id, json.companyId, json.positionId, json.personId, json.date, json.type, json.details, json.emailId);
+        console.log(p);
+        return p;
+    };
+    Contact.prototype.getPositionTitle = function () {
+        if (this.positionId) {
+            var position = this.cache.getById('position', this.positionId);
+            return position.title;
+        }
+        else {
+            return '';
+        }
+    };
+    Contact.prototype.getPersonName = function () {
+        if (this.personId) {
+            var person = this.cache.getById('person', this.personId);
+            return person.name;
+        }
+        else {
+            return '';
+        }
+    };
+    Contact.prototype.getCompanyName = function () {
+        if (this.companyId) {
+            var company = this.cache.getById('company', this.companyId);
+            return company.name;
+        }
+        else {
+            return '';
+        }
+    };
+    Contact.prototype.formatDate = function () {
+        return this.datetime.formatListDate(this.date);
+    };
+    return Contact;
+}(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
+Contact = Contact_1 = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [Number, Number, Number, Number, Number, String, String, Number])
+], Contact);
+
+var Contact_1;
+//# sourceMappingURL=contact.model.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/model/email.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Email; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__entity_model__ = __webpack_require__("../../../../../src/app/model/entity.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_module__ = __webpack_require__("../../../../../src/app/app.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__datetime_service__ = __webpack_require__("../../../../../src/app/datetime.service.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -860,7 +1693,7 @@ var Email = Email_1 = (function (_super) {
     return Email;
 }(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
 Email = Email_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["d" /* Injectable */])(),
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["C" /* Injectable */])(),
     __metadata("design:paramtypes", [Number, String, String, Number, String, Number, Boolean])
 ], Email);
 
@@ -869,14 +1702,212 @@ var Email_1;
 
 /***/ }),
 
-/***/ 115:
+/***/ "../../../../../src/app/model/entity.model.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__(30);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Entity; });
+/**
+ * Base class for entity module classes provides common utility functions
+ */
+var Entity = (function () {
+    function Entity() {
+    }
+    /** Extracts the time from a JSON date string as "hh:mm" */
+    Entity.timeFromJSONDate = function (s) {
+        if (s) {
+            var d = new Date(s);
+            var h = String(d.getHours());
+            var m = d.getMinutes() < 10 ? '0'.concat(String(d.getMinutes())) : String(d.getMinutes());
+            return h.concat(':').concat(m);
+        }
+        else {
+            return null;
+        }
+    };
+    return Entity;
+}());
+
+//# sourceMappingURL=entity.model.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/model/person.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Person; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_module__ = __webpack_require__("../../../../../src/app/app.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entity_model__ = __webpack_require__("../../../../../src/app/model/entity.model.ts");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var Person = Person_1 = (function (_super) {
+    __extends(Person, _super);
+    function Person(id, name, email, phone, companyId) {
+        var _this = _super.call(this) || this;
+        _this.id = id;
+        _this.name = name;
+        _this.email = email;
+        _this.phone = phone;
+        _this.companyId = companyId;
+        _this.cache = __WEBPACK_IMPORTED_MODULE_2__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_0__cache_service__["a" /* CacheService */]);
+        return _this;
+    }
+    Person.fromJson = function (json) {
+        var p = new Person_1(json.id, json.name, json.email, json.phone, json.companyId);
+        console.log(p);
+        return p;
+    };
+    Person.prototype.getCompanyName = function () {
+        if (this.companyId) {
+            var company = this.cache.getById('company', this.companyId);
+            return company.name;
+        }
+        else {
+            return '';
+        }
+    };
+    return Person;
+}(__WEBPACK_IMPORTED_MODULE_3__entity_model__["a" /* Entity */]));
+Person = Person_1 = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [Number, String, String, String, Number])
+], Person);
+
+var Person_1;
+//# sourceMappingURL=person.model.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/model/position.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Position; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__entity_model__ = __webpack_require__("../../../../../src/app/model/entity.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_module__ = __webpack_require__("../../../../../src/app/app.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__datetime_service__ = __webpack_require__("../../../../../src/app/datetime.service.ts");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var Position = Position_1 = (function (_super) {
+    __extends(Position, _super);
+    function Position(id, title, url, reference, dateApplied, datePosted, companyId, personId) {
+        var _this = _super.call(this) || this;
+        _this.id = id;
+        _this.title = title;
+        _this.url = url;
+        _this.reference = reference;
+        _this.dateApplied = dateApplied;
+        _this.datePosted = datePosted;
+        _this.companyId = companyId;
+        _this.personId = personId;
+        _this.cache = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]);
+        _this.datetime = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_4__datetime_service__["a" /* DateTimeService */]);
+        return _this;
+    }
+    Position.fromJson = function (json) {
+        var p = new Position_1(json.id, json.title, json.url, json.reference, json.dateApplied, json.datePosted, json.companyId, json.personId);
+        console.log(p);
+        return p;
+    };
+    Position.prototype.getCompanyName = function () {
+        if (this.companyId) {
+            var company = this.cache.getById('company', this.companyId);
+            return company.name;
+        }
+        else {
+            return '';
+        }
+    };
+    Position.prototype.getPersonName = function () {
+        if (this.personId) {
+            var person = this.cache.getById('person', this.personId);
+            return person.name;
+        }
+        else {
+            return '';
+        }
+    };
+    Position.prototype.formatDateApplied = function () {
+        return this.datetime.formatListDate(this.dateApplied);
+    };
+    Position.prototype.formatDatePosted = function () {
+        return this.datetime.formatListDate(this.datePosted);
+    };
+    return Position;
+}(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
+Position = Position_1 = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [Number, String, String, String, Number, Number, Number, Number])
+], Position);
+
+var Position_1;
+//# sourceMappingURL=position.model.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/persons/person-list.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<a routerLink=\"/persons/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/persons/new\" class=\"btn btn-primary new-button\" role=\"button\">New Person</a>\n<br><p>\n<!-- \nList of all persons. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Name   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('name')\"></span></th>\n        <th>Email</th>\n        <th>Phone</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of persons; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/persons', persons[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{p.name}}</td>\n        <td>{{p.email}}</td>\n        <td>{{p.phone}}</td>\n        <td>{{p.getCompanyName()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of persons; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/persons', persons[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\">{{p.name}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Email</td>\n      <td colspan=\"2\">{{p.email}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{p.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n  </table>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/persons/person-list.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PersonListComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__("../../../../../src/app/listComponentBase.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -922,9 +1953,9 @@ var PersonListComponent = (function (_super) {
     return PersonListComponent;
 }(__WEBPACK_IMPORTED_MODULE_2__listComponentBase__["a" /* ListComponentBase */]));
 PersonListComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-person-list',
-        template: __webpack_require__(186)
+        template: __webpack_require__("../../../../../src/app/persons/person-list.component.html")
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object])
 ], PersonListComponent);
@@ -934,16 +1965,23 @@ var _a;
 
 /***/ }),
 
-/***/ 116:
+/***/ "../../../../../src/app/persons/person/person.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "   <!--\n   Create or edit a person\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Person</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Name</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"person.name\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Email</label>\n               <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"person.email\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Phone</label>\n               <input type=\"text\" class=\"form-control\" name=\"phone\" [(ngModel)]=\"person.phone\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"select($event)\">\n                  <option *ngFor=\"let c of companies\">\n                    {{c.name}}\n                  </option>\n                 </select>\n             </div>\n           </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/persons/person/person.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_person_model__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entityComponentBase__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__cache_service__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PersonComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_person_model__ = __webpack_require__("../../../../../src/app/model/person.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entityComponentBase__ = __webpack_require__("../../../../../src/app/entityComponentBase.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1013,11 +2051,11 @@ var PersonComponent = (function (_super) {
     return PersonComponent;
 }(__WEBPACK_IMPORTED_MODULE_3__entityComponentBase__["a" /* EntityComponentBase */]));
 PersonComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-person',
-        template: __webpack_require__(187)
+        template: __webpack_require__("../../../../../src/app/persons/person/person.component.html")
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */]) === "function" && _c || Object])
 ], PersonComponent);
 
 var _a, _b, _c;
@@ -1025,14 +2063,21 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ 117:
+/***/ "../../../../../src/app/positions/position-list.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<a routerLink=\"/positions/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/positions/new\" class=\"btn btn-primary new-button\" role=\"button\">New Position</a>\n<br><p>\n<!-- \nList of all positions. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th>Title   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('title')\"></span></th>\n        <th>Reference No.</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th>Date Posted   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('datePosted')\"></span></th>\n        <th>Date Applied   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('dateApplied')\"></span></th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of positions; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/positions', positions[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td [class]=\"isDeletable(i)\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td [class]=\"isNotDeletable(i)\"></td>\n        <td><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n        <td>{{p.reference}}</td>\n        <td>{{p.getCompanyName()}}</td>\n        <td>{{p.getPersonName()}}</td>\n        <td>{{p.formatDatePosted()}}</td>\n        <td>{{p.formatDateApplied()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of positions; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/positions', positions[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n        <i (click)=\"delete(i)\" style=\"font-size: 16px;\" [class]=\"isDeletable(i, true)\">clear</i>\n      </td>      \n    </tr>\n    <tr>\n      <td class=\"header\">Title</td>\n      <td colspan=\"2\">{{p.title}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Reference No.</td>\n      <td colspan=\"2\">{{p.reference}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">URL</td>\n      <td colspan=\"2\"><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{p.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Posted</td>\n      <td colspan=\"2\">{{p.formatDatePosted()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Applied</td>\n      <td colspan=\"2\">{{p.formatDateApplied()}}</td>\n    </tr>\n  </table>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/positions/position-list.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__(30);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PositionListComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listComponentBase__ = __webpack_require__("../../../../../src/app/listComponentBase.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1120,9 +2165,9 @@ var PositionListComponent = (function (_super) {
     return PositionListComponent;
 }(__WEBPACK_IMPORTED_MODULE_2__listComponentBase__["a" /* ListComponentBase */]));
 PositionListComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-positions',
-        template: __webpack_require__(188)
+        template: __webpack_require__("../../../../../src/app/positions/position-list.component.html")
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]) === "function" && _a || Object])
 ], PositionListComponent);
@@ -1132,17 +2177,24 @@ var _a;
 
 /***/ }),
 
-/***/ 118:
+/***/ "../../../../../src/app/positions/position/position.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "   <!--\n   Create or edit a position\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Position</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Title</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"position.title\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Reference No.</label>\n               <input type=\"text\" class=\"form-control\" name=\"reference\" [(ngModel)]=\"position.reference\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">URL</label>\n               <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"position.url\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany()\">\n                  <option *ngFor=\"let c of companies\">\n                    {{c.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Person</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                  <option *ngFor=\"let p of persons\">\n                    {{p.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Posted</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-posted\" [(ngModel)]=\"datePosted\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Applied</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-applied\" [(ngModel)]=\"dateApplied\">\n             </div>\n           </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/positions/position/position.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_position_model__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entityComponentBase__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__datetime_service__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PositionComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_position_model__ = __webpack_require__("../../../../../src/app/model/position.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entityComponentBase__ = __webpack_require__("../../../../../src/app/entityComponentBase.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__datetime_service__ = __webpack_require__("../../../../../src/app/datetime.service.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1243,11 +2295,11 @@ var PositionComponent = (function (_super) {
     return PositionComponent;
 }(__WEBPACK_IMPORTED_MODULE_3__entityComponentBase__["a" /* EntityComponentBase */]));
 PositionComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-position',
-        template: __webpack_require__(189)
+        template: __webpack_require__("../../../../../src/app/positions/position/position.component.html")
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__cache_service__["a" /* CacheService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__datetime_service__["a" /* DateTimeService */]) === "function" && _d || Object])
 ], PositionComponent);
 
 var _a, _b, _c, _d;
@@ -1255,1066 +2307,13 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ 119:
+/***/ "../../../../../src/app/server.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
-// The file contents for the current environment will overwrite these during build.
-// The build system defaults to the dev environment which uses `environment.ts`, but if you do
-// `ng build --env=prod` then `environment.prod.ts` will be used instead.
-// The list of which env maps to which file can be found in `.angular-cli.json`.
-// The file contents for the current environment will overwrite these during build.
-var environment = {
-    production: false
-};
-//# sourceMappingURL=environment.js.map
-
-/***/ }),
-
-/***/ 175:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(26)(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ 178:
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"container\">\n  <!-- Contains the menu -->\n  <app-home></app-home>\n  <!-- Will hold one of the five main pages -->\n  <router-outlet></router-outlet>\n</div>"
-
-/***/ }),
-
-/***/ 179:
-/***/ (function(module, exports) {
-
-module.exports = "<a routerLink=\"/appointments/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/appointments/new\" class=\"btn btn-primary new-button\" role=\"button\">New Appointment</a>\n<br><p>\n<!-- \n  List of all appointments. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Company</th>\n        <th>Person</th>\n        <th>Date</th>\n        <th>Time</th>\n        <th>Position</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <tbody>\n      <tr *ngFor=\"let a of appointments; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/appointments', appointments[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{a.getCompanyName()}}</td>\n        <td>{{a.getPersonName()}}</td>\n        <td>{{a.formatDate()}}</td>\n        <td>{{a.formatTime()}}</td>\n        <td>{{a.getPositionTitle()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let a of appointments; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/appointments', appointments[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{a.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{a.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date</td>\n      <td colspan=\"2\">{{a.formatDate()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Time</td>\n      <td colspan=\"2\">{{a.formatTime()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Position</td>\n      <td colspan=\"2\">{{a.getPositionTitle()}}</td>\n    </tr>\n  </table>\n</div>"
-
-/***/ }),
-
-/***/ 18:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__home_home_component__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__companies_company_list_component__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__companies_company_company_component__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__positions_position_list_component__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__positions_position_position_component__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__persons_person_list_component__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__persons_person_person_component__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_list_component__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__appointments_appointment_appointment_component__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__contacts_contact_list_component__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__contacts_contact_contact_component__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__server_service__ = __webpack_require__(71);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__datetime_service__ = __webpack_require__(11);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var appRoutes = [
-    { path: 'companies', component: __WEBPACK_IMPORTED_MODULE_8__companies_company_list_component__["a" /* CompanyListComponent */] },
-    { path: 'companies/:id', component: __WEBPACK_IMPORTED_MODULE_9__companies_company_company_component__["a" /* CompanyComponent */] },
-    { path: 'positions', component: __WEBPACK_IMPORTED_MODULE_10__positions_position_list_component__["a" /* PositionListComponent */] },
-    { path: 'positions/:id', component: __WEBPACK_IMPORTED_MODULE_11__positions_position_position_component__["a" /* PositionComponent */] },
-    { path: 'appointments', component: __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_list_component__["a" /* AppointmentListComponent */] },
-    { path: 'appointments/:id', component: __WEBPACK_IMPORTED_MODULE_15__appointments_appointment_appointment_component__["a" /* AppointmentComponent */] },
-    { path: 'contacts', component: __WEBPACK_IMPORTED_MODULE_16__contacts_contact_list_component__["a" /* ContactListComponent */] },
-    { path: 'contacts/:id', component: __WEBPACK_IMPORTED_MODULE_17__contacts_contact_contact_component__["a" /* ContactComponent */] },
-    { path: 'persons', component: __WEBPACK_IMPORTED_MODULE_12__persons_person_list_component__["a" /* PersonListComponent */] },
-    { path: 'persons/:id', component: __WEBPACK_IMPORTED_MODULE_13__persons_person_person_component__["a" /* PersonComponent */] },
-];
-var AppModule = AppModule_1 = (function () {
-    function AppModule(injector) {
-        AppModule_1.injector = injector;
-    }
-    return AppModule;
-}());
-AppModule = AppModule_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
-        declarations: [
-            __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_7__home_home_component__["a" /* HomeComponent */],
-            __WEBPACK_IMPORTED_MODULE_8__companies_company_list_component__["a" /* CompanyListComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__companies_company_company_component__["a" /* CompanyComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__positions_position_list_component__["a" /* PositionListComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__positions_position_position_component__["a" /* PositionComponent */],
-            __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_list_component__["a" /* AppointmentListComponent */],
-            __WEBPACK_IMPORTED_MODULE_15__appointments_appointment_appointment_component__["a" /* AppointmentComponent */],
-            __WEBPACK_IMPORTED_MODULE_16__contacts_contact_list_component__["a" /* ContactListComponent */],
-            __WEBPACK_IMPORTED_MODULE_17__contacts_contact_contact_component__["a" /* ContactComponent */],
-            __WEBPACK_IMPORTED_MODULE_12__persons_person_list_component__["a" /* PersonListComponent */],
-            __WEBPACK_IMPORTED_MODULE_13__persons_person_person_component__["a" /* PersonComponent */],
-        ],
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
-            __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* RouterModule */].forRoot(appRoutes)
-        ],
-        providers: [__WEBPACK_IMPORTED_MODULE_18__server_service__["a" /* ServerService */], __WEBPACK_IMPORTED_MODULE_19__cache_service__["a" /* CacheService */], { provide: __WEBPACK_IMPORTED_MODULE_5__angular_common__["a" /* LocationStrategy */], useClass: __WEBPACK_IMPORTED_MODULE_5__angular_common__["b" /* HashLocationStrategy */] }, __WEBPACK_IMPORTED_MODULE_20__datetime_service__["a" /* DateTimeService */]],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */]]
-    }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["c" /* Injector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["c" /* Injector */]) === "function" && _a || Object])
-], AppModule);
-
-var AppModule_1, _a;
-//# sourceMappingURL=app.module.js.map
-
-/***/ }),
-
-/***/ 180:
-/***/ (function(module, exports) {
-
-module.exports = "   <!--\n   Create or edit an appointment \n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Appointment</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"date\" class=\"control-label\">Date</label>\n               <input type=\"date\" class=\"form-control\" name=\"date\" id=\"date\" [(ngModel)]=\"date\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"time\" class=\"control-label\">Time</label>\n               <input type=\"time\" class=\"form-control\" name=\"time\" id=\"time\" [(ngModel)]=\"time\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\" class=\"control-label\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany()\">\n                <option *ngFor=\"let c of companies\">\n                  {{c.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel2\" class=\"control-label\">Person</label>\n               <select class=\"form-control\" id=\"sel2\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                <option *ngFor=\"let p of persons\">\n                  {{p.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel3\" class=\"control-label\">Position</label>\n               <select class=\"form-control\" id=\"sel3\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n                <option *ngFor=\"let p of positions\">\n                  {{p.title}}\n                </option>\n               </select>\n             </div>\n          </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n          <!-- Convert button visible only for edit -->\n          <button type=\"button\" [class]=\"displayIfConvertible()\" id=\"convert\" (click)=\"convert()\">Record</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
-
-/***/ }),
-
-/***/ 181:
-/***/ (function(module, exports) {
-
-module.exports = "<a routerLink=\"/companies/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/companies/new\" class=\"btn btn-primary new-button\" role=\"button\">New Company</a>\n<br><p>\n<!-- \nList of all companies. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Name   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('name')\"></span></th>\n        <th>Phone</th>\n        <th>Address</th>\n        <th>City   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('city')\"></span></th>\n        <th>Login Hint</th>\n        <th>Password Hint</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <tbody>\n      <tr *ngFor=\"let c of companies; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/companies', companies[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n        <td>{{c.phone}}</td>\n        <td>{{c.address}}</td>\n        <td>{{c.city}}</td>\n        <td>{{c.login}}</td>\n        <td>{{c.password}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let c of companies; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/companies', companies[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n       </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\"><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{c.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Address</td>\n      <td colspan=\"2\">{{c.address}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">City</td>\n      <td colspan=\"2\">{{c.city}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Login Hint</td>\n      <td colspan=\"2\">{{c.login}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Password Hint</td>\n      <td colspan=\"2\">{{c.password}}</td>\n    </tr>\n  </table>\n</div>"
-
-/***/ }),
-
-/***/ 182:
-/***/ (function(module, exports) {
-
-module.exports = "   <!--\n   Create or edit a company\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Company</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Name</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"company.name\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">URL</label>\n               <input type=\"text\" class=\"form-control\" name=\"url\" [(ngModel)]=\"company.url\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Address</label>\n               <input type=\"text\" class=\"form-control\" name=\"address\" [(ngModel)]=\"company.address\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">City</label>\n               <input type=\"text\" class=\"form-control\" name=\"city\" [(ngModel)]=\"company.city\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Phone</label>\n               <input type=\"text\" class=\"form-control\"  name=\"phone\" [(ngModel)]=\"company.phone\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Login Hint</label>\n               <input type=\"text\" class=\"form-control\"  name=\"login\" [(ngModel)]=\"company.login\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Password Hint</label>\n               <input type=\"text\" class=\"form-control\"  name=\"password\" [(ngModel)]=\"company.password\">\n             </div>\n          </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
-
-/***/ }),
-
-/***/ 183:
-/***/ (function(module, exports) {
-
-module.exports = "<a routerLink=\"/contacts/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/contacts/new\" class=\"btn btn-primary new-button\" role=\"button\">New Contact</a>\n<br>\n<p>\n<!-- \nList of all contacts. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling \n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Date   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('date')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th>Position   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('position')\"></span></th>\n        <th>Reference</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <th colspan=\"2\">Details</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let c of contacts; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/contacts', contacts[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{c.formatDate()}}</td>\n        <td>{{c.getPersonName()}}</td>\n        <td>{{c.getPositionTitle()}}</td>\n        <td>{{getPositionReference(c.id)}}</td>\n        <td>{{c.getCompanyName()}}</td>\n        <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n        <td colspan=\"2\" [class]=\"showIfPhone(i)\">{{c.details}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let c of contacts; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/contacts', contacts[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n     </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date</td>\n      <td colspan=\"2\">{{c.formatDate()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{c.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Position</td>\n      <td colspan=\"2\">{{c.getPositionTitle()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{c.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Details</td>\n      <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n      <td colspan=\"2\" [class]=\"showIfPhone(i)\">{{c.details}}</td>\n    </tr>\n  </table>\n</div>\n<!-- Modal displays email content-->\n<div id=\"message-text\" class=\"modal\" role=\"dialog\">\n  <div class=\"modal-dialog\">\n    <!-- Modal content-->\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" (click)=\"closeEmail()\">&times;</button>\n        <h4 class=\"modal-title\">{{emailSubject}}</h4>\n      </div>\n      <div class=\"modal-body\">\n        <div class=\"form-group\">\n          <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n        </div>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-default\" (click)=\"closeEmail()\">Close</button>\n      </div>\n    </div>\n  </div>\n</div>"
-
-/***/ }),
-
-/***/ 184:
-/***/ (function(module, exports) {
-
-module.exports = "<!--\nCreate or edit a contact\n-->\n<div>\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n        <h4 class=\"modal-title\">Contact</h4>\n      </div>\n      <div class=\"modal-body\">\n        <form>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Person</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n              <option *ngFor=\"let p of persons\">\n                {{p.name}}\n              </option>\n            </select>\n          </div>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Position</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n              <option *ngFor=\"let p of positions\">\n                {{p.title}}\n              </option>\n            </select>\n          </div>\n          <div class=\"form-group\">\n            <label class=\"control-label\">Reference No.</label>\n            <input type=\"text\" class=\"form-control\" name=\"name\" disabled [(ngModel)]=\"positionReference\">\n          </div>\n          <div class=\"form-group\">\n            <label class=\"control-label\">Company</label>\n            <input type=\"text\" class=\"form-control\" name=\"ref\" disabled [(ngModel)]=\"companyName\">\n          </div>\n          <div *ngIf='!isMeeting' class=\"form-group\">\n            <label>Email&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isEmail\" [checked]='isEmail' (change)=\"setEmail()\">&nbsp;&nbsp;&nbsp;&nbsp;\n            <label>Phone&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isPhone\" [checked]='isPhone' (change)=\"setPhone()\">\n          </div>\n          <!-- Date and details inputs visible only for phone contact -->\n          <div *ngIf='isPhone || isMeeting'>\n            <div class=\"form-group\">\n              <label for=\"cmp-date\" class=\"control-label\">Date</label>\n              <input type=\"date\" class=\"form-control\" name=\"date\" [(ngModel)]=\"date\">\n            </div>\n            <div class=\"form-group\">\n              <label for=\"cmp-details\" class=\"control-label\">Details</label>\n              <input type=\"text\" class=\"form-control\" name=\"details\" [(ngModel)]=\"contact.details\">\n            </div>\n          </div>\n          <!-- Emails selector visible only for email contact -->\n          <div *ngIf='isEmail' class=\"table-container\" id=\"message-list\">\n            <table *ngFor=\"let m of emails; let i = index\">\n              <tr>\n                <td class=\"select-edit\">\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"selectEmail(i)\">Select</button>\n                </td>\n                <td>\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"viewEmail(i)\">View</button>\n                </td>\n              </tr>\n              <tr>\n                <td class=\"header\">Date</td>\n                <td>{{m.formatDate()}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">From</td>\n                <td>{{m.sender}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">To</td>\n                <td>{{m.receiver}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">Subject</td>\n                <td>{{m.subject}}</td>\n              </tr>\n            </table>\n            <!-- Modal displays email content-->\n            <div id=\"message-text\" class=\"modal\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" (click)=\"hideContent()\">&times;</button>\n                    <h4 class=\"modal-title\">{{emailSubject}}</h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <div class=\"form-group\">\n                      <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n                    </div>\n                  </div>\n                  <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" (click)=\"hideContent()\">Close</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n        <button id=\"save-button\" type=\"button\" class=\"btn btn-primary\" (click)=\"save()\" disabled>Save</button>\n      </div>\n    </div>\n  </div>\n</div>"
-
-/***/ }),
-
-/***/ 185:
-/***/ (function(module, exports) {
-
-module.exports = "<nav class=\"navbar navbar-default\" role=\"navigation\">\n  <div class=\"navbar-header\">\n    <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-toggle\">\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n        </button>\n  </div>\n\n  <div class=\"collapse navbar-collapse\" id=\"nav-toggle\">\n    <ul class=\"nav navbar-nav\">\n      <li routerLinkActive=\"active\"><a routerLink=\"/companies\">Companies</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/persons\">People</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/positions\">Positions</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/contacts\">Contacts</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/appointments\">Appointments</a></li>\n    </ul>\n  </div>\n</nav>"
-
-/***/ }),
-
-/***/ 186:
-/***/ (function(module, exports) {
-
-module.exports = "<a routerLink=\"/persons/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/persons/new\" class=\"btn btn-primary new-button\" role=\"button\">New Person</a>\n<br><p>\n<!-- \nList of all persons. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Name   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('name')\"></span></th>\n        <th>Email</th>\n        <th>Phone</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of persons; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/persons', persons[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{p.name}}</td>\n        <td>{{p.email}}</td>\n        <td>{{p.phone}}</td>\n        <td>{{p.getCompanyName()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of persons; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/persons', persons[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\">{{p.name}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Email</td>\n      <td colspan=\"2\">{{p.email}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{p.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n  </table>\n</div>"
-
-/***/ }),
-
-/***/ 187:
-/***/ (function(module, exports) {
-
-module.exports = "   <!--\n   Create or edit a person\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Person</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Name</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"person.name\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Email</label>\n               <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"person.email\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-name\" class=\"control-label\">Phone</label>\n               <input type=\"text\" class=\"form-control\" name=\"phone\" [(ngModel)]=\"person.phone\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"select($event)\">\n                  <option *ngFor=\"let c of companies\">\n                    {{c.name}}\n                  </option>\n                 </select>\n             </div>\n           </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
-
-/***/ }),
-
-/***/ 188:
-/***/ (function(module, exports) {
-
-module.exports = "<a routerLink=\"/positions/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/positions/new\" class=\"btn btn-primary new-button\" role=\"button\">New Position</a>\n<br><p>\n<!-- \nList of all positions. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th>Title   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('title')\"></span></th>\n        <th>Reference No.</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th>Date Posted   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('datePosted')\"></span></th>\n        <th>Date Applied   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('dateApplied')\"></span></th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of positions; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/positions', positions[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td [class]=\"isDeletable(i)\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td [class]=\"isNotDeletable(i)\"></td>\n        <td><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n        <td>{{p.reference}}</td>\n        <td>{{p.getCompanyName()}}</td>\n        <td>{{p.getPersonName()}}</td>\n        <td>{{p.formatDatePosted()}}</td>\n        <td>{{p.formatDateApplied()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of positions; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/positions', positions[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n        <i (click)=\"delete(i)\" style=\"font-size: 16px;\" [class]=\"isDeletable(i, true)\">clear</i>\n      </td>      \n    </tr>\n    <tr>\n      <td class=\"header\">Title</td>\n      <td colspan=\"2\">{{p.title}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Reference No.</td>\n      <td colspan=\"2\">{{p.reference}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">URL</td>\n      <td colspan=\"2\"><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{p.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Posted</td>\n      <td colspan=\"2\">{{p.formatDatePosted()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Applied</td>\n      <td colspan=\"2\">{{p.formatDateApplied()}}</td>\n    </tr>\n  </table>\n</div>"
-
-/***/ }),
-
-/***/ 189:
-/***/ (function(module, exports) {
-
-module.exports = "   <!--\n   Create or edit a position\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Position</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Title</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"position.title\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Reference No.</label>\n               <input type=\"text\" class=\"form-control\" name=\"reference\" [(ngModel)]=\"position.reference\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">URL</label>\n               <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"position.url\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany()\">\n                  <option *ngFor=\"let c of companies\">\n                    {{c.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Person</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                  <option *ngFor=\"let p of persons\">\n                    {{p.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Posted</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-posted\" [(ngModel)]=\"datePosted\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Applied</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-applied\" [(ngModel)]=\"dateApplied\">\n             </div>\n           </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n"
-
-/***/ }),
-
-/***/ 19:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Entity; });
-/**
- * Base class for entity module classes provides common utility functions
- */
-var Entity = (function () {
-    function Entity() {
-    }
-    /** Extracts the time from a JSON date string as "hh:mm" */
-    Entity.timeFromJSONDate = function (s) {
-        if (s) {
-            var d = new Date(s);
-            var h = String(d.getHours());
-            var m = d.getMinutes() < 10 ? '0'.concat(String(d.getMinutes())) : String(d.getMinutes());
-            return h.concat(':').concat(m);
-        }
-        else {
-            return null;
-        }
-    };
-    return Entity;
-}());
-
-//# sourceMappingURL=entity.model.js.map
-
-/***/ }),
-
-/***/ 2:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__server_service__ = __webpack_require__(71);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_company_model__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_person_model__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_position_model__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__model_appointment_model__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__model_contact_model__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__model_email_model__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_Observable__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_Observable__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CacheService; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-
-/**
- * Maintains cached copies of all entities. Each entity type ('company', 'person', etc.) is
- * used to access the corresponding cache arrays. The entity type also forms the path segment
- * in the REST api
- */
-var CacheService = (function () {
-    function CacheService(server) {
-        this.server = server;
-        this.entityCache = {
-            company: {
-                array: [],
-                idToEntity: {}
-            },
-            person: {
-                array: [],
-                idToEntity: {}
-            },
-            position: {
-                array: [],
-                idToEntity: {}
-            },
-            contact: {
-                array: [],
-                idToEntity: {}
-            },
-            appointment: {
-                array: [],
-                idToEntity: {}
-            },
-            email: {
-                array: [],
-                idToEntity: {}
-            },
-        };
-        /** Email content is "lazy" fetched from the server  */
-        this.emailContentCache = {};
-    }
-    /** Initializes the cache from the server */
-    CacheService.prototype.initialize = function () {
-        var _this = this;
-        this.server.getAll('company').subscribe(function (response) {
-            _this.entityCache['company'].array = response.json();
-            _this.convertToClasses(_this.entityCache['company'].array, 'company');
-            _this.mapIdToEntity('company');
-            _this.server.getAll('person').subscribe(function (response) {
-                _this.entityCache['person'].array = response.json();
-                _this.convertToClasses(_this.entityCache['person'].array, 'person');
-                _this.mapIdToEntity('person');
-                _this.server.getAll('position').subscribe(function (response) {
-                    _this.entityCache['position'].array = response.json();
-                    _this.convertToClasses(_this.entityCache['position'].array, 'position');
-                    _this.mapIdToEntity('position');
-                    _this.server.getAll('appointment').subscribe(function (response) {
-                        _this.entityCache['appointment'].array = response.json();
-                        _this.convertToClasses(_this.entityCache['appointment'].array, 'appointment');
-                        _this.mapIdToEntity('appointment');
-                        _this.server.getAll('contact').subscribe(function (response) {
-                            _this.entityCache['contact'].array = response.json();
-                            _this.convertToClasses(_this.entityCache['contact'].array, 'contact');
-                            _this.mapIdToEntity('contact');
-                            _this.server.getAll('email').subscribe(function (response) {
-                                _this.entityCache['email'].array = response.json();
-                                _this.convertToClasses(_this.entityCache['email'].array, 'email');
-                                _this.mapIdToEntity('email');
-                            });
-                        });
-                    });
-                });
-            });
-        });
-    };
-    /**
-     * Converts JSON representation of an entity into an object of the entity'e class
-     * @param array the entity array
-     * @param type the entity type
-     */
-    CacheService.prototype.convertToClasses = function (array, type) {
-        for (var i = 0; i < array.length; i++) {
-            var elem = array[i];
-            switch (type) {
-                case 'company':
-                    array[i] = __WEBPACK_IMPORTED_MODULE_2__model_company_model__["a" /* Company */].fromJson(elem);
-                    break;
-                case 'person':
-                    array[i] = __WEBPACK_IMPORTED_MODULE_3__model_person_model__["a" /* Person */].fromJson(elem);
-                    break;
-                case 'position':
-                    array[i] = __WEBPACK_IMPORTED_MODULE_4__model_position_model__["a" /* Position */].fromJson(elem);
-                    break;
-                case 'appointment':
-                    array[i] = __WEBPACK_IMPORTED_MODULE_5__model_appointment_model__["a" /* Appointment */].fromJson(elem);
-                    break;
-                case 'contact':
-                    array[i] = __WEBPACK_IMPORTED_MODULE_6__model_contact_model__["a" /* Contact */].fromJson(elem);
-                    break;
-                case 'email':
-                    array[i] = __WEBPACK_IMPORTED_MODULE_7__model_email_model__["a" /* Email */].fromJson(elem);
-                    break;
-            }
-        }
-    };
-    /**
-     * Creates a map of entity id to entity object
-     * @param type the entity type
-     */
-    CacheService.prototype.mapIdToEntity = function (type) {
-        var array = this.entityCache[type].array;
-        for (var i = 0; i < array.length; i++) {
-            var entity = array[i];
-            this.entityCache[type].idToEntity[entity.id] = entity;
-        }
-    };
-    /**
-     * Returns all entities of a given type as an array.
-     * @param type the entity type
-     */
-    CacheService.prototype.getAll = function (type) {
-        return this.entityCache[type].array;
-    };
-    /**
-     * Returns a map of id to entity for a specified entity type all entities of a given type as an array.
-     * @param type the entity type
-     */
-    CacheService.prototype.getIdMap = function (type) {
-        return this.entityCache[type].idToEntity;
-    };
-    /** Gets an entity specified by its array index */
-    CacheService.prototype.getByIndex = function (type, index) {
-        return this.entityCache[type].array[index];
-    };
-    /** Gets an entity specified by its id */
-    CacheService.prototype.getById = function (type, id) {
-        return this.entityCache[type].idToEntity[id];
-    };
-    /**
-     * Fetches the text body content of an email from the server and caches it
-     * @param id the id of the email entity
-     * @return an Observable providing the email text
-     */
-    CacheService.prototype.getEmailContent = function (id) {
-        var _this = this;
-        return __WEBPACK_IMPORTED_MODULE_8_rxjs_Observable__["Observable"].create(function (observer) {
-            var text = _this.emailContentCache[id];
-            if (text) {
-                // Text is already in the cache
-                observer.next(text);
-            }
-            else {
-                // Retrieve from the server and store in the cache
-                _this.server.getEmailContent(id).subscribe(function (response) {
-                    var text = response.json().text;
-                    _this.emailContentCache[id] = text;
-                    observer.next(text);
-                });
-            }
-        });
-    };
-    /**
-     * Creates or updates an entity
-     * @param type the entity type
-     * @param entity the entity object
-     */
-    CacheService.prototype.save = function (type, entity) {
-        var _this = this;
-        if (entity.id) {
-            // Update
-            this.server.update(type, entity).subscribe(function (response) { }, function (error) {
-                console.log(error);
-            });
-        }
-        else {
-            // Create
-            this.server.create(type, entity).subscribe(function (response) {
-                entity.id = response.json();
-                // Add it to the cache and the id to entity map
-                _this.entityCache[type].array.push(entity);
-                var id = entity['id'];
-                _this.entityCache[type].idToEntity[id] = entity;
-            }, function (error) {
-                console.log(error);
-            });
-        }
-    };
-    /**
-     * Deletes an entity
-     * @param type the entity type
-     * @param index the index of the object in the cached entity array
-     */
-    CacheService.prototype.deleteByIndex = function (type, index) {
-        var entity = this.entityCache[type].array[index];
-        this.delete(type, entity.id, index);
-    };
-    /**
-     * Deletes an entity
-     * @param type the entity type
-     * @param id the entity id
-     */
-    CacheService.prototype.deleteById = function (type, id) {
-        // Locate index in the cache array
-        for (var index = 0; index < this.entityCache[type].array.length; index++) {
-            var entity = this.entityCache[type].array[index];
-            if (entity.id === id) {
-                break;
-            }
-        }
-        this.delete(type, id, index);
-    };
-    /** Sends the delete requrst to the server removes the entity from the cache array */
-    CacheService.prototype.delete = function (type, id, index) {
-        var _this = this;
-        this.server.delete(type, id).subscribe(function (response) {
-            // Remove the entity from the cache array
-            _this.entityCache[type].array.splice(index, 1);
-            console.log('Deleted ' + type + ' ' + id);
-        }, function (error) {
-            console.log(error);
-        });
-    };
-    return CacheService;
-}());
-CacheService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__server_service__["a" /* ServerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__server_service__["a" /* ServerService */]) === "function" && _a || Object])
-], CacheService);
-
-var _a;
-//# sourceMappingURL=cache.service.js.map
-
-/***/ }),
-
-/***/ 226:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(98);
-
-
-/***/ }),
-
-/***/ 29:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EntityComponentBase; });
-/**
- * Base class for all "entity" components, providing common utility methods
- */
-var EntityComponentBase = (function () {
-    function EntityComponentBase() {
-    }
-    /**
-     * For a given array of entity objects, creates a pair of maps;
-     * the "attributeToId" maps a specified entity atttribute to the 'id' field;
-     * the "idToAttribute" maps the inverse relationship
-     * @param entityList Array of entity objects
-     * @param attribute name of the entity attribute
-     * @return the maps object
-     */
-    EntityComponentBase.prototype.createEntityMaps = function (entityList, attribute) {
-        var maps = { attributeToId: {}, idToAttribute: {} };
-        for (var i = 0; i < entityList.length; i++) {
-            var id = entityList[i]['id'];
-            var value = entityList[i][attribute];
-            maps.attributeToId[value] = id;
-            maps.idToAttribute[id] = value;
-        }
-        return maps;
-    };
-    return EntityComponentBase;
-}());
-
-//# sourceMappingURL=entityComponentBase.js.map
-
-/***/ }),
-
-/***/ 30:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListComponentBase; });
-/**
- * Base class for list components, providing common utility functions
- */
-var ListComponentBase = (function () {
-    function ListComponentBase(cache) {
-        this.cache = cache;
-    }
-    /**
-     * Sorts an array of entities.
-     * @param list the array to be sorted
-     * @param sortBy the field of the entity class on which to sort
-     * @param isDate true if the sortBy field is a date string
-     */
-    ListComponentBase.prototype.sortList = function (list, sortBy) {
-        var sortKeys = [];
-        var elementMap = {};
-        var sortedList = [];
-        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
-            var element = list_1[_i];
-            var sortField = element[sortBy];
-            sortKeys.push(sortField);
-            if (!elementMap[sortField]) {
-                elementMap[sortField] = [];
-            }
-            elementMap[sortField].push(element);
-        }
-        sortKeys.sort();
-        // Preserve original order of elements with same sort value
-        for (var index in elementMap) {
-            elementMap[index].reverse();
-        }
-        for (var _a = 0, sortKeys_1 = sortKeys; _a < sortKeys_1.length; _a++) {
-            var key = sortKeys_1[_a];
-            var element = elementMap[key].pop();
-            sortedList.push(element);
-        }
-        return sortedList;
-    };
-    /**
-     * Sorts an array of entities.
-     * @param list the array to be sorted
-     * @param sortBy name of a "foreign id" attribute of the entity which references another entity containing the value on which to sort
-     * @param referenceType the referenced entity type
-     * @param referenceField the name of the attribute in the referenced entity on which to sort
-     */
-    ListComponentBase.prototype.sortListReferenced = function (list, sortBy, referenceType, referenceField) {
-        var sortKeys = [];
-        var elementMap = {};
-        var sortedList = [];
-        for (var _i = 0, list_2 = list; _i < list_2.length; _i++) {
-            var element = list_2[_i];
-            var referenceId = element[sortBy];
-            var referencedEntity = void 0;
-            var sortField = void 0;
-            if (referenceId) {
-                referencedEntity = this.cache.getById(referenceType, referenceId);
-                sortField = referencedEntity[referenceField];
-            }
-            else {
-                sortField = '';
-            }
-            sortKeys.push(sortField);
-            if (!elementMap[sortField]) {
-                elementMap[sortField] = [];
-            }
-            elementMap[sortField].push(element);
-        }
-        sortKeys.sort();
-        // Preserve original order of elements with same sort value
-        for (var index in elementMap) {
-            elementMap[index].reverse();
-        }
-        for (var _a = 0, sortKeys_2 = sortKeys; _a < sortKeys_2.length; _a++) {
-            var key = sortKeys_2[_a];
-            var element = elementMap[key].pop();
-            sortedList.push(element);
-        }
-        return sortedList;
-    };
-    return ListComponentBase;
-}());
-
-//# sourceMappingURL=listComponentBase.js.map
-
-/***/ }),
-
-/***/ 40:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__entity_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_module__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__datetime_service__ = __webpack_require__(11);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Contact; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var Contact = Contact_1 = (function (_super) {
-    __extends(Contact, _super);
-    function Contact(id, companyId, positionId, personId, date, type, details, emailId) {
-        var _this = _super.call(this) || this;
-        _this.id = id;
-        _this.companyId = companyId;
-        _this.positionId = positionId;
-        _this.personId = personId;
-        _this.date = date;
-        _this.type = type;
-        _this.details = details;
-        _this.emailId = emailId;
-        _this.cache = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]);
-        _this.datetime = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_4__datetime_service__["a" /* DateTimeService */]);
-        return _this;
-    }
-    Contact.fromJson = function (json) {
-        var p = new Contact_1(json.id, json.companyId, json.positionId, json.personId, json.date, json.type, json.details, json.emailId);
-        console.log(p);
-        return p;
-    };
-    Contact.prototype.getPositionTitle = function () {
-        if (this.positionId) {
-            var position = this.cache.getById('position', this.positionId);
-            return position.title;
-        }
-        else {
-            return '';
-        }
-    };
-    Contact.prototype.getPersonName = function () {
-        if (this.personId) {
-            var person = this.cache.getById('person', this.personId);
-            return person.name;
-        }
-        else {
-            return '';
-        }
-    };
-    Contact.prototype.getCompanyName = function () {
-        if (this.companyId) {
-            var company = this.cache.getById('company', this.companyId);
-            return company.name;
-        }
-        else {
-            return '';
-        }
-    };
-    Contact.prototype.formatDate = function () {
-        return this.datetime.formatListDate(this.date);
-    };
-    return Contact;
-}(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
-Contact = Contact_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["d" /* Injectable */])(),
-    __metadata("design:paramtypes", [Number, Number, Number, Number, Number, String, String, Number])
-], Contact);
-
-var Contact_1;
-//# sourceMappingURL=contact.model.js.map
-
-/***/ }),
-
-/***/ 67:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__entity_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_module__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__datetime_service__ = __webpack_require__(11);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Appointment; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var Appointment = Appointment_1 = (function (_super) {
-    __extends(Appointment, _super);
-    function Appointment(id, companyId, personId, dateTime, positionId) {
-        var _this = _super.call(this) || this;
-        _this.id = id;
-        _this.companyId = companyId;
-        _this.personId = personId;
-        _this.dateTime = dateTime;
-        _this.positionId = positionId;
-        _this.cache = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]);
-        _this.datetime = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_4__datetime_service__["a" /* DateTimeService */]);
-        return _this;
-    }
-    Appointment.fromJson = function (json) {
-        var p = new Appointment_1(json.id, json.companyId, json.personId, json.dateTime, json.positionId);
-        console.log(p);
-        return p;
-    };
-    Appointment.prototype.getCompanyName = function () {
-        if (this.companyId) {
-            var company = this.cache.getById('company', this.companyId);
-            return company.name;
-        }
-        else {
-            return '';
-        }
-    };
-    Appointment.prototype.getPersonName = function () {
-        if (this.personId) {
-            var person = this.cache.getById('person', this.personId);
-            return person.name;
-        }
-        else {
-            return '';
-        }
-    };
-    Appointment.prototype.getPositionTitle = function () {
-        if (this.positionId) {
-            var position = this.cache.getById('position', this.positionId);
-            return position.title;
-        }
-        else {
-            return '';
-        }
-    };
-    Appointment.prototype.formatDate = function () {
-        return this.datetime.formatListDate(this.dateTime);
-    };
-    Appointment.prototype.formatTime = function () {
-        return this.datetime.formatListTime(this.dateTime);
-    };
-    return Appointment;
-}(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
-Appointment = Appointment_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["d" /* Injectable */])(),
-    __metadata("design:paramtypes", [Number, Number, Number, Number, Number])
-], Appointment);
-
-var Appointment_1;
-//# sourceMappingURL=appointment.model.js.map
-
-/***/ }),
-
-/***/ 68:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__entity_model__ = __webpack_require__(19);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Company; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-var Company = (function (_super) {
-    __extends(Company, _super);
-    function Company(id, address, city, name, phone, url, login, password) {
-        var _this = _super.call(this) || this;
-        _this.id = id;
-        _this.address = address;
-        _this.city = city;
-        _this.name = name;
-        _this.phone = phone;
-        _this.url = url;
-        _this.login = login;
-        _this.password = password;
-        return _this;
-    }
-    Company.fromJson = function (json) {
-        var p = new Company(json.id, json.address, json.city, json.name, json.phone, json.url, json.login, json.password);
-        console.log(p);
-        return p;
-    };
-    return Company;
-}(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
-
-//# sourceMappingURL=company.model.js.map
-
-/***/ }),
-
-/***/ 69:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_module__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entity_model__ = __webpack_require__(19);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Person; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var Person = Person_1 = (function (_super) {
-    __extends(Person, _super);
-    function Person(id, name, email, phone, companyId) {
-        var _this = _super.call(this) || this;
-        _this.id = id;
-        _this.name = name;
-        _this.email = email;
-        _this.phone = phone;
-        _this.companyId = companyId;
-        _this.cache = __WEBPACK_IMPORTED_MODULE_2__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_0__cache_service__["a" /* CacheService */]);
-        return _this;
-    }
-    Person.fromJson = function (json) {
-        var p = new Person_1(json.id, json.name, json.email, json.phone, json.companyId);
-        console.log(p);
-        return p;
-    };
-    Person.prototype.getCompanyName = function () {
-        if (this.companyId) {
-            var company = this.cache.getById('company', this.companyId);
-            return company.name;
-        }
-        else {
-            return '';
-        }
-    };
-    return Person;
-}(__WEBPACK_IMPORTED_MODULE_3__entity_model__["a" /* Entity */]));
-Person = Person_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["d" /* Injectable */])(),
-    __metadata("design:paramtypes", [Number, String, String, String, Number])
-], Person);
-
-var Person_1;
-//# sourceMappingURL=person.model.js.map
-
-/***/ }),
-
-/***/ 70:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__entity_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cache_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_module__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__datetime_service__ = __webpack_require__(11);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Position; });
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var Position = Position_1 = (function (_super) {
-    __extends(Position, _super);
-    function Position(id, title, url, reference, dateApplied, datePosted, companyId, personId) {
-        var _this = _super.call(this) || this;
-        _this.id = id;
-        _this.title = title;
-        _this.url = url;
-        _this.reference = reference;
-        _this.dateApplied = dateApplied;
-        _this.datePosted = datePosted;
-        _this.companyId = companyId;
-        _this.personId = personId;
-        _this.cache = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_1__cache_service__["a" /* CacheService */]);
-        _this.datetime = __WEBPACK_IMPORTED_MODULE_3__app_module__["a" /* AppModule */].injector.get(__WEBPACK_IMPORTED_MODULE_4__datetime_service__["a" /* DateTimeService */]);
-        return _this;
-    }
-    Position.fromJson = function (json) {
-        var p = new Position_1(json.id, json.title, json.url, json.reference, json.dateApplied, json.datePosted, json.companyId, json.personId);
-        console.log(p);
-        return p;
-    };
-    Position.prototype.getCompanyName = function () {
-        if (this.companyId) {
-            var company = this.cache.getById('company', this.companyId);
-            return company.name;
-        }
-        else {
-            return '';
-        }
-    };
-    Position.prototype.getPersonName = function () {
-        if (this.personId) {
-            var person = this.cache.getById('person', this.personId);
-            return person.name;
-        }
-        else {
-            return '';
-        }
-    };
-    Position.prototype.formatDateApplied = function () {
-        return this.datetime.formatListDate(this.dateApplied);
-    };
-    Position.prototype.formatDatePosted = function () {
-        return this.datetime.formatListDate(this.datePosted);
-    };
-    return Position;
-}(__WEBPACK_IMPORTED_MODULE_0__entity_model__["a" /* Entity */]));
-Position = Position_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["d" /* Injectable */])(),
-    __metadata("design:paramtypes", [Number, String, String, String, Number, Number, Number, Number])
-], Position);
-
-var Position_1;
-//# sourceMappingURL=position.model.js.map
-
-/***/ }),
-
-/***/ 71:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(66);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ServerService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2442,8 +2441,8 @@ var ServerService = (function () {
     return ServerService;
 }());
 ServerService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object])
 ], ServerService);
 
 var _a;
@@ -2451,40 +2450,52 @@ var _a;
 
 /***/ }),
 
-/***/ 97:
-/***/ (function(module, exports) {
+/***/ "../../../../../src/environments/environment.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function webpackEmptyContext(req) {
-	throw new Error("Cannot find module '" + req + "'.");
-}
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 97;
-
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `.angular-cli.json`.
+// The file contents for the current environment will overwrite these during build.
+var environment = {
+    production: false
+};
+//# sourceMappingURL=environment.js.map
 
 /***/ }),
 
-/***/ 98:
+/***/ "../../../../../src/main.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__("../../../platform-browser-dynamic/@angular/platform-browser-dynamic.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__("../../../../../src/app/app.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
 
 
 
 
 if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["a" /* enableProdMode */])();
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_23" /* enableProdMode */])();
 }
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */]);
+Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */])
+    .catch(function (err) { return console.log(err); });
 //# sourceMappingURL=main.js.map
+
+/***/ }),
+
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("../../../../../src/main.ts");
+
 
 /***/ })
 
-},[226]);
+},[0]);
 //# sourceMappingURL=main.bundle.js.map

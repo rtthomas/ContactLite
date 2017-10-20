@@ -13,8 +13,7 @@ export class PersonComponent extends EntityComponentBase implements OnInit {
   selectedCompany; // the company name
   companies = [];
 
-  private companyIdToName = {}; 
-  private companyNameToId = {}; 
+  private companyIdToName = {};
 
   constructor(private router: Router, private route: ActivatedRoute, private service: CacheService) {
     super();
@@ -22,13 +21,10 @@ export class PersonComponent extends EntityComponentBase implements OnInit {
 
   ngOnInit() {
     this.companies = this.service.getAll('company');
-    // Map company names to company ids and vide-versa
-    const maps = this.createEntityMaps(this.companies, 'name');
-    this.companyIdToName = maps.idToAttribute;
-    this.companyNameToId = maps.attributeToId;
+    this.companyIdToName = this.mapToAttribute(this.companies, 'name');
 
     const id = this.route.snapshot.params['id'];
-    if (id == 'new') {
+    if (id === 'new') {
       // Creating a new one
       this.person = new Person(null, '', '', '', null);
     }
@@ -52,6 +48,6 @@ export class PersonComponent extends EntityComponentBase implements OnInit {
 
   /** Called upon selection of a company from the company selector */
   select(event) {
-    this.person.companyId = this.companyNameToId[this.selectedCompany];
+    this.person.companyId = this.companies[event.target.options.selectedIndex].id;
   }
 }

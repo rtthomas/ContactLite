@@ -23,13 +23,10 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
   persons = [];
   positions = [];
 
-  private personNameToId = {};
   private personIdToName = {};
-  private companyNameToId = {};
   private companyIdToName = {};
   private positionIdToTitle = {};
-  private positionTitleToId = {};
-  private id;
+  private isNew: boolean;
 
   constructor(private router: Router, private route: ActivatedRoute, private cache: CacheService, private datetime: DateTimeService) {
     super();
@@ -39,19 +36,13 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
     this.companies = this.cache.getAll('company');
     this.persons = this.cache.getAll('person');
     this.positions = this.cache.getAll('position');
-    // Map company, person and position names/title to their entity ids and vice-versa
-    let maps = this.createEntityMaps(this.companies, 'name');
-    this.companyNameToId = maps.attributeToId;
-    this.companyIdToName = maps.idToAttribute;
-    maps = this.createEntityMaps(this.persons, 'name');
-    this.personNameToId = maps.attributeToId;
-    this.personIdToName = maps.idToAttribute;
-    maps = this.createEntityMaps(this.positions, 'title');
-    this.positionTitleToId = maps.attributeToId;
-    this.positionIdToTitle = maps.idToAttribute;
+    this.companyIdToName = this.mapToAttribute(this.companies, 'name');
+    this.personIdToName = this.mapToAttribute(this.persons, 'name');
+    this.positionIdToTitle = this.mapToAttribute(this.positions, 'title');
 
-    this.id = this.route.snapshot.params['id'];
-    if (this.id === 'new') {
+    const id = this.route.snapshot.params['id'];
+    this.isNew = id === 'new';
+    if (this.isNew) {
       $('#convert').hide();
       // Creating a new one
       this.appointment = new Appointment(null, null, null, null, null);
@@ -59,7 +50,7 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
     else {
       // Viewing or editing
       $('#convert').show();
-      this.appointment = this.cache.getById('appointment', this.id);
+      this.appointment = this.cache.getById('appointment', id);
       if (this.appointment.dateTime) {
         const date: Date = new Date(this.appointment.dateTime);
 
@@ -73,7 +64,7 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
           m = '0' + m;
         }
 
-        this.time = h + ":" + m;
+        this.time = h + ':' + m;
         if (this.time.length === 4) {
           this.time = '0' + this.appointment.dateTime;
         }
@@ -89,8 +80,8 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
     this.router.navigate(['/appointments']);
   }
   save() {
-    let dateTime = new Date();
-    if (this.time){
+    const dateTime = new Date();
+    if (this.time) {
       const timeParts: string[] = this.time.split(':');
       dateTime.setHours(+timeParts[0]);
       dateTime.setMinutes(+timeParts[1]);
@@ -106,7 +97,7 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
 
   /** Enables display of the Record button if the appointment date/time has passed */
   displayIfConvertible(): string {
-    if (this.id === 'new' || !this.appointment.dateTime) {
+    if (this.isNew || !this.appointment.dateTime) {
       return 'hidden';
     }
     const dateTime: Date = new Date(this.appointment.dateTime);
@@ -116,22 +107,23 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
   }
   /** Converts the appointment to a "meeting" contact */
   convert() {
-    const contact = new Contact(null, this.appointment.companyId, this.appointment.positionId, this.appointment.personId, this.appointment.dateTime, 'meeting', null, null);
+    const contact = new Contact(null, this.appointment.companyId, this.appointment.positionId,
+      this.appointment.personId, this.appointment.dateTime, 'meeting', null, null);
     this.cache.save('contact', contact);
     this.cache.deleteById('appointment', this.appointment.id);
   }
 
   /** Called upon selection of a company from the company selector */
-  selectCompany() {
-    this.appointment.companyId = this.companyNameToId[this.selectedCompany];
+  selectCompany(event) {
+    this.appointment.companyId = this.companies[event.target.options.selectedIndex].id;
   }
   /** Called upon selection of a person from the person selector */
-  selectPerson() {
-    this.appointment.personId = this.personNameToId[this.selectedPerson];
+  selectPerson(event) {
+    this.appointment.personId = this.persons[event.target.options.selectedIndex].id;
   }
   /** Called upon selection of a position from the position selector */
-  selectPosition() {
-    this.appointment.positionId = this.positionTitleToId[this.selectedPosition];
+  selectPosition(event) {
+    this.appointment.positionId = this.positions[event.target.options.selectedIndex].id;
   }
 
 }

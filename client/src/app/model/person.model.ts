@@ -5,10 +5,10 @@ import { Entity} from './entity.model';
 
 
 @Injectable()
-export class Person  extends Entity{
+export class Person  extends Entity {
     cache = AppModule.injector.get(CacheService);
 
-    static fromJson(json: any){
+    static fromJson(json: any) {
         const p = new Person(json.id, json.name,  json.email, json.phone, json.companyId);
         console.log(p);
         return p;

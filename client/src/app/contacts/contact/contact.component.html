@@ -12,7 +12,7 @@ Create or edit a contact
         <form>
           <div class="form-group">
             <label for="sel1">Person</label>
-            <select class="form-control" id="sel1" name="person" [(ngModel)]="selectedPerson" (change)="selectPerson()">
+            <select class="form-control" id="sel1" name="person" [(ngModel)]="selectedPerson" (change)="selectPerson($event)">
               <option *ngFor="let p of persons">
                 {{p.name}}
               </option>
@@ -20,7 +20,7 @@ Create or edit a contact
           </div>
           <div class="form-group">
             <label for="sel1">Position</label>
-            <select class="form-control" id="sel1" name="position" [(ngModel)]="selectedPosition" (change)="selectPosition()">
+            <select class="form-control" id="sel1" name="position" [(ngModel)]="selectedPosition" (change)="selectPosition($event)">
               <option *ngFor="let p of positions">
                 {{p.title}}
               </option>

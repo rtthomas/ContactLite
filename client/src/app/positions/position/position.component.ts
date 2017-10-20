@@ -19,9 +19,7 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
   companies = [];
   persons = [];
 
-  private personNameToId = {};
   private personIdToName = {};
-  private companyNameToId = {};
   private companyIdToName = {};
 
   constructor(private router: Router, private route: ActivatedRoute, private service: CacheService, private datetime: DateTimeService) {
@@ -32,12 +30,8 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
     this.companies = this.service.getAll('company');
     this.persons = this.service.getAll('person');
     // Map company and person names to their entity ids and vice-versa
-    let maps = this.createEntityMaps(this.companies, 'name');
-    this.companyNameToId = maps.attributeToId;
-    this.companyIdToName = maps.idToAttribute;
-    maps = this.createEntityMaps(this.persons, 'name');
-    this.personNameToId = maps.attributeToId;
-    this.personIdToName = maps.idToAttribute;
+    this.companyIdToName = this.mapToAttribute(this.companies, 'name');
+    this.personIdToName = this.mapToAttribute(this.persons, 'name');
 
     const id = this.route.snapshot.params['id'];
     if (id === 'new') {
@@ -63,29 +57,29 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
   }
   save() {
     if (this.datePosted) {
-      let posted = new Date();
-      let parts: string[] = this.datePosted.split('-');
+      const posted = new Date();
+      const parts: string[] = this.datePosted.split('-');
       posted.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
       this.position.datePosted = posted.getTime();
     }
     if (this.dateApplied) {
-      let applied = new Date();
-      let parts = this.dateApplied.split('-');
+      const applied = new Date();
+      const parts = this.dateApplied.split('-');
       applied.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
       this.position.dateApplied = applied.getTime();
     }
 
-    console.log("Posted " + this.position.datePosted + ' : ' + this.datePosted);
+    console.log('Posted ' + this.position.datePosted + ' : ' + this.datePosted);
     this.service.save('position', this.position);
     this.router.navigate(['/positions']);
   }
 
   /** Called upon selection of a person from the person selector */
-  selectPerson() {
-    this.position.personId = this.personNameToId[this.selectedPerson];
+  selectPerson(event) {
+    this.position.personId = this.persons[event.target.options.selectedIndex].id;
   }
   /** Called upon selection of a company from the position selector */
-  selectCompany() {
-    this.position.companyId = this.companyNameToId[this.selectedCompany];
+  selectCompany(event) {
+    this.position.companyId = this.companies[event.target.options.selectedIndex].id;
   }
 }
