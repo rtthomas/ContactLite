@@ -15,12 +15,12 @@ export class AppComponent implements OnInit {
   constructor(private cache: CacheService, private router: Router) { }
 
   ngOnInit() {
-      const observable: Observable<any> = this.cache.initialize();
+    const observable: Observable<any> = this.cache.initialize();
     observable.subscribe(
       (next: any) => { },
       (error: any) => { },
       () => {
-        this.initialized = true;
+//        this.initialized = true;
         console.log('Initialized');
         this.router.navigate(['/']);
       }
