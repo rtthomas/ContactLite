@@ -7,7 +7,6 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import {Injector} from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { CompanyListComponent } from './companies/company-list.component';
 import { CompanyComponent } from './companies/company/company.component';
 import { PositionListComponent } from './positions/position-list.component';
@@ -40,7 +39,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     CompanyListComponent,
     CompanyComponent,
     PositionListComponent,
