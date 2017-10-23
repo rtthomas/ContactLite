@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CacheService } from './cache.service';
 import { Router } from '@angular/router';
-// import {MatProgressSpinnerModule} from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +19,7 @@ export class AppComponent implements OnInit {
       (next: any) => { },
       (error: any) => { },
       () => {
-//        this.initialized = true;
+        this.initialized = true;
         console.log('Initialized');
         this.router.navigate(['/']);
       }

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import {Injector} from '@angular/core';
+import { Injector } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CompanyListComponent } from './companies/company-list.component';
@@ -20,8 +20,10 @@ import { ContactComponent } from './contacts/contact/contact.component';
 import { ServerService } from './server.service';
 import { CacheService } from './cache.service';
 import { DateTimeService } from './datetime.service';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatProgressSpinnerModule} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material';
+import { MatTooltipModule } from '@angular/material';
+import { AbreviatePipe } from './contacts/abbreviate-pipe';
 
 const appRoutes: Routes = [
   {path: 'companies', component: CompanyListComponent},
@@ -49,6 +51,7 @@ const appRoutes: Routes = [
     ContactComponent,
     PersonListComponent,
     PersonComponent,
+    AbreviatePipe
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   providers: [ServerService, CacheService, {provide: LocationStrategy, useClass: HashLocationStrategy}, DateTimeService],
   bootstrap: [AppComponent]

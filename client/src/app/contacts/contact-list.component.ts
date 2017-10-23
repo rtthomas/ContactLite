@@ -6,7 +6,7 @@ import { CacheService } from '../cache.service';
 import { Subscriber } from 'rxjs/Subscriber';
 import { ListComponentBase } from '../listComponentBase';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-contact-list',
@@ -15,9 +15,9 @@ declare var $:any;
 export class ContactListComponent extends ListComponentBase implements OnInit, OnDestroy {
   contacts;
   emailText: string;
-  emailSubject:string;
+  emailSubject: string;
 
-  private subscriber:Subscriber<string>;
+  private subscriber: Subscriber<string>;
 
   constructor(cache: CacheService) {
     super(cache);
@@ -37,21 +37,21 @@ export class ContactListComponent extends ListComponentBase implements OnInit, O
   }
 
   showIfEmail(index: number){
-    const contact:Contact = this.contacts[index];
+    const contact: Contact = this.contacts[index];
     return contact.type === 'email' ? '' : 'hidden';
   }
   showIfPhone(index: number){
-    const contact:Contact = this.contacts[index];
+    const contact: Contact = this.contacts[index];
     return contact.type === 'phone' || contact.type === 'meeting' ? '' : 'hidden';
   }
 
   /** Called when a View Email link is clicked */
   viewEmail(index: number){
-    const contact:Contact = this.contacts[index];
-    const email:Email = this.cache.getById('email', contact.emailId);
+    const contact: Contact = this.contacts[index];
+    const email: Email = this.cache.getById('email', contact.emailId);
     this.emailSubject = email.subject;
     this.subscriber = this.cache.getEmailContent(email.contentId).subscribe(
-      (text:string) => {
+      (text: string) => {
         this.emailText = text;
         $('#message-text').show();
       }
