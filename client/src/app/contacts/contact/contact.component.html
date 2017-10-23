@@ -61,22 +61,25 @@ Create or edit a contact
                 <td>
                   <button type="button" class="btn btn-sm" (click)="viewEmail(i)">View</button>
                 </td>
+                <td>
+                  <button type="button" class="btn btn-sm" (click)="deleteEmail(i)" style="float:right">Delete</button>
+                </td>
               </tr>
               <tr>
                 <td class="header">Date</td>
-                <td>{{m.formatDate()}}</td>
+                <td colspan="2">{{m.formatDate()}}</td>
               </tr>
               <tr>
                 <td class="header">From</td>
-                <td>{{m.sender}}</td>
+                <td colspan="2">{{m.sender}}</td>
               </tr>
               <tr>
                 <td class="header">To</td>
-                <td>{{m.receiver}}</td>
+                <td colspan="2">{{m.receiver}}</td>
               </tr>
               <tr>
                 <td class="header">Subject</td>
-                <td>{{m.subject}}</td>
+                <td colspan="2">{{m.subject}}</td>
               </tr>
             </table>
             <!-- Modal displays email content-->

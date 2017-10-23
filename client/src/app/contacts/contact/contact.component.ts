@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscriber } from 'rxjs/Subscriber';
 import { Contact } from '../../model/contact.model';
 import { Company } from '../../model/company.model';
 import { Position } from '../../model/position.model';
@@ -14,7 +15,7 @@ declare var $: any;
   selector: 'app-contact',
   templateUrl: './contact.component.html'
 })
-export class ContactComponent extends EntityComponentBase implements OnInit {
+export class ContactComponent extends EntityComponentBase implements OnInit, OnDestroy {
   contact: Contact;
   date: string; // for the html date element, which requires a string yyyy-mm-dd
   selectedPerson; // the person name
@@ -34,6 +35,7 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
   private positionIdToTitle = {};
   private companyIdToName = {};
   private selectedEmailIndex: number;
+  private subscriber:Subscriber<string>;
 
   constructor(
     private router: Router,
@@ -96,6 +98,12 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    if (this.subscriber) {
+      this.subscriber.unsubscribe();
+    }
+  }
+
   cancel() {
     this.router.navigate(['/contacts']);
   }
@@ -152,7 +160,7 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
     $('#save-button').removeAttr('disabled');
   }
 
-  /** Called when email selected from the email list */
+  /** Called when Select button clicked */
   selectEmail(index: number) {
     this.selectedEmailIndex = index;
     const email: Email = this.emails[index];
@@ -169,6 +177,21 @@ export class ContactComponent extends EntityComponentBase implements OnInit {
     this.emailSubject = email.subject;
     $('#message-text').show();
   }
+
+  /** Called when Delete button clicked */
+  deleteEmail(index: number) {
+    this.selectedEmailIndex = index;
+    const email: Email = this.emails[index];
+    this.subscriber = this.cache.deleteById('email', email.id).subscribe(
+      (response) => {
+        // Retrieve email list, filter out assigned ones
+        this.emails = this.cache.getAll('email').filter(
+          (e: Email) => !e.assigned
+        );
+      }
+    );
+  }
+  
   /** Closes the email content popup */
   hideContent() {
     $('#message-text').hide();

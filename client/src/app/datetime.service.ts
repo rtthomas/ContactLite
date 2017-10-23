@@ -12,8 +12,8 @@ export class DateTimeService {
    */
   public formatListDate(d: number) {
     if (d) {
-      let date: Date = new Date(d);
-      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const date: Date = new Date(d);
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       const f = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
       return f;
     }
@@ -49,12 +49,12 @@ export class DateTimeService {
     if (!t) {
       return '';
     }
-    const date:Date = new Date(t);
+    const date: Date = new Date(t);
     let h: number = date.getHours();
     let m: string = new Number(date.getMinutes()).toString();
     let ampm: string;
 
-    if (h == 12) {
+    if (h === 12) {
       ampm = 'PM';
     }
     else if (h > 12) {
@@ -63,12 +63,12 @@ export class DateTimeService {
     }
     else {
       ampm = 'AM';
-      if (h == 0) {
+      if (h === 0) {
         h = 12;
       }
     }
 
-    if (m.length == 1) {
+    if (m.length === 1) {
       m = '0' + m;
     }
     return String(h) + ':' + m + ' ' + ampm;

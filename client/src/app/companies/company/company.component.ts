@@ -14,9 +14,9 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit() {
     const  id = this.route.snapshot.params['id'];
-    if (id == 'new'){
+    if (id === 'new'){
       // Creating a new one
-      this.company = new Company(null, '','','','','','','');
+      this.company = new Company(null, '', '', '', '', '', '', '');
     }
     else {
       // Viewing or editing

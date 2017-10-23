@@ -52,7 +52,7 @@ export class CacheService {
   /** Initializes the cache from the server */
   initialize() {
     const observable = Observable.create((observer: Observer<any>) => {
-      const pendingTransactions = {count: 6};
+      const pendingTransactions = { count: 6 };
       this.fetchAll('company', observer, pendingTransactions);
       this.fetchAll('person', observer, pendingTransactions);
       this.fetchAll('position', observer, pendingTransactions);
@@ -67,17 +67,17 @@ export class CacheService {
    * Fetches all entities of a specified type, and decrements the pending transation count.
    * When the count reaches zero the observer complete() method is called
    */
-  private fetchAll(entityType: string, observer: Observer<any>, pendingTransactions){
-      this.server.getAll(entityType).subscribe(
-        (response) => {
-          this.entityCache[entityType].array = response.json();
-          this.convertToClasses(this.entityCache[entityType].array, entityType);
-          this.mapIdToEntity(entityType);
-          if (--pendingTransactions.count === 0) {
-            observer.complete();
-          }
+  private fetchAll(entityType: string, observer: Observer<any>, pendingTransactions) {
+    this.server.getAll(entityType).subscribe(
+      (response) => {
+        this.entityCache[entityType].array = response.json();
+        this.convertToClasses(this.entityCache[entityType].array, entityType);
+        this.mapIdToEntity(entityType);
+        if (--pendingTransactions.count === 0) {
+          observer.complete();
         }
-      );
+      }
+    );
   }
 
   /** 
@@ -201,7 +201,7 @@ export class CacheService {
    */
   deleteByIndex(type: string, index: number) {
     const entity = this.entityCache[type].array[index];
-    this.delete(type, entity.id, index);
+    return this.delete(type, entity.id, index);
   }
 
   /** 
@@ -211,26 +211,28 @@ export class CacheService {
    */
   deleteById(type: string, id: number) {
     // Locate index in the cache array
-    for (var index = 0; index < this.entityCache[type].array.length; index++) {
+    for (let index = 0; index < this.entityCache[type].array.length; index++) {
       const entity = this.entityCache[type].array[index];
       if (entity.id === id) {
-        this.delete(type, id, index);
-        return;
+        return this.delete(type, id, index);
       }
     }
   }
 
-  /** Sends the delete requrst to the server removes the entity from the cache array */
+  /** Sends the delete requrst to the server removes the entity from the cache array and idToEntity map*/
   private delete(type: string, id: number, index: number) {
-    this.server.delete(type, id).subscribe(
-      (response) => {
-        // Remove the entity from the cache array
-        this.entityCache[type].array.splice(index, 1);
-        console.log('Deleted ' + type + ' ' + id);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    return Observable.create((observer: Observer<string>) => {
+      this.server.delete(type, id).subscribe(
+        (response) => {
+          this.entityCache[type].array.splice(index, 1);
+          delete this.entityCache[type].idToEntity[id];
+          console.log('Deleted ' + type + ' ' + id);
+          observer.next('');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    });
   }
 }

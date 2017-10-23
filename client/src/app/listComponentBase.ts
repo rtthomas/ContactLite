@@ -11,6 +11,7 @@ export class ListComponentBase {
      * @param list the array to be sorted
      * @param sortBy the field of the entity class on which to sort
      * @param isDate true if the sortBy field is a date string
+     * @return a new sorted array
      */
     sortList(list: any, sortBy: string){
         const sortKeys = [];
@@ -41,6 +42,7 @@ export class ListComponentBase {
      * @param sortBy name of a "foreign id" attribute of the entity which references another entity containing the value on which to sort
      * @param referenceType the referenced entity type
      * @param referenceField the name of the attribute in the referenced entity on which to sort
+     * @return a new sorted array
      */
     sortListReferenced(list: any, sortBy: string, referenceType: string, referenceField: string){
         const sortKeys = [];

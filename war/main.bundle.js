@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n  <!--\r\n  <mat-progress-spinner *ngIf='!initialized' mode=\"indeterminate\"></mat-progress-spinner>\r\n  -->\r\n  <nav class=\"navbar navbar-default\" role=\"navigation\" *ngIf='initialized'>\r\n    <div class=\"navbar-header\">\r\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-toggle\">\r\n          <span class=\"icon-bar\"></span>\r\n          <span class=\"icon-bar\"></span>\r\n          <span class=\"icon-bar\"></span>\r\n        </button>\r\n    </div>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"nav-toggle\">\r\n      <ul class=\"nav navbar-nav\">\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/companies\">Companies</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/persons\">People</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/positions\">Positions</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/contacts\">Contacts</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/appointments\">Appointments</a></li>\r\n      </ul>\r\n    </div>\r\n  </nav>\r\n  <router-outlet></router-outlet>\r\n</div>"
+module.exports = "<div class=\"container\">\r\n  <mat-progress-spinner *ngIf='!initialized' mode=\"indeterminate\" diameter=\"60\" class=\"centered\"></mat-progress-spinner>\r\n  <nav class=\"navbar navbar-default\" role=\"navigation\" *ngIf='initialized'>\r\n    <div class=\"navbar-header\">\r\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-toggle\">\r\n          <span class=\"icon-bar\"></span>\r\n          <span class=\"icon-bar\"></span>\r\n          <span class=\"icon-bar\"></span>\r\n        </button>\r\n    </div>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"nav-toggle\">\r\n      <ul class=\"nav navbar-nav\">\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/companies\">Companies</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/persons\">People</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/positions\">Positions</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/contacts\">Contacts</a></li>\r\n        <li routerLinkActive=\"active\"><a routerLink=\"/appointments\">Appointments</a></li>\r\n      </ul>\r\n    </div>\r\n  </nav>\r\n  <router-outlet></router-outlet>\r\n</div>"
 
 /***/ }),
 
@@ -62,7 +62,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-// import {MatProgressSpinnerModule} from '@angular/material';
 var AppComponent = (function () {
     function AppComponent(cache, router) {
         this.cache = cache;
@@ -106,20 +105,21 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__home_home_component__ = __webpack_require__("../../../../../src/app/home/home.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__companies_company_list_component__ = __webpack_require__("../../../../../src/app/companies/company-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__companies_company_company_component__ = __webpack_require__("../../../../../src/app/companies/company/company.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__positions_position_list_component__ = __webpack_require__("../../../../../src/app/positions/position-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__positions_position_position_component__ = __webpack_require__("../../../../../src/app/positions/position/position.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__persons_person_list_component__ = __webpack_require__("../../../../../src/app/persons/person-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__persons_person_person_component__ = __webpack_require__("../../../../../src/app/persons/person/person.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_list_component__ = __webpack_require__("../../../../../src/app/appointments/appointment-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__appointments_appointment_appointment_component__ = __webpack_require__("../../../../../src/app/appointments/appointment/appointment.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__contacts_contact_list_component__ = __webpack_require__("../../../../../src/app/contacts/contact-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__contacts_contact_contact_component__ = __webpack_require__("../../../../../src/app/contacts/contact/contact.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__server_service__ = __webpack_require__("../../../../../src/app/server.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__datetime_service__ = __webpack_require__("../../../../../src/app/datetime.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__companies_company_list_component__ = __webpack_require__("../../../../../src/app/companies/company-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__companies_company_company_component__ = __webpack_require__("../../../../../src/app/companies/company/company.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__positions_position_list_component__ = __webpack_require__("../../../../../src/app/positions/position-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__positions_position_position_component__ = __webpack_require__("../../../../../src/app/positions/position/position.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__persons_person_list_component__ = __webpack_require__("../../../../../src/app/persons/person-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__persons_person_person_component__ = __webpack_require__("../../../../../src/app/persons/person/person.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__appointments_appointment_list_component__ = __webpack_require__("../../../../../src/app/appointments/appointment-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_appointment_component__ = __webpack_require__("../../../../../src/app/appointments/appointment/appointment.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__contacts_contact_list_component__ = __webpack_require__("../../../../../src/app/contacts/contact-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__contacts_contact_contact_component__ = __webpack_require__("../../../../../src/app/contacts/contact/contact.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__server_service__ = __webpack_require__("../../../../../src/app/server.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__cache_service__ = __webpack_require__("../../../../../src/app/cache.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__datetime_service__ = __webpack_require__("../../../../../src/app/datetime.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/@angular/platform-browser/animations.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -151,19 +151,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-// import {MatProgressSpinnerModule} from '@angular/material';
+
 var appRoutes = [
-    { path: 'companies', component: __WEBPACK_IMPORTED_MODULE_8__companies_company_list_component__["a" /* CompanyListComponent */] },
-    { path: 'companies/:id', component: __WEBPACK_IMPORTED_MODULE_9__companies_company_company_component__["a" /* CompanyComponent */] },
-    { path: 'positions', component: __WEBPACK_IMPORTED_MODULE_10__positions_position_list_component__["a" /* PositionListComponent */] },
-    { path: 'positions/:id', component: __WEBPACK_IMPORTED_MODULE_11__positions_position_position_component__["a" /* PositionComponent */] },
-    { path: 'appointments', component: __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_list_component__["a" /* AppointmentListComponent */] },
-    { path: 'appointments/:id', component: __WEBPACK_IMPORTED_MODULE_15__appointments_appointment_appointment_component__["a" /* AppointmentComponent */] },
-    { path: 'contacts', component: __WEBPACK_IMPORTED_MODULE_16__contacts_contact_list_component__["a" /* ContactListComponent */] },
-    { path: 'contacts/:id', component: __WEBPACK_IMPORTED_MODULE_17__contacts_contact_contact_component__["a" /* ContactComponent */] },
-    { path: 'persons', component: __WEBPACK_IMPORTED_MODULE_12__persons_person_list_component__["a" /* PersonListComponent */] },
-    { path: 'persons/:id', component: __WEBPACK_IMPORTED_MODULE_13__persons_person_person_component__["a" /* PersonComponent */] },
+    { path: 'companies', component: __WEBPACK_IMPORTED_MODULE_7__companies_company_list_component__["a" /* CompanyListComponent */] },
+    { path: 'companies/:id', component: __WEBPACK_IMPORTED_MODULE_8__companies_company_company_component__["a" /* CompanyComponent */] },
+    { path: 'positions', component: __WEBPACK_IMPORTED_MODULE_9__positions_position_list_component__["a" /* PositionListComponent */] },
+    { path: 'positions/:id', component: __WEBPACK_IMPORTED_MODULE_10__positions_position_position_component__["a" /* PositionComponent */] },
+    { path: 'appointments', component: __WEBPACK_IMPORTED_MODULE_13__appointments_appointment_list_component__["a" /* AppointmentListComponent */] },
+    { path: 'appointments/:id', component: __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_appointment_component__["a" /* AppointmentComponent */] },
+    { path: 'contacts', component: __WEBPACK_IMPORTED_MODULE_15__contacts_contact_list_component__["a" /* ContactListComponent */] },
+    { path: 'contacts/:id', component: __WEBPACK_IMPORTED_MODULE_16__contacts_contact_contact_component__["a" /* ContactComponent */] },
+    { path: 'persons', component: __WEBPACK_IMPORTED_MODULE_11__persons_person_list_component__["a" /* PersonListComponent */] },
+    { path: 'persons/:id', component: __WEBPACK_IMPORTED_MODULE_12__persons_person_person_component__["a" /* PersonComponent */] },
 ];
 var AppModule = AppModule_1 = (function () {
     function AppModule(injector) {
@@ -175,27 +174,26 @@ AppModule = AppModule_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* NgModule */])({
         declarations: [
             __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_7__home_home_component__["a" /* HomeComponent */],
-            __WEBPACK_IMPORTED_MODULE_8__companies_company_list_component__["a" /* CompanyListComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__companies_company_company_component__["a" /* CompanyComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__positions_position_list_component__["a" /* PositionListComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__positions_position_position_component__["a" /* PositionComponent */],
-            __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_list_component__["a" /* AppointmentListComponent */],
-            __WEBPACK_IMPORTED_MODULE_15__appointments_appointment_appointment_component__["a" /* AppointmentComponent */],
-            __WEBPACK_IMPORTED_MODULE_16__contacts_contact_list_component__["a" /* ContactListComponent */],
-            __WEBPACK_IMPORTED_MODULE_17__contacts_contact_contact_component__["a" /* ContactComponent */],
-            __WEBPACK_IMPORTED_MODULE_12__persons_person_list_component__["a" /* PersonListComponent */],
-            __WEBPACK_IMPORTED_MODULE_13__persons_person_person_component__["a" /* PersonComponent */],
+            __WEBPACK_IMPORTED_MODULE_7__companies_company_list_component__["a" /* CompanyListComponent */],
+            __WEBPACK_IMPORTED_MODULE_8__companies_company_company_component__["a" /* CompanyComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__positions_position_list_component__["a" /* PositionListComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__positions_position_position_component__["a" /* PositionComponent */],
+            __WEBPACK_IMPORTED_MODULE_13__appointments_appointment_list_component__["a" /* AppointmentListComponent */],
+            __WEBPACK_IMPORTED_MODULE_14__appointments_appointment_appointment_component__["a" /* AppointmentComponent */],
+            __WEBPACK_IMPORTED_MODULE_15__contacts_contact_list_component__["a" /* ContactListComponent */],
+            __WEBPACK_IMPORTED_MODULE_16__contacts_contact_contact_component__["a" /* ContactComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__persons_person_list_component__["a" /* PersonListComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__persons_person_person_component__["a" /* PersonComponent */],
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* RouterModule */].forRoot(appRoutes)
-            //    BrowserAnimationsModule,
-            //    MatProgressSpinnerModule
+            __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
+            __WEBPACK_IMPORTED_MODULE_20__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
+            __WEBPACK_IMPORTED_MODULE_21__angular_material__["a" /* MatProgressSpinnerModule */]
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_18__server_service__["a" /* ServerService */], __WEBPACK_IMPORTED_MODULE_19__cache_service__["a" /* CacheService */], { provide: __WEBPACK_IMPORTED_MODULE_5__angular_common__["g" /* LocationStrategy */], useClass: __WEBPACK_IMPORTED_MODULE_5__angular_common__["d" /* HashLocationStrategy */] }, __WEBPACK_IMPORTED_MODULE_20__datetime_service__["a" /* DateTimeService */]],
+        providers: [__WEBPACK_IMPORTED_MODULE_17__server_service__["a" /* ServerService */], __WEBPACK_IMPORTED_MODULE_18__cache_service__["a" /* CacheService */], { provide: __WEBPACK_IMPORTED_MODULE_5__angular_common__["g" /* LocationStrategy */], useClass: __WEBPACK_IMPORTED_MODULE_5__angular_common__["d" /* HashLocationStrategy */] }, __WEBPACK_IMPORTED_MODULE_19__datetime_service__["a" /* DateTimeService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */]]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["E" /* Injector */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["E" /* Injector */]) === "function" && _a || Object])
@@ -238,8 +236,8 @@ var AppointmentListComponent = (function () {
     AppointmentListComponent.prototype.ngOnInit = function () {
         this.appointments = this.service.getAll('appointment');
         // Collapse the menu if it is visible as drop down
-        if ($("#nav-toggle").hasClass("in")) {
-            $(".collapse").collapse('toggle');
+        if ($('#nav-toggle').hasClass('in')) {
+            $('.collapse').collapse('toggle');
         }
     };
     return AppointmentListComponent;
@@ -260,7 +258,7 @@ var _a;
 /***/ "../../../../../src/app/appointments/appointment/appointment.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "   <!--\n   Create or edit an appointment \n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Appointment</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"date\" class=\"control-label\">Date</label>\n               <input type=\"date\" class=\"form-control\" name=\"date\" id=\"date\" [(ngModel)]=\"date\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"time\" class=\"control-label\">Time</label>\n               <input type=\"time\" class=\"form-control\" name=\"time\" id=\"time\" [(ngModel)]=\"time\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\" class=\"control-label\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany()\">\n                <option *ngFor=\"let c of companies\">\n                  {{c.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel2\" class=\"control-label\">Person</label>\n               <select class=\"form-control\" id=\"sel2\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                <option *ngFor=\"let p of persons\">\n                  {{p.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel3\" class=\"control-label\">Position</label>\n               <select class=\"form-control\" id=\"sel3\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n                <option *ngFor=\"let p of positions\">\n                  {{p.title}}\n                </option>\n               </select>\n             </div>\n          </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n          <!-- Convert button visible only for edit -->\n          <button type=\"button\" [class]=\"displayIfConvertible()\" id=\"convert\" (click)=\"convert()\">Record</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
+module.exports = "   <!--\n   Create or edit an appointment \n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Appointment</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label for=\"date\" class=\"control-label\">Date</label>\n               <input type=\"date\" class=\"form-control\" name=\"date\" id=\"date\" [(ngModel)]=\"date\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"time\" class=\"control-label\">Time</label>\n               <input type=\"time\" class=\"form-control\" name=\"time\" id=\"time\" [(ngModel)]=\"time\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\" class=\"control-label\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany($event)\">\n                <option *ngFor=\"let c of companies\">\n                  {{c.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel2\" class=\"control-label\">Person</label>\n               <select class=\"form-control\" id=\"sel2\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson($event)\">\n                <option *ngFor=\"let p of persons\">\n                  {{p.name}}\n                </option>\n               </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel3\" class=\"control-label\">Position</label>\n               <select class=\"form-control\" id=\"sel3\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition($event)\">\n                <option *ngFor=\"let p of positions\">\n                  {{p.title}}\n                </option>\n               </select>\n             </div>\n          </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n          <!-- Convert button visible only for edit -->\n          <button type=\"button\" [class]=\"displayIfConvertible()\" id=\"convert\" (click)=\"convert()\">Record</button>\n        </div>\n      </div>\n    </div>\n  </div>\n"
 
 /***/ }),
 
@@ -313,30 +311,21 @@ var AppointmentComponent = (function (_super) {
         _this.companies = [];
         _this.persons = [];
         _this.positions = [];
-        _this.personNameToId = {};
         _this.personIdToName = {};
-        _this.companyNameToId = {};
         _this.companyIdToName = {};
         _this.positionIdToTitle = {};
-        _this.positionTitleToId = {};
         return _this;
     }
     AppointmentComponent.prototype.ngOnInit = function () {
         this.companies = this.cache.getAll('company');
         this.persons = this.cache.getAll('person');
         this.positions = this.cache.getAll('position');
-        // Map company, person and position names/title to their entity ids and vice-versa
-        var maps = this.createEntityMaps(this.companies, 'name');
-        this.companyNameToId = maps.attributeToId;
-        this.companyIdToName = maps.idToAttribute;
-        maps = this.createEntityMaps(this.persons, 'name');
-        this.personNameToId = maps.attributeToId;
-        this.personIdToName = maps.idToAttribute;
-        maps = this.createEntityMaps(this.positions, 'title');
-        this.positionTitleToId = maps.attributeToId;
-        this.positionIdToTitle = maps.idToAttribute;
-        this.id = this.route.snapshot.params['id'];
-        if (this.id === 'new') {
+        this.companyIdToName = this.mapToAttribute(this.companies, 'name');
+        this.personIdToName = this.mapToAttribute(this.persons, 'name');
+        this.positionIdToTitle = this.mapToAttribute(this.positions, 'title');
+        var id = this.route.snapshot.params['id'];
+        this.isNew = id === 'new';
+        if (this.isNew) {
             $('#convert').hide();
             // Creating a new one
             this.appointment = new __WEBPACK_IMPORTED_MODULE_2__model_appointment_model__["a" /* Appointment */](null, null, null, null, null);
@@ -344,7 +333,7 @@ var AppointmentComponent = (function (_super) {
         else {
             // Viewing or editing
             $('#convert').show();
-            this.appointment = this.cache.getById('appointment', this.id);
+            this.appointment = this.cache.getById('appointment', id);
             if (this.appointment.dateTime) {
                 var date = new Date(this.appointment.dateTime);
                 var h = Number(date.getHours()).toString();
@@ -355,7 +344,7 @@ var AppointmentComponent = (function (_super) {
                 if (m.length === 1) {
                     m = '0' + m;
                 }
-                this.time = h + ":" + m;
+                this.time = h + ':' + m;
                 if (this.time.length === 4) {
                     this.time = '0' + this.appointment.dateTime;
                 }
@@ -386,7 +375,7 @@ var AppointmentComponent = (function (_super) {
     };
     /** Enables display of the Record button if the appointment date/time has passed */
     AppointmentComponent.prototype.displayIfConvertible = function () {
-        if (this.id === 'new' || !this.appointment.dateTime) {
+        if (this.isNew || !this.appointment.dateTime) {
             return 'hidden';
         }
         var dateTime = new Date(this.appointment.dateTime);
@@ -401,16 +390,16 @@ var AppointmentComponent = (function (_super) {
         this.cache.deleteById('appointment', this.appointment.id);
     };
     /** Called upon selection of a company from the company selector */
-    AppointmentComponent.prototype.selectCompany = function () {
-        this.appointment.companyId = this.companyNameToId[this.selectedCompany];
+    AppointmentComponent.prototype.selectCompany = function (event) {
+        this.appointment.companyId = this.companies[event.target.options.selectedIndex].id;
     };
     /** Called upon selection of a person from the person selector */
-    AppointmentComponent.prototype.selectPerson = function () {
-        this.appointment.personId = this.personNameToId[this.selectedPerson];
+    AppointmentComponent.prototype.selectPerson = function (event) {
+        this.appointment.personId = this.persons[event.target.options.selectedIndex].id;
     };
     /** Called upon selection of a position from the position selector */
-    AppointmentComponent.prototype.selectPosition = function () {
-        this.appointment.positionId = this.positionTitleToId[this.selectedPosition];
+    AppointmentComponent.prototype.selectPosition = function (event) {
+        this.appointment.positionId = this.positions[event.target.options.selectedIndex].id;
     };
     return AppointmentComponent;
 }(__WEBPACK_IMPORTED_MODULE_3__entityComponentBase__["a" /* EntityComponentBase */]));
@@ -645,7 +634,7 @@ var CacheService = (function () {
      */
     CacheService.prototype.deleteByIndex = function (type, index) {
         var entity = this.entityCache[type].array[index];
-        this.delete(type, entity.id, index);
+        return this.delete(type, entity.id, index);
     };
     /**
      * Deletes an entity
@@ -657,20 +646,22 @@ var CacheService = (function () {
         for (var index = 0; index < this.entityCache[type].array.length; index++) {
             var entity = this.entityCache[type].array[index];
             if (entity.id === id) {
-                this.delete(type, id, index);
-                return;
+                return this.delete(type, id, index);
             }
         }
     };
-    /** Sends the delete requrst to the server removes the entity from the cache array */
+    /** Sends the delete requrst to the server removes the entity from the cache array and idToEntity map*/
     CacheService.prototype.delete = function (type, id, index) {
         var _this = this;
-        this.server.delete(type, id).subscribe(function (response) {
-            // Remove the entity from the cache array
-            _this.entityCache[type].array.splice(index, 1);
-            console.log('Deleted ' + type + ' ' + id);
-        }, function (error) {
-            console.log(error);
+        return __WEBPACK_IMPORTED_MODULE_8_rxjs_Observable__["Observable"].create(function (observer) {
+            _this.server.delete(type, id).subscribe(function (response) {
+                _this.entityCache[type].array.splice(index, 1);
+                delete _this.entityCache[type].idToEntity[id];
+                console.log('Deleted ' + type + ' ' + id);
+                observer.next('');
+            }, function (error) {
+                console.log(error);
+            });
         });
     };
     return CacheService;
@@ -730,8 +721,8 @@ var CompanyListComponent = (function (_super) {
     CompanyListComponent.prototype.ngOnInit = function () {
         this.companies = this.cache.getAll('company');
         // Collapse the menu if it is visible as drop down
-        if ($("#nav-toggle").hasClass("in")) {
-            $(".collapse").collapse('toggle');
+        if ($('#nav-toggle').hasClass('in')) {
+            $('.collapse').collapse('toggle');
         }
     };
     CompanyListComponent.prototype.sort = function (field) {
@@ -789,7 +780,7 @@ var CompanyComponent = (function () {
     }
     CompanyComponent.prototype.ngOnInit = function () {
         var id = this.route.snapshot.params['id'];
-        if (id == 'new') {
+        if (id === 'new') {
             // Creating a new one
             this.company = new __WEBPACK_IMPORTED_MODULE_2__model_company_model__["a" /* Company */](null, '', '', '', '', '', '', '');
         }
@@ -936,7 +927,7 @@ var _a;
 /***/ "../../../../../src/app/contacts/contact/contact.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--\nCreate or edit a contact\n-->\n<div>\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n        <h4 class=\"modal-title\">Contact</h4>\n      </div>\n      <div class=\"modal-body\">\n        <form>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Person</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n              <option *ngFor=\"let p of persons\">\n                {{p.name}}\n              </option>\n            </select>\n          </div>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Position</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition()\">\n              <option *ngFor=\"let p of positions\">\n                {{p.title}}\n              </option>\n            </select>\n          </div>\n          <div class=\"form-group\">\n            <label class=\"control-label\">Reference No.</label>\n            <input type=\"text\" class=\"form-control\" name=\"name\" disabled [(ngModel)]=\"positionReference\">\n          </div>\n          <div class=\"form-group\">\n            <label class=\"control-label\">Company</label>\n            <input type=\"text\" class=\"form-control\" name=\"ref\" disabled [(ngModel)]=\"companyName\">\n          </div>\n          <div *ngIf='!isMeeting' class=\"form-group\">\n            <label>Email&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isEmail\" [checked]='isEmail' (change)=\"setEmail()\">&nbsp;&nbsp;&nbsp;&nbsp;\n            <label>Phone&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isPhone\" [checked]='isPhone' (change)=\"setPhone()\">\n          </div>\n          <!-- Date and details inputs visible only for phone contact -->\n          <div *ngIf='isPhone || isMeeting'>\n            <div class=\"form-group\">\n              <label for=\"cmp-date\" class=\"control-label\">Date</label>\n              <input type=\"date\" class=\"form-control\" name=\"date\" [(ngModel)]=\"date\">\n            </div>\n            <div class=\"form-group\">\n              <label for=\"cmp-details\" class=\"control-label\">Details</label>\n              <input type=\"text\" class=\"form-control\" name=\"details\" [(ngModel)]=\"contact.details\">\n            </div>\n          </div>\n          <!-- Emails selector visible only for email contact -->\n          <div *ngIf='isEmail' class=\"table-container\" id=\"message-list\">\n            <table *ngFor=\"let m of emails; let i = index\">\n              <tr>\n                <td class=\"select-edit\">\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"selectEmail(i)\">Select</button>\n                </td>\n                <td>\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"viewEmail(i)\">View</button>\n                </td>\n              </tr>\n              <tr>\n                <td class=\"header\">Date</td>\n                <td>{{m.formatDate()}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">From</td>\n                <td>{{m.sender}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">To</td>\n                <td>{{m.receiver}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">Subject</td>\n                <td>{{m.subject}}</td>\n              </tr>\n            </table>\n            <!-- Modal displays email content-->\n            <div id=\"message-text\" class=\"modal\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" (click)=\"hideContent()\">&times;</button>\n                    <h4 class=\"modal-title\">{{emailSubject}}</h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <div class=\"form-group\">\n                      <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n                    </div>\n                  </div>\n                  <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" (click)=\"hideContent()\">Close</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n        <button id=\"save-button\" type=\"button\" class=\"btn btn-primary\" (click)=\"save()\" disabled>Save</button>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<!--\nCreate or edit a contact\n-->\n<div>\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n        <h4 class=\"modal-title\">Contact</h4>\n      </div>\n      <div class=\"modal-body\">\n        <form>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Person</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson($event)\">\n              <option *ngFor=\"let p of persons\">\n                {{p.name}}\n              </option>\n            </select>\n          </div>\n          <div class=\"form-group\">\n            <label for=\"sel1\">Position</label>\n            <select class=\"form-control\" id=\"sel1\" name=\"position\" [(ngModel)]=\"selectedPosition\" (change)=\"selectPosition($event)\">\n              <option *ngFor=\"let p of positions\">\n                {{p.title}}\n              </option>\n            </select>\n          </div>\n          <div class=\"form-group\">\n            <label class=\"control-label\">Reference No.</label>\n            <input type=\"text\" class=\"form-control\" name=\"name\" disabled [(ngModel)]=\"positionReference\">\n          </div>\n          <div class=\"form-group\">\n            <label class=\"control-label\">Company</label>\n            <input type=\"text\" class=\"form-control\" name=\"ref\" disabled [(ngModel)]=\"companyName\">\n          </div>\n          <div *ngIf='!isMeeting' class=\"form-group\">\n            <label>Email&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isEmail\" [checked]='isEmail' (change)=\"setEmail()\">&nbsp;&nbsp;&nbsp;&nbsp;\n            <label>Phone&nbsp;&nbsp;</label>\n            <input class=\"select-email-or-phone\" type=\"radio\" [value]=\"isPhone\" [checked]='isPhone' (change)=\"setPhone()\">\n          </div>\n          <!-- Date and details inputs visible only for phone contact -->\n          <div *ngIf='isPhone || isMeeting'>\n            <div class=\"form-group\">\n              <label for=\"cmp-date\" class=\"control-label\">Date</label>\n              <input type=\"date\" class=\"form-control\" name=\"date\" [(ngModel)]=\"date\">\n            </div>\n            <div class=\"form-group\">\n              <label for=\"cmp-details\" class=\"control-label\">Details</label>\n              <input type=\"text\" class=\"form-control\" name=\"details\" [(ngModel)]=\"contact.details\">\n            </div>\n          </div>\n          <!-- Emails selector visible only for email contact -->\n          <div *ngIf='isEmail' class=\"table-container\" id=\"message-list\">\n            <table *ngFor=\"let m of emails; let i = index\">\n              <tr>\n                <td class=\"select-edit\">\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"selectEmail(i)\">Select</button>\n                </td>\n                <td>\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"viewEmail(i)\">View</button>\n                </td>\n                <td>\n                  <button type=\"button\" class=\"btn btn-sm\" (click)=\"deleteEmail(i)\" style=\"float:right\">Delete</button>\n                </td>\n              </tr>\n              <tr>\n                <td class=\"header\">Date</td>\n                <td colspan=\"2\">{{m.formatDate()}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">From</td>\n                <td colspan=\"2\">{{m.sender}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">To</td>\n                <td colspan=\"2\">{{m.receiver}}</td>\n              </tr>\n              <tr>\n                <td class=\"header\">Subject</td>\n                <td colspan=\"2\">{{m.subject}}</td>\n              </tr>\n            </table>\n            <!-- Modal displays email content-->\n            <div id=\"message-text\" class=\"modal\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" (click)=\"hideContent()\">&times;</button>\n                    <h4 class=\"modal-title\">{{emailSubject}}</h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <div class=\"form-group\">\n                      <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n                    </div>\n                  </div>\n                  <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" (click)=\"hideContent()\">Close</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n        <button id=\"save-button\" type=\"button\" class=\"btn btn-primary\" (click)=\"save()\" disabled>Save</button>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -987,28 +978,21 @@ var ContactComponent = (function (_super) {
         _this.emailSubject = '';
         _this.persons = [];
         _this.positions = [];
-        _this.companies = [];
         _this.emails = [];
         _this.personIdToName = {};
-        _this.personNameToId = {};
         _this.positionIdToTitle = {};
-        _this.positionTitleToId = {};
         _this.companyIdToName = {};
         return _this;
     }
     ContactComponent.prototype.ngOnInit = function () {
+        var persons = this.cache.getAll('person');
         this.persons = this.cache.getAll('person');
         this.positions = this.cache.getAll('position');
-        this.companies = this.cache.getAll('company');
-        // Map person, position and company names/title to their entity ids and vice-versa
-        var maps = this.createEntityMaps(this.positions, 'title');
-        this.positionIdToTitle = maps.idToAttribute;
-        this.positionTitleToId = maps.attributeToId;
-        maps = this.createEntityMaps(this.persons, 'name');
-        this.personIdToName = maps.idToAttribute;
-        this.personNameToId = maps.attributeToId;
-        maps = this.createEntityMaps(this.companies, 'name');
-        this.companyIdToName = maps.idToAttribute;
+        var companies = this.cache.getAll('company');
+        // Map person, position and company ids to names/title
+        this.positionIdToTitle = this.mapToAttribute(this.positions, 'title');
+        this.personIdToName = this.mapToAttribute(persons, 'name');
+        this.companyIdToName = this.mapToAttribute(companies, 'name');
         // Retrieve email list, filter out assigned ones
         this.emails = this.cache.getAll('email').filter(function (email) { return !email.assigned; });
         var id = this.route.snapshot.params['id'];
@@ -1047,6 +1031,11 @@ var ContactComponent = (function (_super) {
             $('#save-button').removeAttr('disabled');
         }
     };
+    ContactComponent.prototype.ngOnDestroy = function () {
+        if (this.subscriber) {
+            this.subscriber.unsubscribe();
+        }
+    };
     ContactComponent.prototype.cancel = function () {
         this.router.navigate(['/contacts']);
     };
@@ -1073,12 +1062,14 @@ var ContactComponent = (function (_super) {
         this.router.navigate(['/contacts']);
     };
     /** Called upon selection of a person from the person selector */
-    ContactComponent.prototype.selectPerson = function () {
-        this.contact.personId = this.personNameToId[this.selectedPerson];
+    ContactComponent.prototype.selectPerson = function (event) {
+        var i = event.target.options.selectedIndex;
+        this.contact.personId = this.persons[i].id;
     };
     /** Called upon selection of a position from the position selector */
-    ContactComponent.prototype.selectPosition = function () {
-        this.contact.positionId = this.positionTitleToId[this.selectedPosition];
+    ContactComponent.prototype.selectPosition = function (event) {
+        var i = event.target.options.selectedIndex;
+        this.contact.positionId = this.positions[i].id;
         var position = this.cache.getById('position', this.contact.positionId);
         this.positionReference = position.reference;
         var company = this.cache.getById('company', position.companyId);
@@ -1096,7 +1087,7 @@ var ContactComponent = (function (_super) {
         this.isPhone = true;
         $('#save-button').removeAttr('disabled');
     };
-    /** Called when email selected from the email list */
+    /** Called when Select button clicked */
     ContactComponent.prototype.selectEmail = function (index) {
         this.selectedEmailIndex = index;
         var email = this.emails[index];
@@ -1111,6 +1102,16 @@ var ContactComponent = (function (_super) {
         this.cache.getEmailContent(email.contentId).subscribe(function (text) { return _this.emailText = text; });
         this.emailSubject = email.subject;
         $('#message-text').show();
+    };
+    /** Called when Delete button clicked */
+    ContactComponent.prototype.deleteEmail = function (index) {
+        var _this = this;
+        this.selectedEmailIndex = index;
+        var email = this.emails[index];
+        this.subscriber = this.cache.deleteById('email', email.id).subscribe(function (response) {
+            // Retrieve email list, filter out assigned ones
+            _this.emails = _this.cache.getAll('email').filter(function (e) { return !e.assigned; });
+        });
     };
     /** Closes the email content popup */
     ContactComponent.prototype.hideContent = function () {
@@ -1157,7 +1158,7 @@ var DateTimeService = (function () {
     DateTimeService.prototype.formatListDate = function (d) {
         if (d) {
             var date = new Date(d);
-            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             var f = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
             return f;
         }
@@ -1195,7 +1196,7 @@ var DateTimeService = (function () {
         var h = date.getHours();
         var m = new Number(date.getMinutes()).toString();
         var ampm;
-        if (h == 12) {
+        if (h === 12) {
             ampm = 'PM';
         }
         else if (h > 12) {
@@ -1204,11 +1205,11 @@ var DateTimeService = (function () {
         }
         else {
             ampm = 'AM';
-            if (h == 0) {
+            if (h === 0) {
                 h = 12;
             }
         }
-        if (m.length == 1) {
+        if (m.length === 1) {
             m = '0' + m;
         }
         return String(h) + ':' + m + ' ' + ampm;
@@ -1238,70 +1239,25 @@ var EntityComponentBase = (function () {
     function EntityComponentBase() {
     }
     /**
-     * For a given array of entity objects, creates a pair of maps;
-     * the "attributeToId" maps a specified entity atttribute to the 'id' field;
-     * the "idToAttribute" maps the inverse relationship
+     * For a given array of entity objects, creates a mnap of the 'id' field to a specified attribute;
      * @param entityList Array of entity objects
      * @param attribute name of the entity attribute
-     * @return the maps object
+     * @return the map
      */
-    EntityComponentBase.prototype.createEntityMaps = function (entityList, attribute) {
-        var maps = { attributeToId: {}, idToAttribute: {} };
+    EntityComponentBase.prototype.mapToAttribute = function (entityList, attribute) {
+        var idToAttribute = {};
         for (var _i = 0, entityList_1 = entityList; _i < entityList_1.length; _i++) {
             var entity = entityList_1[_i];
             var id = entity['id'];
             var value = entity[attribute];
-            maps.attributeToId[value] = id;
-            maps.idToAttribute[id] = value;
+            idToAttribute[id] = value;
         }
-        return maps;
+        return idToAttribute;
     };
     return EntityComponentBase;
 }());
 
 //# sourceMappingURL=entityComponentBase.js.map
-
-/***/ }),
-
-/***/ "../../../../../src/app/home/home.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<nav class=\"navbar navbar-default\" role=\"navigation\">\n  <div class=\"navbar-header\">\n    <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-toggle\">\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n        </button>\n  </div>\n\n  <div class=\"collapse navbar-collapse\" id=\"nav-toggle\">\n    <ul class=\"nav navbar-nav\">\n      <li routerLinkActive=\"active\"><a routerLink=\"/companies\">Companies</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/persons\">People</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/positions\">Positions</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/contacts\">Contacts</a></li>\n      <li routerLinkActive=\"active\"><a routerLink=\"/appointments\">Appointments</a></li>\n    </ul>\n  </div>\n</nav>"
-
-/***/ }),
-
-/***/ "../../../../../src/app/home/home.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var HomeComponent = (function () {
-    function HomeComponent() {
-    }
-    HomeComponent.prototype.ngOnInit = function () {
-    };
-    return HomeComponent;
-}());
-HomeComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-        selector: 'app-home',
-        template: __webpack_require__("../../../../../src/app/home/home.component.html")
-    }),
-    __metadata("design:paramtypes", [])
-], HomeComponent);
-
-//# sourceMappingURL=home.component.js.map
 
 /***/ }),
 
@@ -1322,6 +1278,7 @@ var ListComponentBase = (function () {
      * @param list the array to be sorted
      * @param sortBy the field of the entity class on which to sort
      * @param isDate true if the sortBy field is a date string
+     * @return a new sorted array
      */
     ListComponentBase.prototype.sortList = function (list, sortBy) {
         var sortKeys = [];
@@ -1354,6 +1311,7 @@ var ListComponentBase = (function () {
      * @param sortBy name of a "foreign id" attribute of the entity which references another entity containing the value on which to sort
      * @param referenceType the referenced entity type
      * @param referenceField the name of the attribute in the referenced entity on which to sort
+     * @return a new sorted array
      */
     ListComponentBase.prototype.sortListReferenced = function (list, sortBy, referenceType, referenceField) {
         var sortKeys = [];
@@ -2015,17 +1973,13 @@ var PersonComponent = (function (_super) {
         _this.service = service;
         _this.companies = [];
         _this.companyIdToName = {};
-        _this.companyNameToId = {};
         return _this;
     }
     PersonComponent.prototype.ngOnInit = function () {
         this.companies = this.service.getAll('company');
-        // Map company names to company ids and vide-versa
-        var maps = this.createEntityMaps(this.companies, 'name');
-        this.companyIdToName = maps.idToAttribute;
-        this.companyNameToId = maps.attributeToId;
+        this.companyIdToName = this.mapToAttribute(this.companies, 'name');
         var id = this.route.snapshot.params['id'];
-        if (id == 'new') {
+        if (id === 'new') {
             // Creating a new one
             this.person = new __WEBPACK_IMPORTED_MODULE_2__model_person_model__["a" /* Person */](null, '', '', '', null);
         }
@@ -2046,7 +2000,7 @@ var PersonComponent = (function (_super) {
     };
     /** Called upon selection of a company from the company selector */
     PersonComponent.prototype.select = function (event) {
-        this.person.companyId = this.companyNameToId[this.selectedCompany];
+        this.person.companyId = this.companies[event.target.options.selectedIndex].id;
     };
     return PersonComponent;
 }(__WEBPACK_IMPORTED_MODULE_3__entityComponentBase__["a" /* EntityComponentBase */]));
@@ -2066,7 +2020,7 @@ var _a, _b, _c;
 /***/ "../../../../../src/app/positions/position-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<a routerLink=\"/positions/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/positions/new\" class=\"btn btn-primary new-button\" role=\"button\">New Position</a>\n<br><p>\n<!-- \nList of all positions. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th>Title   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('title')\"></span></th>\n        <th>Reference No.</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th>Date Posted   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('datePosted')\"></span></th>\n        <th>Date Applied   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('dateApplied')\"></span></th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of positions; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/positions', positions[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td [class]=\"isDeletable(i)\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td [class]=\"isNotDeletable(i)\"></td>\n        <td><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n        <td>{{p.reference}}</td>\n        <td>{{p.getCompanyName()}}</td>\n        <td>{{p.getPersonName()}}</td>\n        <td>{{p.formatDatePosted()}}</td>\n        <td>{{p.formatDateApplied()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of positions; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/positions', positions[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n        <i (click)=\"delete(i)\" style=\"font-size: 16px;\" [class]=\"isDeletable(i, true)\">clear</i>\n      </td>      \n    </tr>\n    <tr>\n      <td class=\"header\">Title</td>\n      <td colspan=\"2\">{{p.title}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Reference No.</td>\n      <td colspan=\"2\">{{p.reference}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">URL</td>\n      <td colspan=\"2\"><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{p.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Posted</td>\n      <td colspan=\"2\">{{p.formatDatePosted()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Applied</td>\n      <td colspan=\"2\">{{p.formatDateApplied()}}</td>\n    </tr>\n  </table>\n</div>"
+module.exports = "<a routerLink=\"/positions/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/positions/new\" class=\"btn btn-primary new-button\" role=\"button\">New Position</a>\n<br><p>\n<!-- \nList of all positions. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th colspan=\"2\">Title   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('title')\"></span></th>\n        <th>Reference No.</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th>Date Posted   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('datePosted')\"></span></th>\n        <th>Date Applied   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('dateApplied')\"></span></th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of positions; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/positions', positions[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td [class]=\"isDeletable(i)\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td [class]=\"isNotDeletable(i)\"></td>\n        <td colspan=\"2\"><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n        <td>{{p.reference}}</td>\n        <td>{{p.getCompanyName()}}</td>\n        <td>{{p.getPersonName()}}</td>\n        <td>{{p.formatDatePosted()}}</td>\n        <td>{{p.formatDateApplied()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of positions; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/positions', positions[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n        <i (click)=\"delete(i)\" style=\"font-size: 16px;\" [class]=\"isDeletable(i, true)\">clear</i>\n      </td>      \n    </tr>\n    <tr>\n      <td class=\"header\">Title</td>\n      <td colspan=\"2\">{{p.title}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Reference No.</td>\n      <td colspan=\"2\">{{p.reference}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">URL</td>\n      <td colspan=\"2\"><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{p.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Posted</td>\n      <td colspan=\"2\">{{p.formatDatePosted()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Applied</td>\n      <td colspan=\"2\">{{p.formatDateApplied()}}</td>\n    </tr>\n  </table>\n</div>"
 
 /***/ }),
 
@@ -2180,7 +2134,7 @@ var _a;
 /***/ "../../../../../src/app/positions/position/position.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "   <!--\n   Create or edit a position\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Position</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Title</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"position.title\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Reference No.</label>\n               <input type=\"text\" class=\"form-control\" name=\"reference\" [(ngModel)]=\"position.reference\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">URL</label>\n               <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"position.url\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany()\">\n                  <option *ngFor=\"let c of companies\">\n                    {{c.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Person</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson()\">\n                  <option *ngFor=\"let p of persons\">\n                    {{p.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Posted</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-posted\" [(ngModel)]=\"datePosted\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Applied</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-applied\" [(ngModel)]=\"dateApplied\">\n             </div>\n           </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n"
+module.exports = "   <!--\n   Create or edit a position\n   -->\n   <div>\n     <div class=\"modal-dialog\">\n       <div class=\"modal-content\">\n         <div class=\"modal-header\">\n           <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n           <h4 class=\"modal-title\">Position</h4>\n         </div>\n         <div class=\"modal-body\">\n           <form>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Title</label>\n               <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"position.title\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">Reference No.</label>\n               <input type=\"text\" class=\"form-control\" name=\"reference\" [(ngModel)]=\"position.reference\">\n             </div>\n             <div class=\"form-group\">\n               <label class=\"control-label\">URL</label>\n               <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"position.url\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Company</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"company\" [(ngModel)]=\"selectedCompany\" (change)=\"selectCompany($event)\">\n                  <option *ngFor=\"let c of companies\">\n                    {{c.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"sel1\">Person</label>\n               <select class=\"form-control\" id=\"sel1\" name=\"person\" [(ngModel)]=\"selectedPerson\" (change)=\"selectPerson($event)\">\n                  <option *ngFor=\"let p of persons\">\n                    {{p.name}}\n                  </option>\n                 </select>\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Posted</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-posted\" [(ngModel)]=\"datePosted\">\n             </div>\n             <div class=\"form-group\">\n               <label for=\"cmp-date\" class=\"control-label\">Date Applied</label>\n               <input type=\"date\" class=\"form-control\" name=\"date-applied\" [(ngModel)]=\"dateApplied\">\n             </div>\n           </form>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-warning\" (click)=\"cancel()\">Cancel</button>\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"save()\">Save</button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n"
 
 /***/ }),
 
@@ -2230,9 +2184,7 @@ var PositionComponent = (function (_super) {
         _this.datetime = datetime;
         _this.companies = [];
         _this.persons = [];
-        _this.personNameToId = {};
         _this.personIdToName = {};
-        _this.companyNameToId = {};
         _this.companyIdToName = {};
         return _this;
     }
@@ -2240,12 +2192,8 @@ var PositionComponent = (function (_super) {
         this.companies = this.service.getAll('company');
         this.persons = this.service.getAll('person');
         // Map company and person names to their entity ids and vice-versa
-        var maps = this.createEntityMaps(this.companies, 'name');
-        this.companyNameToId = maps.attributeToId;
-        this.companyIdToName = maps.idToAttribute;
-        maps = this.createEntityMaps(this.persons, 'name');
-        this.personNameToId = maps.attributeToId;
-        this.personIdToName = maps.idToAttribute;
+        this.companyIdToName = this.mapToAttribute(this.companies, 'name');
+        this.personIdToName = this.mapToAttribute(this.persons, 'name');
         var id = this.route.snapshot.params['id'];
         if (id === 'new') {
             // Creating a new one
@@ -2280,17 +2228,17 @@ var PositionComponent = (function (_super) {
             applied.setFullYear(+parts[0], +parts[1] - 1, +parts[2]);
             this.position.dateApplied = applied.getTime();
         }
-        console.log("Posted " + this.position.datePosted + ' : ' + this.datePosted);
+        console.log('Posted ' + this.position.datePosted + ' : ' + this.datePosted);
         this.service.save('position', this.position);
         this.router.navigate(['/positions']);
     };
     /** Called upon selection of a person from the person selector */
-    PositionComponent.prototype.selectPerson = function () {
-        this.position.personId = this.personNameToId[this.selectedPerson];
+    PositionComponent.prototype.selectPerson = function (event) {
+        this.position.personId = this.persons[event.target.options.selectedIndex].id;
     };
     /** Called upon selection of a company from the position selector */
-    PositionComponent.prototype.selectCompany = function () {
-        this.position.companyId = this.companyNameToId[this.selectedCompany];
+    PositionComponent.prototype.selectCompany = function (event) {
+        this.position.companyId = this.companies[event.target.options.selectedIndex].id;
     };
     return PositionComponent;
 }(__WEBPACK_IMPORTED_MODULE_3__entityComponentBase__["a" /* EntityComponentBase */]));
