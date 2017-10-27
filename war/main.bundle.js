@@ -120,6 +120,7 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__datetime_service__ = __webpack_require__("../../../../../src/app/datetime.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/@angular/platform-browser/animations.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__contacts_abbreviate_pipe__ = __webpack_require__("../../../../../src/app/contacts/abbreviate-pipe.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -129,6 +130,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
 
 
 
@@ -184,6 +187,7 @@ AppModule = AppModule_1 = __decorate([
             __WEBPACK_IMPORTED_MODULE_16__contacts_contact_contact_component__["a" /* ContactComponent */],
             __WEBPACK_IMPORTED_MODULE_11__persons_person_list_component__["a" /* PersonListComponent */],
             __WEBPACK_IMPORTED_MODULE_12__persons_person_person_component__["a" /* PersonComponent */],
+            __WEBPACK_IMPORTED_MODULE_22__contacts_abbreviate_pipe__["a" /* AbreviatePipe */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -191,7 +195,8 @@ AppModule = AppModule_1 = __decorate([
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */],
             __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
             __WEBPACK_IMPORTED_MODULE_20__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
-            __WEBPACK_IMPORTED_MODULE_21__angular_material__["a" /* MatProgressSpinnerModule */]
+            __WEBPACK_IMPORTED_MODULE_21__angular_material__["a" /* MatProgressSpinnerModule */],
+            __WEBPACK_IMPORTED_MODULE_21__angular_material__["b" /* MatTooltipModule */]
         ],
         providers: [__WEBPACK_IMPORTED_MODULE_17__server_service__["a" /* ServerService */], __WEBPACK_IMPORTED_MODULE_18__cache_service__["a" /* CacheService */], { provide: __WEBPACK_IMPORTED_MODULE_5__angular_common__["g" /* LocationStrategy */], useClass: __WEBPACK_IMPORTED_MODULE_5__angular_common__["d" /* HashLocationStrategy */] }, __WEBPACK_IMPORTED_MODULE_19__datetime_service__["a" /* DateTimeService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */]]
@@ -207,7 +212,7 @@ var AppModule_1, _a;
 /***/ "../../../../../src/app/appointments/appointment-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<a routerLink=\"/appointments/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/appointments/new\" class=\"btn btn-primary new-button\" role=\"button\">New Appointment</a>\n<br><p>\n<!-- \n  List of all appointments. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Company</th>\n        <th>Person</th>\n        <th>Date</th>\n        <th>Time</th>\n        <th>Position</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <tbody>\n      <tr *ngFor=\"let a of appointments; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/appointments', appointments[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{a.getCompanyName()}}</td>\n        <td>{{a.getPersonName()}}</td>\n        <td>{{a.formatDate()}}</td>\n        <td>{{a.formatTime()}}</td>\n        <td>{{a.getPositionTitle()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let a of appointments; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/appointments', appointments[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{a.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{a.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date</td>\n      <td colspan=\"2\">{{a.formatDate()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Time</td>\n      <td colspan=\"2\">{{a.formatTime()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Position</td>\n      <td colspan=\"2\">{{a.getPositionTitle()}}</td>\n    </tr>\n  </table>\n</div>"
+module.exports = "<a routerLink=\"/appointments/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/appointments/new\" class=\"btn btn-primary new-button\" role=\"button\">New Appointment</a>\n<br><p>\n<!-- \n  List of all appointments. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th>Company</th>\n        <th>Person</th>\n        <th>Date</th>\n        <th>Time</th>\n        <th>Position</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <tbody>\n      <tr *ngFor=\"let a of appointments; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/appointments', appointments[i].id]\" class=\"btn btn-primary btn-sm edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td class=\"delete-cell\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary btn-sm edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td>{{a.getCompanyName()}}</td>\n        <td>{{a.getPersonName()}}</td>\n        <td>{{a.formatDate()}}</td>\n        <td>{{a.formatTime()}}</td>\n        <td>{{a.getPositionTitle()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let a of appointments; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/appointments', appointments[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{a.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{a.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date</td>\n      <td colspan=\"2\">{{a.formatDate()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Time</td>\n      <td colspan=\"2\">{{a.formatTime()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Position</td>\n      <td colspan=\"2\">{{a.getPositionTitle()}}</td>\n    </tr>\n  </table>\n</div>"
 
 /***/ }),
 
@@ -230,15 +235,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var AppointmentListComponent = (function () {
-    function AppointmentListComponent(service) {
-        this.service = service;
+    function AppointmentListComponent(cache) {
+        this.cache = cache;
     }
     AppointmentListComponent.prototype.ngOnInit = function () {
-        this.appointments = this.service.getAll('appointment');
+        this.appointments = this.cache.getAll('appointment');
         // Collapse the menu if it is visible as drop down
         if ($('#nav-toggle').hasClass('in')) {
             $('.collapse').collapse('toggle');
         }
+    };
+    AppointmentListComponent.prototype.delete = function (i) {
+        var _this = this;
+        this.cache.deleteById('appointment', this.appointments[i].id).subscribe(function (response) {
+            // Refetch the entity array since it might have been sorted prior to the deletion
+            _this.appointments = _this.cache.getAll('appointment');
+        });
     };
     return AppointmentListComponent;
 }());
@@ -359,6 +371,7 @@ var AppointmentComponent = (function (_super) {
         this.router.navigate(['/appointments']);
     };
     AppointmentComponent.prototype.save = function () {
+        var _this = this;
         var dateTime = new Date();
         if (this.time) {
             var timeParts = this.time.split(':');
@@ -370,8 +383,9 @@ var AppointmentComponent = (function (_super) {
             dateTime.setFullYear(+dateParts[0], +dateParts[1] - 1, +dateParts[2]);
             this.appointment.dateTime = dateTime.getTime();
         }
-        this.cache.save('appointment', this.appointment);
-        this.router.navigate(['/appointments']);
+        this.cache.save('appointment', this.appointment).subscribe(function (response) {
+            _this.router.navigate(['/appointments']);
+        });
     };
     /** Enables display of the Record button if the appointment date/time has passed */
     AppointmentComponent.prototype.displayIfConvertible = function () {
@@ -608,24 +622,27 @@ var CacheService = (function () {
      */
     CacheService.prototype.save = function (type, entity) {
         var _this = this;
-        if (entity.id) {
-            // Update
-            this.server.update(type, entity).subscribe(function (response) { }, function (error) {
-                console.log(error);
-            });
-        }
-        else {
-            // Create
-            this.server.create(type, entity).subscribe(function (response) {
-                entity.id = response.json();
-                // Add it to the cache and the id to entity map
-                _this.entityCache[type].array.push(entity);
-                var id = entity['id'];
-                _this.entityCache[type].idToEntity[id] = entity;
-            }, function (error) {
-                console.log(error);
-            });
-        }
+        return __WEBPACK_IMPORTED_MODULE_8_rxjs_Observable__["Observable"].create(function (observer) {
+            if (entity.id) {
+                // Update
+                _this.server.update(type, entity).subscribe(function (response) { return observer.next(''); }, function (error) {
+                    console.log(error);
+                });
+            }
+            else {
+                // Create
+                _this.server.create(type, entity).subscribe(function (response) {
+                    entity.id = response.json();
+                    // Add it to the cache and the id to entity map
+                    _this.entityCache[type].array.push(entity);
+                    var id = entity['id'];
+                    _this.entityCache[type].idToEntity[id] = entity;
+                    observer.next('');
+                }, function (error) {
+                    console.log(error);
+                });
+            }
+        });
     };
     /**
      * Deletes an entity
@@ -679,7 +696,7 @@ var _a;
 /***/ "../../../../../src/app/companies/company-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<a routerLink=\"/companies/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/companies/new\" class=\"btn btn-primary new-button\" role=\"button\">New Company</a>\n<br><p>\n<!-- \nList of all companies. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Name   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('name')\"></span></th>\n        <th>Phone</th>\n        <th>Address</th>\n        <th>City   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('city')\"></span></th>\n        <th>Login Hint</th>\n        <th>Password Hint</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <tbody>\n      <tr *ngFor=\"let c of companies; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/companies', companies[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n        <td>{{c.phone}}</td>\n        <td>{{c.address}}</td>\n        <td>{{c.city}}</td>\n        <td>{{c.login}}</td>\n        <td>{{c.password}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let c of companies; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/companies', companies[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n       </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\"><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{c.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Address</td>\n      <td colspan=\"2\">{{c.address}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">City</td>\n      <td colspan=\"2\">{{c.city}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Login Hint</td>\n      <td colspan=\"2\">{{c.login}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Password Hint</td>\n      <td colspan=\"2\">{{c.password}}</td>\n    </tr>\n  </table>\n</div>"
+module.exports = "<a routerLink=\"/companies/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/companies/new\" class=\"btn btn-primary new-button\" role=\"button\">New Company</a>\n<br><p>\n<!-- \nList of all companies. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th>Name   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('name')\"></span></th>\n        <th>Phone</th>\n        <th>Address</th>\n        <th>City   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('city')\"></span></th>\n        <th>Login Hint</th>\n        <th>Password Hint</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">\n    <tbody>\n      <tr *ngFor=\"let c of companies; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/companies', companies[i].id]\" class=\"btn btn-primary btn-sm edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td [class]=\"isDeletable(i)\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary btn-sm edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td [class]=\"isNotDeletable(i)\"></td>\n        <td><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n        <td>{{c.phone}}</td>\n        <td>{{c.address}}</td>\n        <td>{{c.city}}</td>\n        <td>{{c.login}}</td>\n        <td>{{c.password}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let c of companies; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/companies', companies[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n        <i (click)=\"delete(i)\" style=\"font-size: 16px;\" [class]=\"isDeletable(i, true)\">clear</i>\n       </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\"><a href=\"http://{{c.url}}\" target=\"_blank\">{{c.name}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{c.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Address</td>\n      <td colspan=\"2\">{{c.address}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">City</td>\n      <td colspan=\"2\">{{c.city}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Login Hint</td>\n      <td colspan=\"2\">{{c.login}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Password Hint</td>\n      <td colspan=\"2\">{{c.password}}</td>\n    </tr>\n  </table>\n</div>"
 
 /***/ }),
 
@@ -720,10 +737,33 @@ var CompanyListComponent = (function (_super) {
     }
     CompanyListComponent.prototype.ngOnInit = function () {
         this.companies = this.cache.getAll('company');
+        // Set a 'deletable' attribute to any company if not referenced by a position or person
+        for (var _i = 0, _a = this.companies; _i < _a.length; _i++) {
+            var position = _a[_i];
+            position.deletable = !this.isReferencedBy('company', position.id, ['position', 'person', 'appointment', 'contact']);
+        }
         // Collapse the menu if it is visible as drop down
         if ($('#nav-toggle').hasClass('in')) {
             $('.collapse').collapse('toggle');
         }
+    };
+    CompanyListComponent.prototype.isNotDeletable = function (i) {
+        return this.companies[i].deletable ? 'hidden' : 'delete-cell';
+    };
+    CompanyListComponent.prototype.isDeletable = function (i, small) {
+        if (small) {
+            return this.companies[i].deletable ? 'material-icons' : 'hidden';
+        }
+        else {
+            return this.companies[i].deletable ? 'delete-cell' : 'hidden';
+        }
+    };
+    CompanyListComponent.prototype.delete = function (i) {
+        var _this = this;
+        this.cache.deleteById('company', this.companies[i].id).subscribe(function (response) {
+            // Refetch the entity array since it might have been sorted prior to the deletion
+            _this.companies = _this.cache.getAll('company');
+        });
     };
     CompanyListComponent.prototype.sort = function (field) {
         this.companies = this.sortList(this.companies, field);
@@ -793,8 +833,10 @@ var CompanyComponent = (function () {
         this.router.navigate(['/companies']);
     };
     CompanyComponent.prototype.save = function () {
-        this.service.save('company', this.company);
-        this.router.navigate(['/companies']);
+        var _this = this;
+        this.service.save('company', this.company).subscribe(function (response) {
+            _this.router.navigate(['/companies']);
+        });
     };
     return CompanyComponent;
 }());
@@ -811,10 +853,39 @@ var _a, _b, _c;
 
 /***/ }),
 
+/***/ "../../../../../src/app/contacts/abbreviate-pipe.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AbreviatePipe; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var AbreviatePipe = (function () {
+    function AbreviatePipe() {
+    }
+    AbreviatePipe.prototype.transform = function (value) {
+        return value.length > 38 ? value.substr(0, 35).concat('...') : value;
+    };
+    return AbreviatePipe;
+}());
+AbreviatePipe = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* Pipe */])({ name: 'abbreviate' })
+], AbreviatePipe);
+
+//# sourceMappingURL=abbreviate-pipe.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/contacts/contact-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<a routerLink=\"/contacts/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/contacts/new\" class=\"btn btn-primary new-button\" role=\"button\">New Contact</a>\n<br>\n<p>\n<!-- \nList of all contacts. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling \n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Date   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('date')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th>Position   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('position')\"></span></th>\n        <th>Reference</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <th colspan=\"2\">Details</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let c of contacts; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/contacts', contacts[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{c.formatDate()}}</td>\n        <td>{{c.getPersonName()}}</td>\n        <td>{{c.getPositionTitle()}}</td>\n        <td>{{getPositionReference(c.id)}}</td>\n        <td>{{c.getCompanyName()}}</td>\n        <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n        <td colspan=\"2\" [class]=\"showIfPhone(i)\">{{c.details}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let c of contacts; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/contacts', contacts[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n     </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date</td>\n      <td colspan=\"2\">{{c.formatDate()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{c.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Position</td>\n      <td colspan=\"2\">{{c.getPositionTitle()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{c.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Details</td>\n      <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n      <td colspan=\"2\" [class]=\"showIfPhone(i)\">{{c.details}}</td>\n    </tr>\n  </table>\n</div>\n<!-- Modal displays email content-->\n<div id=\"message-text\" class=\"modal\" role=\"dialog\">\n  <div class=\"modal-dialog\">\n    <!-- Modal content-->\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" (click)=\"closeEmail()\">&times;</button>\n        <h4 class=\"modal-title\">{{emailSubject}}</h4>\n      </div>\n      <div class=\"modal-body\">\n        <div class=\"form-group\">\n          <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n        </div>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-default\" (click)=\"closeEmail()\">Close</button>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<a routerLink=\"/contacts/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/contacts/new\" class=\"btn btn-primary new-button\" role=\"button\">New Contact</a>\n<br>\n<p>\n<!-- \nList of all contacts. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling \n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th>Date   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('date')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th colspan=\"2\">Position   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('position')\"></span></th>\n        <th>Reference</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <th colspan=\"2\">Details</th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let c of contacts; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/contacts', contacts[i].id]\" class=\"btn btn-primary btn-sm edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td class=\"delete-cell\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary btn-sm edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td>{{c.formatDate()}}</td>\n        <td>{{c.getPersonName()}}</td>\n        <td colspan=\"2\">{{c.getPositionTitle()}}</td>\n        <td>{{getPositionReference(c.id)}}</td>\n        <td>{{c.getCompanyName()}}</td>\n        <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n        <td colspan=\"2\" [class]=\"showIfPhone(i)\"><span [matTooltip]=\"c.details\">{{c.details | abbreviate}}</span></td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let c of contacts; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/contacts', contacts[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n     </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date</td>\n      <td colspan=\"2\">{{c.formatDate()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{c.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Position</td>\n      <td colspan=\"2\">{{c.getPositionTitle()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{c.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Details</td>\n      <td colspan=\"2\" [class]=\"showIfEmail(i)\"><button type=\"button\" class=\"btn btn-xs btn-basic\" (click)=\"viewEmail(i)\">View Email</button></td>\n      <td colspan=\"2\" [class]=\"showIfPhone(i)\">{{c.details}}</td>\n    </tr>\n  </table>\n</div>\n<!-- Modal displays email content-->\n<div id=\"message-text\" class=\"modal\" role=\"dialog\">\n  <div class=\"modal-dialog\">\n    <!-- Modal content-->\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" (click)=\"closeEmail()\">&times;</button>\n        <h4 class=\"modal-title\">{{emailSubject}}</h4>\n      </div>\n      <div class=\"modal-body\">\n        <div class=\"form-group\">\n          <textarea disabled=\"true\" class=\"email-text\">{{emailText}}</textarea>\n        </div>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-default\" (click)=\"closeEmail()\">Close</button>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -908,6 +979,13 @@ var ContactListComponent = (function (_super) {
         }
         var position = this.cache.getById('position', contact.positionId);
         return position.reference;
+    };
+    ContactListComponent.prototype.delete = function (i) {
+        var _this = this;
+        this.cache.deleteById('contact', this.contacts[i].id).subscribe(function (response) {
+            // Refetch the entity array since it might have been sorted prior to the deletion
+            _this.contacts = _this.cache.getAll('contact');
+        });
     };
     return ContactListComponent;
 }(__WEBPACK_IMPORTED_MODULE_2__listComponentBase__["a" /* ListComponentBase */]));
@@ -1040,6 +1118,7 @@ var ContactComponent = (function (_super) {
         this.router.navigate(['/contacts']);
     };
     ContactComponent.prototype.save = function () {
+        var _this = this;
         if (this.date) {
             var date = new Date();
             var parts = this.date.split('-');
@@ -1058,8 +1137,9 @@ var ContactComponent = (function (_super) {
         else {
             this.contact.type = 'meeting';
         }
-        this.cache.save('contact', this.contact);
-        this.router.navigate(['/contacts']);
+        this.cache.save('contact', this.contact).subscribe(function (response) {
+            _this.router.navigate(['/contacts']);
+        });
     };
     /** Called upon selection of a person from the person selector */
     ContactComponent.prototype.selectPerson = function (event) {
@@ -1346,6 +1426,20 @@ var ListComponentBase = (function () {
             sortedList.push(element);
         }
         return sortedList;
+    };
+    ListComponentBase.prototype.isReferencedBy = function (referencedType, id, referingTypes) {
+        for (var _i = 0, referingTypes_1 = referingTypes; _i < referingTypes_1.length; _i++) {
+            var referingType = referingTypes_1[_i];
+            var list = this.cache.getAll(referingType);
+            var referenceId = referencedType + 'Id';
+            for (var _a = 0, list_3 = list; _a < list_3.length; _a++) {
+                var referingEntity = list_3[_a];
+                if (referingEntity[referenceId] === id) {
+                    return true;
+                }
+            }
+        }
+        return false;
     };
     return ListComponentBase;
 }());
@@ -1854,7 +1948,7 @@ var Position_1;
 /***/ "../../../../../src/app/persons/person-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<a routerLink=\"/persons/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/persons/new\" class=\"btn btn-primary new-button\" role=\"button\">New Person</a>\n<br><p>\n<!-- \nList of all persons. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th>Name   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('name')\"></span></th>\n        <th>Email</th>\n        <th>Phone</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of persons; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/persons', persons[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td>{{p.name}}</td>\n        <td>{{p.email}}</td>\n        <td>{{p.phone}}</td>\n        <td>{{p.getCompanyName()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of persons; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/persons', persons[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\">{{p.name}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Email</td>\n      <td colspan=\"2\">{{p.email}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{p.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n  </table>\n</div>"
+module.exports = "<a routerLink=\"/persons/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/persons/new\" class=\"btn btn-primary new-button\" role=\"button\">New Person</a>\n<br><p>\n<!-- \nList of all persons. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th>Name   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('name')\"></span></th>\n        <th>Email</th>\n        <th>Phone</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of persons; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/persons', persons[i].id]\" class=\"btn btn-primary btn-sm edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td [class]=\"isDeletable(i)\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary btn-sm edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td [class]=\"isNotDeletable(i)\"></td>\n        <td>{{p.name}}</td>\n        <td>{{p.email}}</td>\n        <td>{{p.phone}}</td>\n        <td>{{p.getCompanyName()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of persons; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/persons', persons[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n        <i (click)=\"delete(i)\" style=\"font-size: 16px;\" [class]=\"isDeletable(i, true)\">clear</i>\n      </td>\n    </tr>\n    <tr>\n      <td class=\"header\">Name</td>\n      <td colspan=\"2\">{{p.name}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Email</td>\n      <td colspan=\"2\">{{p.email}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Phone</td>\n      <td colspan=\"2\">{{p.phone}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n  </table>\n</div>"
 
 /***/ }),
 
@@ -1895,10 +1989,33 @@ var PersonListComponent = (function (_super) {
     }
     PersonListComponent.prototype.ngOnInit = function () {
         this.persons = this.cache.getAll('person');
-        // Collapse the menu if it is visible as drop down
-        if ($("#nav-toggle").hasClass("in")) {
-            $(".collapse").collapse('toggle');
+        // Set a 'deletable' attribute to any peson if not referenced by a contact or appointment
+        for (var _i = 0, _a = this.persons; _i < _a.length; _i++) {
+            var person = _a[_i];
+            person.deletable = !this.isReferencedBy('person', person.id, ['position', 'appointment', 'contact']);
         }
+        // Collapse the menu if it is visible as drop down
+        if ($('#nav-toggle').hasClass('in')) {
+            $('.collapse').collapse('toggle');
+        }
+    };
+    PersonListComponent.prototype.isNotDeletable = function (i) {
+        return this.persons[i].deletable ? 'hidden' : 'delete-cell';
+    };
+    PersonListComponent.prototype.isDeletable = function (i, small) {
+        if (small) {
+            return this.persons[i].deletable ? 'material-icons' : 'hidden';
+        }
+        else {
+            return this.persons[i].deletable ? 'delete-cell' : 'hidden';
+        }
+    };
+    PersonListComponent.prototype.delete = function (i) {
+        var _this = this;
+        this.cache.deleteById('person', this.persons[i].id).subscribe(function (response) {
+            // Refetch the entity array since it might have been sorted prior to the deletion
+            _this.persons = _this.cache.getAll('person');
+        });
     };
     PersonListComponent.prototype.sort = function (field) {
         if (field === 'name') {
@@ -1995,8 +2112,10 @@ var PersonComponent = (function (_super) {
     };
     /** Saves or updates the person */
     PersonComponent.prototype.save = function () {
-        this.service.save('person', this.person);
-        this.router.navigate(['/persons']);
+        var _this = this;
+        this.service.save('person', this.person).subscribe(function (response) {
+            _this.router.navigate(['/persons']);
+        });
     };
     /** Called upon selection of a company from the company selector */
     PersonComponent.prototype.select = function (event) {
@@ -2020,7 +2139,7 @@ var _a, _b, _c;
 /***/ "../../../../../src/app/positions/position-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<a routerLink=\"/positions/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/positions/new\" class=\"btn btn-primary new-button\" role=\"button\">New Position</a>\n<br><p>\n<!-- \nList of all positions. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th colspan=\"2\">Title   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('title')\"></span></th>\n        <th>Reference No.</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th>Date Posted   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('datePosted')\"></span></th>\n        <th>Date Applied   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('dateApplied')\"></span></th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of positions; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/positions', positions[i].id]\" class=\"btn btn-primary edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td [class]=\"isDeletable(i)\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td [class]=\"isNotDeletable(i)\"></td>\n        <td colspan=\"2\"><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n        <td>{{p.reference}}</td>\n        <td>{{p.getCompanyName()}}</td>\n        <td>{{p.getPersonName()}}</td>\n        <td>{{p.formatDatePosted()}}</td>\n        <td>{{p.formatDateApplied()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of positions; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/positions', positions[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n        <i (click)=\"delete(i)\" style=\"font-size: 16px;\" [class]=\"isDeletable(i, true)\">clear</i>\n      </td>      \n    </tr>\n    <tr>\n      <td class=\"header\">Title</td>\n      <td colspan=\"2\">{{p.title}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Reference No.</td>\n      <td colspan=\"2\">{{p.reference}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">URL</td>\n      <td colspan=\"2\"><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{p.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Posted</td>\n      <td colspan=\"2\">{{p.formatDatePosted()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Applied</td>\n      <td colspan=\"2\">{{p.formatDateApplied()}}</td>\n    </tr>\n  </table>\n</div>"
+module.exports = "<a routerLink=\"/positions/new\"><i class=\"material-icons\" style=\"float:right\">add</i></a>\n<a routerLink=\"/positions/new\" class=\"btn btn-primary new-button\" role=\"button\">New Position</a>\n<br><p>\n<!-- \nList of all positions. On large displays, two tables, one for the headers\nand one for the content, so the header remains visible during scrolling\n-->\n<div class=\"hidden-small\">\n  <table class=\"table-condensed\">\n    <thead>\n      <tr>\n        <th class=\"edit-cell\"></th>\n        <th class=\"delete-cell\"></th>\n        <th colspan=\"2\">Title   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('title')\"></span></th>\n        <th>Reference No.</th>\n        <th>Company   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('company')\"></span></th>\n        <th>Person   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('person')\"></span></th>\n        <th>Date Posted   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('datePosted')\"></span></th>\n        <th>Date Applied   <span class=\"glyphicon glyphicon-triangle-bottom\" (click)=\"sort('dateApplied')\"></span></th>\n        <!-- Pad for tble scrollbar --> \n        <th style=\"width:18px\">&nbsp;</th>\n      </tr>\n    </thead>\n  </table>\n</div>\n<div class=\"table-container hidden-small\">\n  <table class=\"table-condensed\">  \n    <tbody>\n      <tr *ngFor=\"let p of positions; let i = index\">\n        <td class=\"edit-cell\">\n          <a [routerLink]=\"['/positions', positions[i].id]\" class=\"btn btn-primary btn-sm edit-button\" role=\"button\">Edit</a>\n        </td>\n        <td [class]=\"isDeletable(i)\">\n          <a (click)=\"delete(i)\" class=\"btn btn-primary btn-sm edit-button\" role=\"button\">Delete</a>\n        </td>\n        <td [class]=\"isNotDeletable(i)\"></td>\n        <td colspan=\"2\"><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n        <td>{{p.reference}}</td>\n        <td>{{p.getCompanyName()}}</td>\n        <td>{{p.getPersonName()}}</td>\n        <td>{{p.formatDatePosted()}}</td>\n        <td>{{p.formatDateApplied()}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- On small displays -->\n<div class=\"table-container hidden-large\">\n  <table *ngFor=\"let p of positions; let i = index\">\n    <tr>\n      <td class=\"select-edit\" colspan=\"3\">\n        <i [routerLink]=\"['/positions', positions[i].id]\" class=\"material-icons\" style=\"font-size: 16px;\">create</i>\n        <i (click)=\"delete(i)\" style=\"font-size: 16px;\" [class]=\"isDeletable(i, true)\">clear</i>\n      </td>      \n    </tr>\n    <tr>\n      <td class=\"header\">Title</td>\n      <td colspan=\"2\">{{p.title}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Reference No.</td>\n      <td colspan=\"2\">{{p.reference}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">URL</td>\n      <td colspan=\"2\"><a href=\"http://{{p.url}}\" target=\"_blank\">{{p.title}}</a></td>\n    </tr>\n    <tr>\n      <td class=\"header\">Company</td>\n      <td colspan=\"2\">{{p.getCompanyName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Person</td>\n      <td colspan=\"2\">{{p.getPersonName()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Posted</td>\n      <td colspan=\"2\">{{p.formatDatePosted()}}</td>\n    </tr>\n    <tr>\n      <td class=\"header\">Date Applied</td>\n      <td colspan=\"2\">{{p.formatDateApplied()}}</td>\n    </tr>\n  </table>\n</div>"
 
 /***/ }),
 
@@ -2061,14 +2180,14 @@ var PositionListComponent = (function (_super) {
     }
     PositionListComponent.prototype.ngOnInit = function () {
         this.positions = this.cache.getAll('position');
-        // Add a 'deletable' attribute to any position if not referenced by a contact or appointment
+        // Set a 'deletable' attribute to any position if not referenced by a contact or appointment
         for (var _i = 0, _a = this.positions; _i < _a.length; _i++) {
             var position = _a[_i];
-            this.checkIfDeletable(position);
+            position.deletable = !this.isReferencedBy('position', position.id, ['appointment', 'contact']);
         }
         // Collapse the menu if it is visible as drop down
-        if ($("#nav-toggle").hasClass("in")) {
-            $(".collapse").collapse('toggle');
+        if ($('#nav-toggle').hasClass('in')) {
+            $('.collapse').collapse('toggle');
         }
     };
     PositionListComponent.prototype.isNotDeletable = function (i) {
@@ -2082,22 +2201,12 @@ var PositionListComponent = (function (_super) {
             return this.positions[i].deletable ? 'delete-cell' : 'hidden';
         }
     };
-    PositionListComponent.prototype.checkIfDeletable = function (position) {
-        var appointments = this.cache.getAll('appointment');
-        for (var _i = 0, appointments_1 = appointments; _i < appointments_1.length; _i++) {
-            var appointment = appointments_1[_i];
-            if (appointment.positionId === position.id) {
-                return;
-            }
-        }
-        var contacts = this.cache.getAll('contact');
-        for (var _a = 0, contacts_1 = contacts; _a < contacts_1.length; _a++) {
-            var contact = contacts_1[_a];
-            if (contact.positionId === position.id) {
-                return;
-            }
-        }
-        position.deletable = true;
+    PositionListComponent.prototype.delete = function (i) {
+        var _this = this;
+        this.cache.deleteById('position', this.positions[i].id).subscribe(function (response) {
+            // Refetch the entity array since it might have been sorted prior to the deletion
+            _this.positions = _this.cache.getAll('position');
+        });
     };
     PositionListComponent.prototype.sort = function (field) {
         if (field === 'title') {
@@ -2176,11 +2285,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var PositionComponent = (function (_super) {
     __extends(PositionComponent, _super);
-    function PositionComponent(router, route, service, datetime) {
+    function PositionComponent(router, route, cache, datetime) {
         var _this = _super.call(this) || this;
         _this.router = router;
         _this.route = route;
-        _this.service = service;
+        _this.cache = cache;
         _this.datetime = datetime;
         _this.companies = [];
         _this.persons = [];
@@ -2189,8 +2298,8 @@ var PositionComponent = (function (_super) {
         return _this;
     }
     PositionComponent.prototype.ngOnInit = function () {
-        this.companies = this.service.getAll('company');
-        this.persons = this.service.getAll('person');
+        this.companies = this.cache.getAll('company');
+        this.persons = this.cache.getAll('person');
         // Map company and person names to their entity ids and vice-versa
         this.companyIdToName = this.mapToAttribute(this.companies, 'name');
         this.personIdToName = this.mapToAttribute(this.persons, 'name');
@@ -2201,7 +2310,7 @@ var PositionComponent = (function (_super) {
         }
         else {
             // Viewing or editing
-            this.position = this.service.getById('position', id);
+            this.position = this.cache.getById('position', id);
             if (this.position.datePosted) {
                 this.datePosted = this.datetime.formatDateForInput(this.position.datePosted);
             }
@@ -2216,6 +2325,7 @@ var PositionComponent = (function (_super) {
         this.router.navigate(['/positions']);
     };
     PositionComponent.prototype.save = function () {
+        var _this = this;
         if (this.datePosted) {
             var posted = new Date();
             var parts = this.datePosted.split('-');
@@ -2229,8 +2339,9 @@ var PositionComponent = (function (_super) {
             this.position.dateApplied = applied.getTime();
         }
         console.log('Posted ' + this.position.datePosted + ' : ' + this.datePosted);
-        this.service.save('position', this.position);
-        this.router.navigate(['/positions']);
+        this.cache.save('position', this.position).subscribe(function (response) {
+            _this.router.navigate(['/positions']);
+        });
     };
     /** Called upon selection of a person from the person selector */
     PositionComponent.prototype.selectPerson = function (event) {

@@ -28,10 +28,10 @@ and one for the content, so the header remains visible during scrolling
     <tbody>
       <tr *ngFor="let p of positions; let i = index">
         <td class="edit-cell">
-          <a [routerLink]="['/positions', positions[i].id]" class="btn btn-primary edit-button" role="button">Edit</a>
+          <a [routerLink]="['/positions', positions[i].id]" class="btn btn-primary btn-sm edit-button" role="button">Edit</a>
         </td>
         <td [class]="isDeletable(i)">
-          <a (click)="delete(i)" class="btn btn-primary edit-button" role="button">Delete</a>
+          <a (click)="delete(i)" class="btn btn-primary btn-sm edit-button" role="button">Delete</a>
         </td>
         <td [class]="isNotDeletable(i)"></td>
         <td colspan="2"><a href="http://{{p.url}}" target="_blank">{{p.title}}</a></td>

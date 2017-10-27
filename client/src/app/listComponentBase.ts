@@ -4,8 +4,8 @@ import { CacheService } from './cache.service';
  */
 export class ListComponentBase {
     cache: CacheService;
-    
-    constructor(cache: CacheService) {this.cache = cache;}
+
+    constructor(cache: CacheService) { this.cache = cache; }
     /**
      * Sorts an array of entities.
      * @param list the array to be sorted
@@ -13,24 +13,24 @@ export class ListComponentBase {
      * @param isDate true if the sortBy field is a date string
      * @return a new sorted array
      */
-    sortList(list: any, sortBy: string){
+    sortList(list: any, sortBy: string) {
         const sortKeys = [];
         const elementMap = {};
         const sortedList = [];
-        for (const element of list){
+        for (const element of list) {
             const sortField = element[sortBy];
             sortKeys.push(sortField);
-            if (!elementMap[sortField]){
-               elementMap[sortField] = []; 
+            if (!elementMap[sortField]) {
+                elementMap[sortField] = [];
             }
             elementMap[sortField].push(element);
         }
         sortKeys.sort();
         // Preserve original order of elements with same sort value
-        for (const index in elementMap){
+        for (const index in elementMap) {
             elementMap[index].reverse();
         }
-        for (const key of sortKeys){
+        for (const key of sortKeys) {
             const element = elementMap[key].pop();
             sortedList.push(element);
         }
@@ -44,15 +44,15 @@ export class ListComponentBase {
      * @param referenceField the name of the attribute in the referenced entity on which to sort
      * @return a new sorted array
      */
-    sortListReferenced(list: any, sortBy: string, referenceType: string, referenceField: string){
+    sortListReferenced(list: any, sortBy: string, referenceType: string, referenceField: string) {
         const sortKeys = [];
         const elementMap = {};
         const sortedList = [];
-        for (const element of list){
+        for (const element of list) {
             const referenceId = element[sortBy];
             let referencedEntity;
             let sortField;
-            if (referenceId){
+            if (referenceId) {
                 referencedEntity = this.cache.getById(referenceType, referenceId);
                 sortField = referencedEntity[referenceField];
             }
@@ -60,20 +60,33 @@ export class ListComponentBase {
                 sortField = '';
             }
             sortKeys.push(sortField);
-            if (!elementMap[sortField]){
-               elementMap[sortField] = []; 
+            if (!elementMap[sortField]) {
+                elementMap[sortField] = [];
             }
             elementMap[sortField].push(element);
         }
         sortKeys.sort();
         // Preserve original order of elements with same sort value
-        for (const index in elementMap){
+        for (const index in elementMap) {
             elementMap[index].reverse();
         }
-        for (const key of sortKeys){
+        for (const key of sortKeys) {
             const element = elementMap[key].pop();
             sortedList.push(element);
         }
         return sortedList;
+    }
+
+    isReferencedBy(referencedType: string, id: number, referingTypes: [string]) {
+        for (const referingType of referingTypes) {
+            const list = this.cache.getAll(referingType);
+            const referenceId = referencedType + 'Id';
+            for (const referingEntity of list) {
+                if (referingEntity[referenceId] === id) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

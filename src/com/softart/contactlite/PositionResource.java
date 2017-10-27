@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -82,5 +83,19 @@ public class PositionResource extends AbstractResource{
     	Key<Position> key = Key.create(Position.class, id);
     	Position o = da.ofyFind(key);
     	return responseOkWithBody(o);
+    }
+
+    /**
+     * Deletes a Position. 
+     * @param key the entity key
+     * @return a Response object containing the HTTP response code
+     * Normal return code 204 No Content
+     */
+    @DELETE
+    @Path("{key}")
+     public Response delete(@PathParam("key") Long id){
+    	DataAccess da = new DataAccess();
+    	da.ofyDelete(Position.class, id);
+    	return responseNoContent();
     }
 }

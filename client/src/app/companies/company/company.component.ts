@@ -28,8 +28,11 @@ export class CompanyComponent implements OnInit {
     this.router.navigate(['/companies']);
   }
   save(){
-    this.service.save('company', this.company);
-    this.router.navigate(['/companies']);
+    this.service.save('company', this.company).subscribe(
+      (response) => {
+        this.router.navigate(['/companies']);
+      }
+    );
   }
 
 }

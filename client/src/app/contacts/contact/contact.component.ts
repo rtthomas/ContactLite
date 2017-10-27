@@ -35,7 +35,7 @@ export class ContactComponent extends EntityComponentBase implements OnInit, OnD
   private positionIdToTitle = {};
   private companyIdToName = {};
   private selectedEmailIndex: number;
-  private subscriber:Subscriber<string>;
+  private subscriber: Subscriber<string>;
 
   constructor(
     private router: Router,
@@ -126,8 +126,11 @@ export class ContactComponent extends EntityComponentBase implements OnInit, OnD
     else {
       this.contact.type = 'meeting';
     }
-    this.cache.save('contact', this.contact);
-    this.router.navigate(['/contacts']);
+    this.cache.save('contact', this.contact).subscribe(
+      (response) => {
+        this.router.navigate(['/contacts']);
+      }
+    );
   }
 
   /** Called upon selection of a person from the person selector */

@@ -22,13 +22,13 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
   private personIdToName = {};
   private companyIdToName = {};
 
-  constructor(private router: Router, private route: ActivatedRoute, private service: CacheService, private datetime: DateTimeService) {
+  constructor(private router: Router, private route: ActivatedRoute, private cache: CacheService, private datetime: DateTimeService) {
     super();
   }
 
   ngOnInit() {
-    this.companies = this.service.getAll('company');
-    this.persons = this.service.getAll('person');
+    this.companies = this.cache.getAll('company');
+    this.persons = this.cache.getAll('person');
     // Map company and person names to their entity ids and vice-versa
     this.companyIdToName = this.mapToAttribute(this.companies, 'name');
     this.personIdToName = this.mapToAttribute(this.persons, 'name');
@@ -40,7 +40,7 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
     }
     else {
       // Viewing or editing
-      this.position = this.service.getById('position', id);
+      this.position = this.cache.getById('position', id);
       if (this.position.datePosted) {
         this.datePosted = this.datetime.formatDateForInput(this.position.datePosted);
       }
@@ -70,8 +70,11 @@ export class PositionComponent extends EntityComponentBase implements OnInit {
     }
 
     console.log('Posted ' + this.position.datePosted + ' : ' + this.datePosted);
-    this.service.save('position', this.position);
-    this.router.navigate(['/positions']);
+    this.cache.save('position', this.position).subscribe(
+      (response) => {
+        this.router.navigate(['/positions']);
+      }
+    );
   }
 
   /** Called upon selection of a person from the person selector */

@@ -91,8 +91,11 @@ export class AppointmentComponent extends EntityComponentBase implements OnInit 
       dateTime.setFullYear(+dateParts[0], +dateParts[1] - 1, +dateParts[2]);
       this.appointment.dateTime = dateTime.getTime();
     }
-    this.cache.save('appointment', this.appointment);
-    this.router.navigate(['/appointments']);
+    this.cache.save('appointment', this.appointment).subscribe(
+      (response) => {
+        this.router.navigate(['/appointments']);
+      }
+    );
   }
 
   /** Enables display of the Record button if the appointment date/time has passed */

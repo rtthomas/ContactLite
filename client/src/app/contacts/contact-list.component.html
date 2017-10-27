@@ -11,6 +11,7 @@ and one for the content, so the header remains visible during scrolling
     <thead>
       <tr>
         <th class="edit-cell"></th>
+        <th class="delete-cell"></th>
         <th>Date   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('date')"></span></th>
         <th>Person   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('person')"></span></th>
         <th colspan="2">Position   <span class="glyphicon glyphicon-triangle-bottom" (click)="sort('position')"></span></th>
@@ -28,7 +29,10 @@ and one for the content, so the header remains visible during scrolling
     <tbody>
       <tr *ngFor="let c of contacts; let i = index">
         <td class="edit-cell">
-          <a [routerLink]="['/contacts', contacts[i].id]" class="btn btn-primary edit-button" role="button">Edit</a>
+          <a [routerLink]="['/contacts', contacts[i].id]" class="btn btn-primary btn-sm edit-button" role="button">Edit</a>
+        </td>
+        <td class="delete-cell">
+          <a (click)="delete(i)" class="btn btn-primary btn-sm edit-button" role="button">Delete</a>
         </td>
         <td>{{c.formatDate()}}</td>
         <td>{{c.getPersonName()}}</td>

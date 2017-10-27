@@ -84,4 +84,12 @@ export class ContactListComponent extends ListComponentBase implements OnInit, O
     const position: Position = this.cache.getById('position', contact.positionId);
     return position.reference;
   }
+  delete (i: number) {
+    this.cache.deleteById('contact', this.contacts[i].id).subscribe(
+      (response) => {
+        // Refetch the entity array since it might have been sorted prior to the deletion
+        this.contacts = this.cache.getAll('contact');
+      }
+    );
+  }
 }

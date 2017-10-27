@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -81,5 +82,19 @@ public class PersonResource  extends AbstractResource{
     	Key<Person> key = Key.create(Person.class, id);
     	Person o = da.ofyFind(key);
     	return responseOkWithBody(o);
+    }
+
+    /**
+     * Deletes a Person. 
+     * @param key the entity key
+     * @return a Response object containing the HTTP response code
+     * Normal return code 204 No Content
+     */
+    @DELETE
+    @Path("{key}")
+     public Response delete(@PathParam("key") Long id){
+    	DataAccess da = new DataAccess();
+    	da.ofyDelete(Person.class, id);
+    	return responseNoContent();
     }
 }

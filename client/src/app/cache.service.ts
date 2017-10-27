@@ -168,30 +168,33 @@ export class CacheService {
    * @param entity the entity object
    */
   save(type: string, entity: any) {
-    if (entity.id) {
-      // Update
-      this.server.update(type, entity).subscribe(
-        (response) => { },
-        (error) => {
-          console.log(error);
-        }
-      );
-    }
-    else {
-      // Create
-      this.server.create(type, entity).subscribe(
-        (response) => {
-          entity.id = response.json();
-          // Add it to the cache and the id to entity map
-          this.entityCache[type].array.push(entity);
-          const id = entity['id'];
-          this.entityCache[type].idToEntity[id] = entity;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    }
+    return Observable.create((observer: Observer<string>) => {
+      if (entity.id) {
+        // Update
+        this.server.update(type, entity).subscribe(
+          (response) => observer.next(''),
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+      else {
+        // Create
+        this.server.create(type, entity).subscribe(
+          (response) => {
+            entity.id = response.json();
+            // Add it to the cache and the id to entity map
+            this.entityCache[type].array.push(entity);
+            const id = entity['id'];
+            this.entityCache[type].idToEntity[id] = entity;
+            observer.next('');
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+    });
   }
 
   /** 

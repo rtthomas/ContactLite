@@ -42,9 +42,12 @@ export class PersonComponent extends EntityComponentBase implements OnInit {
 
   /** Saves or updates the person */
   save() {
-    this.service.save('person', this.person);
-    this.router.navigate(['/persons']);
-  }
+    this.service.save('person', this.person).subscribe(
+      (response) => {
+        this.router.navigate(['/persons']);
+      }
+    );
+ }
 
   /** Called upon selection of a company from the company selector */
   select(event) {
