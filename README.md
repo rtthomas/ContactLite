@@ -1,3 +1,3 @@
-ContactLite is an application based on Angular and Google App Engine. It's a simple "contact management" system I use to track my job searches. For more information, see the wiki 
+ContactLite is a very rudimentry "contact management system" I created while learning Angular, backed by Google App Engine and Datastore.e the wiki 
 
 
